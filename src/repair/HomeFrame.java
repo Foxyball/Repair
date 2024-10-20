@@ -21,6 +21,9 @@ public class HomeFrame extends javax.swing.JFrame {
 
         this.setResizable(false);
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("logo.png")));
+        
+        int user_id = User.user_id;
+        User.loadUserEmail(user_id);
 
         // za welcome message vzimame imeto ot bazata
         lbl_user.setText(String.valueOf(User.name));
@@ -42,6 +45,7 @@ public class HomeFrame extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -70,6 +74,14 @@ public class HomeFrame extends javax.swing.JFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "ПАНЕЛ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(51, 153, 255))); // NOI18N
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButton1.setText("Изпрати Имейл");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 130, 170, -1));
 
         jPanel2.setBackground(new java.awt.Color(51, 153, 255));
 
@@ -224,6 +236,11 @@ public class HomeFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        SendEmailForm SendEmailForm = new SendEmailForm(User.email,User.name);
+        SendEmailForm.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     // logout user function
     public void logout() {
         // Clear user session data
@@ -272,6 +289,7 @@ public class HomeFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -3,6 +3,9 @@ package repair;
 import java.awt.Toolkit;
 import java.sql.*;
 import javax.swing.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 /**
  *
