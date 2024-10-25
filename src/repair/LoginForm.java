@@ -33,7 +33,6 @@ public class LoginForm extends javax.swing.JFrame {
         txtUsername = new javax.swing.JTextField();
         txtPassword = new javax.swing.JPasswordField();
         btnLogin = new javax.swing.JButton();
-        btnLogin1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -83,14 +82,6 @@ public class LoginForm extends javax.swing.JFrame {
             }
         });
 
-        btnLogin1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        btnLogin1.setText("нямаш регистрация?");
-        btnLogin1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLogin1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -108,8 +99,6 @@ public class LoginForm extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(btnLogin)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnLogin1, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -129,9 +118,7 @@ public class LoginForm extends javax.swing.JFrame {
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnLogin)
-                    .addComponent(btnLogin1))
+                .addComponent(btnLogin)
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
@@ -209,12 +196,13 @@ public class LoginForm extends javax.swing.JFrame {
 
                     String role = ress.getString("role");
                     if (role.equals("admin")) {
-                        HomeFrame homeframe = new HomeFrame("admin");
-                        homeframe.setVisible(true);
+                        AdminForm adminform = new AdminForm("admin");
+                        adminform.setVisible(true);
                         this.dispose();
                     } else if (role.equals("user")) {
-                        HomeFrame homeframe = new HomeFrame("user");
-                        homeframe.setVisible(true);
+                        AdminForm adminform = new AdminForm("user");
+                        adminform.setVisible(true);
+
                         this.dispose();
                     }
                 } else {
@@ -227,14 +215,6 @@ public class LoginForm extends javax.swing.JFrame {
         }// end of try
 
     }//GEN-LAST:event_btnLoginActionPerformed
-
-    private void btnLogin1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogin1ActionPerformed
-
-        this.hide();
-        RegisterForm registerForm = new RegisterForm();
-        registerForm.show();
-
-    }//GEN-LAST:event_btnLogin1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -273,7 +253,6 @@ public class LoginForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogin;
-    private javax.swing.JButton btnLogin1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
