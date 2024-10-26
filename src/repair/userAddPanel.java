@@ -4,17 +4,39 @@
  */
 package repair;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.security.SecureRandom;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.*;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.mail.Message;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author thefo
  */
 public class userAddPanel extends javax.swing.JPanel {
 
-    /**
-     * Creates new form userAddPanel
-     */
+    private boolean isFirmChecked = false;
+
+    private static final String PASSWORD_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+";
+    private static final int PASSWORD_LENGTH = 8;
+
+    DefaultTableModel model;
+
     public userAddPanel() {
         initComponents();
+        loadUserData();
 
         //**********************************//
         //  СКРИВАНЕ НА ФИРМЕНИТЕ ПОЛЕТА    //
@@ -29,6 +51,7 @@ public class userAddPanel extends javax.swing.JPanel {
         firm_eik_txt.setVisible(false);
         firm_dds_txt.setVisible(false);
         firm_address_txt.setVisible(false);
+
     }
 
     /**
@@ -41,11 +64,11 @@ public class userAddPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
@@ -58,7 +81,6 @@ public class userAddPanel extends javax.swing.JPanel {
         firm_mol_lbl = new javax.swing.JLabel();
         firm_dds_lbl = new javax.swing.JLabel();
         firm_address_lbl = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
         jPasswordField1 = new javax.swing.JPasswordField();
@@ -75,6 +97,7 @@ public class userAddPanel extends javax.swing.JPanel {
         firm_address_txt = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
 
         jLabel7.setText("Име и Фамилия");
 
@@ -83,8 +106,6 @@ public class userAddPanel extends javax.swing.JPanel {
         jLabel9.setText("Парола");
 
         jLabel10.setText("Телефон");
-
-        jLabel11.setText("ID");
 
         jLabel6.setText("Достъп");
 
@@ -98,7 +119,7 @@ public class userAddPanel extends javax.swing.JPanel {
 
         is_firm_lbl.setText("Фирма ?");
 
-        buttonGroup1.add(is_firm_checkbox);
+        buttonGroup2.add(is_firm_checkbox);
         is_firm_checkbox.setText("ДА");
         is_firm_checkbox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -116,7 +137,8 @@ public class userAddPanel extends javax.swing.JPanel {
 
         firm_address_lbl.setText("Адрес на фирма");
 
-        jTextField1.setEnabled(false);
+        jPasswordField1.setToolTipText("");
+        jPasswordField1.setEnabled(false);
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Клиент", "Администратор" }));
 
@@ -124,59 +146,86 @@ public class userAddPanel extends javax.swing.JPanel {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Име", "Телефон", "ЕГН", "Име на фирма"
+                "Име", "Имейл", "Телефон", "ЕГН", "Име на фирма"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane2.setViewportView(jTable1);
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/save.png"))); // NOI18N
+        jButton1.setText("Добави");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jButton1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButton1KeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(76, 76, 76)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel11)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel10))
-                        .addGap(36, 36, 36)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
-                            .addComponent(jTextField3)
-                            .addComponent(jTextField2)
-                            .addComponent(jTextField1)
-                            .addComponent(jTextField4))
-                        .addGap(92, 92, 92)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel13)
-                                        .addComponent(jLabel14)
-                                        .addComponent(jLabel15))
-                                    .addGap(79, 79, 79)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jTextField6)
-                                        .addComponent(jComboBox1, 0, 98, Short.MAX_VALUE)
-                                        .addComponent(jTextField7)))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel12)
-                                    .addGap(36, 36, 36)
-                                    .addComponent(jTextField5))
-                                .addComponent(jLabel6))
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(390, 390, 390)
+                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(72, 72, 72)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel10))
+                                .addGap(36, 36, 36)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jPasswordField1)
+                                    .addComponent(jTextField3)
+                                    .addComponent(jTextField2)
+                                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel13)
+                                            .addComponent(jLabel14)
+                                            .addComponent(jLabel15))
+                                        .addGap(79, 79, 79)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jTextField6)
+                                            .addComponent(jComboBox1, 0, 98, Short.MAX_VALUE)
+                                            .addComponent(jTextField7)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel12)
+                                        .addGap(36, 36, 36)
+                                        .addComponent(jTextField5))
+                                    .addComponent(jLabel6))))
                         .addGap(130, 130, 130)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(is_firm_lbl)
+                                    .addComponent(firm_name_lbl))
+                                .addGap(34, 34, 34)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(firm_name_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(is_firm_checkbox)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(firm_eik_lbl)
@@ -188,15 +237,9 @@ public class userAddPanel extends javax.swing.JPanel {
                                     .addComponent(firm_eik_txt, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
                                     .addComponent(firm_mol_txt)
                                     .addComponent(firm_dds_txt)
-                                    .addComponent(firm_address_txt)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(is_firm_lbl)
-                                    .addComponent(firm_name_lbl))
-                                .addGap(34, 34, 34)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(firm_name_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(is_firm_checkbox)))))
+                                    .addComponent(firm_address_txt))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1063, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -205,35 +248,15 @@ public class userAddPanel extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel11)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel8)
-                                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel9))
-                            .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel10)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(is_firm_lbl)
-                                .addComponent(is_firm_checkbox))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(1, 1, 1)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(is_firm_lbl)
+                                    .addComponent(is_firm_checkbox)))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel13)
                                 .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -269,40 +292,218 @@ public class userAddPanel extends javax.swing.JPanel {
                                     .addComponent(firm_mol_lbl)
                                     .addComponent(firm_mol_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(6, 6, 6)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(firm_dds_lbl)
+                                            .addComponent(firm_dds_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(9, 9, 9)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(firm_address_lbl)
+                                            .addComponent(firm_address_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGap(1, 1, 1))))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(firm_dds_lbl)
-                                    .addComponent(firm_dds_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(9, 9, 9)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(firm_address_lbl)
-                                    .addComponent(firm_address_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                    .addComponent(jLabel8)
+                                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel9))
+                            .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel10)
+                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addGap(35, 35, 35))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    // Метод за SELECT заявка да изведе потребителите
+    private void loadUserData() {
+        List<Object[]> userList = User.getAllUsers();
+        String[] cols = {"Name", "Email", "Phone", "Role", "City", "Status"};
+
+        // Като от упражнения за задаване на модел на контроли
+        model = new DefaultTableModel(cols, 0);
+
+        // Обхождане и добавяне към модела , като foreach($users as $user) { ... } ?>
+        for (Object[] user : userList) {
+            model.addRow(user);
+        }
+
+        jTable1.setModel(model);
+    }
+
+    // Понеже не работи правилно с .isSelected(), алтернативен метод
     private void is_firm_checkboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_is_firm_checkboxActionPerformed
-       if(is_firm_checkbox.isEnabled()) {
-           //**********************************//
-        //  ПОКАЗВАНЕ НА ФИРМЕНИТЕ ПОЛЕТА    //
-        //**********************************//
-        firm_name_lbl.setVisible(true);
-        firm_mol_lbl.setVisible(true);
-        firm_eik_lbl.setVisible(true);
-        firm_dds_lbl.setVisible(true);
-        firm_address_lbl.setVisible(true);
-        firm_name_txt.setVisible(true);
-        firm_mol_txt.setVisible(true);
-        firm_eik_txt.setVisible(true);
-        firm_dds_txt.setVisible(true);
-        firm_address_txt.setVisible(true);
-       }
+
+        isFirmChecked = !isFirmChecked;
+
+        is_firm_checkbox.setSelected(isFirmChecked);
+
+        if (isFirmChecked) {
+
+            firm_name_lbl.setVisible(true);
+            firm_mol_lbl.setVisible(true);
+            firm_eik_lbl.setVisible(true);
+            firm_dds_lbl.setVisible(true);
+            firm_address_lbl.setVisible(true);
+            firm_name_txt.setVisible(true);
+            firm_mol_txt.setVisible(true);
+            firm_eik_txt.setVisible(true);
+            firm_dds_txt.setVisible(true);
+            firm_address_txt.setVisible(true);
+        } else {
+            firm_name_lbl.setVisible(false);
+            firm_mol_lbl.setVisible(false);
+            firm_eik_lbl.setVisible(false);
+            firm_dds_lbl.setVisible(false);
+            firm_address_lbl.setVisible(false);
+            firm_name_txt.setVisible(false);
+            firm_mol_txt.setVisible(false);
+            firm_eik_txt.setVisible(false);
+            firm_dds_txt.setVisible(false);
+            firm_address_txt.setVisible(false);
+        }
     }//GEN-LAST:event_is_firm_checkboxActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+        String name = jTextField2.getText();
+        String email = jTextField3.getText();
+//        String password = new String(jPasswordField1.getPassword());
+        String password = generateTemporaryPassword();
+        String phone = jTextField4.getText();
+        String role = jComboBox2.getSelectedItem().toString();
+        String city = jTextField6.getText();
+        String status = jComboBox1.getSelectedItem().toString();
+        String egn = jTextField7.getText();
+
+        // Валидация за празни полета (required)
+        if (name.isEmpty() || email.isEmpty() || password.isEmpty() || phone.isEmpty() || role.isEmpty() || city.isEmpty() || egn.isEmpty() || jTextField5.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Моля, попълнете всички полета", "Грешка", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Валидация на пощенски код
+        int pkod;
+        try {
+            pkod = Integer.parseInt(jTextField5.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Невалиден пощенски код", "Грешка", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Полета за фирмата
+        int is_firm = is_firm_checkbox.isSelected() ? 1 : 0;
+        String firm_name = is_firm == 1 ? firm_name_txt.getText() : null;
+        String firm_eik = is_firm == 1 ? firm_eik_txt.getText() : null;
+        String firm_mol = is_firm == 1 ? firm_mol_txt.getText() : null;
+        String firm_dds = is_firm == 1 ? firm_dds_txt.getText() : null;
+        String firm_address = is_firm == 1 ? firm_address_txt.getText() : null;
+
+        // Преименуване на ролята
+        if (role.equals("Клиент")) {
+            role = "user";
+        } else if (role.equals("Администратор")) {
+            role = "admin";
+        } else {
+            JOptionPane.showMessageDialog(this, "Невалидна роля", "Грешка", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Преименуване на статус
+        if (status.equals("Активен")) {
+            status = "active";
+        } else if (status.equals("Неактивен")) {
+            status = "inactive";
+        } else {
+            JOptionPane.showMessageDialog(this, "Невалиден статус", "Грешка", JOptionPane.ERROR_MESSAGE);
+        }
+
+        // Добавяне в базата, извиква метода от клас User.java
+        boolean success = User.insertUser(name, password, email, phone, role, pkod, city, status, egn, is_firm, firm_name, firm_eik, firm_mol, firm_dds, firm_address);
+
+        String subject = "Вашата временна парола";
+        String message = "Здравейте " + name + ",\n\nВашата временна парола е: " + password + "\n\nМоля, променете я след влизане в системата.";
+
+        // Изпращане на имейл
+        sendEmail(email, subject, message);
+
+        if (success) {
+            JOptionPane.showMessageDialog(this, "Успешно добавяне!" + "\n" + "Временна парола: " + password);
+            clearFields();
+        } else {
+            JOptionPane.showMessageDialog(this, "Възникна грешка при добавянето на потребителя.", "Грешка", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    // При натискане на Enter да изпълнява заявката [T0D0]
+    private void jButton1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton1KeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            ActionEvent event = new ActionEvent(jButton1, ActionEvent.ACTION_PERFORMED, null);
+            jButton1ActionPerformed(event);
+        }
+    }//GEN-LAST:event_jButton1KeyPressed
+
+    // Прави празни полетата, за лесно следващо добавяне
+    private void clearFields() {
+        jTextField2.setText("");  // Clear name
+        jPasswordField1.setText("");  // Clear password
+        jTextField3.setText("");  // Clear email
+        jTextField4.setText("");  // Clear phone
+        jComboBox2.setSelectedIndex(0);  // Reset role
+        jTextField5.setText("");  // Clear PKOD (postal code)
+        jTextField6.setText("");  // Clear city
+        jComboBox1.setSelectedIndex(0);  // Reset status
+        jTextField7.setText("");  // Clear EGN
+        is_firm_checkbox.setSelected(false);  // Reset firm checkbox
+        firm_name_txt.setText("");  // Clear firm name
+        firm_eik_txt.setText("");  // Clear firm EIK
+        firm_mol_txt.setText("");  // Clear firm MOL
+        firm_dds_txt.setText("");  // Clear firm DDS
+        firm_address_txt.setText("");  // Clear firm address
+    }
+
+    // Метод за генериране на временна парола
+    private String generateTemporaryPassword() {
+        SecureRandom random = new SecureRandom();
+        StringBuilder password = new StringBuilder(PASSWORD_LENGTH);
+        for (int i = 0; i < PASSWORD_LENGTH; i++) {
+            int index = random.nextInt(PASSWORD_CHARS.length());
+            password.append(PASSWORD_CHARS.charAt(index));
+        }
+        return password.toString();
+    }
+
+    private void sendEmail(String to, String subject, String messageText) {
+        try {
+            MimeMessage message = new MimeMessage(config.getMailSession());
+            message.setFrom(new InternetAddress(config.EMAIL_FROM));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+            message.setSubject(subject);
+            message.setText(messageText);
+            Transport.send(message);
+            System.out.println("Успешно изпратен имейл до" + to);
+        } catch (Exception ex) {
+            System.out.println("Възникна грешка: " + ex + "Свържете се с разработчик");
+        }
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JLabel firm_address_lbl;
     private javax.swing.JTextField firm_address_txt;
     private javax.swing.JLabel firm_dds_lbl;
@@ -315,10 +516,10 @@ public class userAddPanel extends javax.swing.JPanel {
     private javax.swing.JTextField firm_name_txt;
     private javax.swing.JCheckBox is_firm_checkbox;
     private javax.swing.JLabel is_firm_lbl;
+    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
@@ -330,7 +531,6 @@ public class userAddPanel extends javax.swing.JPanel {
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
