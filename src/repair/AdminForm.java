@@ -100,7 +100,12 @@ public class AdminForm extends javax.swing.JFrame {
         lbl_user = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        jMenu3 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -184,19 +189,45 @@ public class AdminForm extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(logoutButton)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lbl_user)
-                        .addComponent(jLabel3)))
+                        .addComponent(jLabel3))
+                    .addComponent(logoutButton))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
-        jMenu1.setText("File");
+        jMenu1.setText("Файл");
+
+        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        jMenuItem3.setText("Запази");
+        jMenu1.add(jMenuItem3);
+        jMenu1.add(jSeparator1);
+
+        jMenuItem2.setText("Изход");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem2);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Edit");
         jMenuBar1.add(jMenu2);
+
+        jMenu3.setText("Помощ");
+
+        jMenuItem1.setText("За приложението");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem1);
+
+        jMenuBar1.add(jMenu3);
 
         setJMenuBar(jMenuBar1);
 
@@ -237,6 +268,28 @@ public class AdminForm extends javax.swing.JFrame {
             logout();
         }
     }//GEN-LAST:event_logoutButtonActionPerformed
+
+    // [Menu Bar] За приложението
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+     JDialog dialog = new JDialog(this, "About Application", true);  
+    AboutAppPanel about = new AboutAppPanel(dialog);
+    
+    dialog.getContentPane().add(about);
+    
+    dialog.setSize(800, 800);
+    dialog.setLocationRelativeTo(this); 
+    dialog.setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    // [Menu Bar] За Изход
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        int dialogButton = JOptionPane.YES_NO_OPTION;
+        int dialogResult = JOptionPane.showConfirmDialog(this, "Сигурни ли сте, че искате да се отпишете?", "Изход", dialogButton);
+        if (dialogResult == JOptionPane.YES_OPTION) {
+            // izvikvame metoda za izxod
+            logout();
+        }
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     // logout user function
     public void logout() {
@@ -302,8 +355,13 @@ public class AdminForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JLabel lbl_user;
     private javax.swing.JButton logoutButton;
     private javax.swing.JPanel sideLayoutPanel;
