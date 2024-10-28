@@ -132,7 +132,7 @@ public class SendEmailForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void sendBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendBtnActionPerformed
-        String to = jTextField1.getText();
+        String to = jTextField1.getText().trim();
         String subject = jTextField2.getText();
         String messageText = jTextArea1.getText();
 
