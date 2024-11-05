@@ -447,7 +447,7 @@ public class userAddPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    // При натискане на Enter да изпълнява заявката [T0D0]
+    // При натискане на Enter да изпълнява заявката [НЕ БАЧКА ЗАРАДИ ДИНАМИЧНИТЕ ПАНЕЛИ :@]
     private void jButton1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton1KeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             ActionEvent event = new ActionEvent(jButton1, ActionEvent.ACTION_PERFORMED, null);
