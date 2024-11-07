@@ -15,6 +15,7 @@ public class userEditPanel extends javax.swing.JPanel {
 
     private boolean isFirmChecked = false;
     private int id;
+    config q = new config();
 
     public userEditPanel(int id, String name, String email, String phone, String city, String status, String egn, String pkod, String role, String is_firm, String firm_name, String firm_eik, String firm_mol, String firm_dds, String firm_address) {
         initComponents();
@@ -364,7 +365,11 @@ public class userEditPanel extends javax.swing.JPanel {
         String firm_dds = firm_dds_txt.getText();
         String firm_address = firm_address_txt.getText();
 
-        boolean success = User.updateUser(id, name, email, phone, city, status, egn, pkod, role, is_firm, firm_name, firm_mol, firm_eik, firm_dds, firm_address);
+        String[] columns = {"name", "email", "phone", "city", "status", "egn", "pkod", "role", "is_firm", "firm_name", "firm_mol", "firm_eik", "firm_dds", "firm_address"};
+        Object[] values = {name, email, phone, city, status, egn, pkod, role, is_firm, firm_name, firm_mol, firm_eik, firm_dds, firm_address};
+
+        // Call the update method from config
+        boolean success = q.update("users", columns, values, "id", id);
 
         if (success) {
             JOptionPane.showMessageDialog(this, "Промените са запазени успешно.");

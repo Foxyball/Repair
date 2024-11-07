@@ -2,11 +2,7 @@ package repair;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
@@ -14,6 +10,7 @@ import javax.swing.table.DefaultTableModel;
 public class userListPanel extends javax.swing.JPanel {
 
     DefaultTableModel model;
+    config q = new config();
     private AdminForm adminForm;
     private Timer timer;
 
@@ -22,8 +19,6 @@ public class userListPanel extends javax.swing.JPanel {
 
         this.adminForm = adminForm;
         jLabel2.setVisible(false); // Резултати от търсене етикет
-
-        loadUserData();
 
         jButton1.addActionListener(new ActionListener() {
             @Override
@@ -41,44 +36,34 @@ public class userListPanel extends javax.swing.JPanel {
 
         timer.start();
 
-    }
-
-    // SELECT заявка за извличане на всички потребители
-    private void loadUserData() {
-        List<Object[]> userList = User.getAllUsers();
-        String[] cols = {"ID", "Име", "Имейл", "Телефон", "Град", "Статус", "ЕГН", "Пощ.код", "Роля", "Фирма", "Име на Фирма", "Фирма ЕИК", "Фирма МОЛ", "Фирма ДДС", "Фирма Адрес"};
-
-        // Като от упражнения за задаване на модел на контроли
+        String[] cols = {"ID", "Име", "Имейл", "Телефон", "Град", "Статус"};
         model = new DefaultTableModel(cols, 0);
 
         // Прави таблицата да не се едитва
         jTable1.setDefaultEditor(Object.class, null);
 
-        // Обхождане и добавяне към модела , като foreach($users as $user) { ... } ?>
-        for (Object[] user : userList) {
+        String filter = "";
+        ArrayList<User> users = q.loadUserData(filter);
 
-            if ((int) user[9] == 1) {
-                user[9] = "Да";
-            } else {
-                user[9] = "Не";
-            }
-
-            if (user[8].equals("admin")) {
-                user[8] = "Администратор";
-            } else {
-                user[8] = "Клиент";
-            }
-
-            if (user[5].equals("active")) {
-                user[5] = "Активен";
-            } else {
-                user[5] = "Неактивен";
-            }
-
-            model.addRow(user);
+        for (User user : users) {
+            Object[] row = userToArr(user);
+            model.addRow(row);
         }
 
         jTable1.setModel(model);
+
+    }
+
+    // функция за връщане свойствата на обекта под формата на масив
+    private Object[] userToArr(User user) {
+        return new Object[]{
+            user.getUserId(),
+            user.getName(),
+            user.getEmail(),
+            user.getPhone(),
+            user.getCity(),
+            user.getStatus()
+        };
     }
 
     /**
@@ -259,44 +244,37 @@ public class userListPanel extends javax.swing.JPanel {
             String idString = jTable1.getValueAt(selectedRow, 0).toString();
             int userId = Integer.parseInt(idString);
 
-            try (Connection connection = config.getConnection()) {
-                String sql = "SELECT * FROM users WHERE id = ?";
+            // Извикване на универсалния метод select
+            String[] columns = {"id", "name", "email", "phone", "city", "status", "egn", "pkod", "role", "is_firm", "firm_name", "firm_eik", "firm_mol", "firm_address", "firm_dds"};
+            String whereClause = "id = ?";
+            Object[] params = {userId};
 
-                try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
-                    pstmt.setInt(1, userId);
+            ArrayList<String> result = q.select(columns, "users", whereClause, params);
 
-                    try (ResultSet rs = pstmt.executeQuery()) {
-                        if (rs.next()) {
+            if (!result.isEmpty()) {
+                // Разделяне на първия (и единствен) ред на масив от стойности
+                String[] userData = result.get(0).split("---");
 
-                            int id = rs.getInt("id");
-                            String name = rs.getString("name");
-                            String email = rs.getString("email");
-                            String phone = rs.getString("phone");
-                            String city = rs.getString("city");
-                            String status = rs.getString("status");
-                            String egn = rs.getString("egn");
-                            String pkod = rs.getString("pkod");
-                            String role = rs.getString("role");
-                            String is_firm = rs.getString("is_firm");
-                            String firm_name = rs.getString("firm_name");
-                            String firm_eik = rs.getString("firm_eik");
-                            String firm_mol = rs.getString("firm_mol");
-                            String firm_address = rs.getString("firm_address");
-                            String firm_dds = rs.getString("firm_dds");
+                int id = Integer.parseInt(userData[0]);
+                String name = userData[1];
+                String email = userData[2];
+                String phone = userData[3];
+                String city = userData[4];
+                String status = userData[5];
+                String egn = userData[6];
+                String pkod = userData[7];
+                String role = userData[8];
+                String is_firm = userData[9];
+                String firm_name = userData[10];
+                String firm_eik = userData[11];
+                String firm_mol = userData[12];
+                String firm_address = userData[13];
+                String firm_dds = userData[14];
 
-                            // Pass the data to the userEditPanel
-                            adminForm.switchToUserEditPanel(id, name, email, phone, city, status, egn, pkod, role, is_firm, firm_name, firm_eik, firm_mol, firm_dds, firm_address);
-                        } else {
-                            JOptionPane.showMessageDialog(this, "Не е намерен потребител с този ID!");
-                        }
-                    } catch (SQLException rsEx) {
-                        JOptionPane.showMessageDialog(this, "Грешка при обработка на резултатите: " + rsEx.getMessage());
-                    }
-                } catch (SQLException pstmtEx) {
-                    JOptionPane.showMessageDialog(this, "Грешка при изпълнение на заявката: " + pstmtEx.getMessage());
-                }
-            } catch (SQLException connEx) {
-                JOptionPane.showMessageDialog(this, "Грешка при свързване с базата данни: " + connEx.getMessage());
+                // Pass the data to the userEditPanel
+                adminForm.switchToUserEditPanel(id, name, email, phone, city, status, egn, pkod, role, is_firm, firm_name, firm_eik, firm_mol, firm_dds, firm_address);
+            } else {
+                JOptionPane.showMessageDialog(this, "Не е намерен потребител с този ID!");
             }
         } else {
             JOptionPane.showMessageDialog(this, "Моля, изберете ред от таблицата!");
@@ -316,29 +294,43 @@ public class userListPanel extends javax.swing.JPanel {
 
     // Търсачка
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        String keyword = jTextField1.getText();
+        String keyword = jTextField1.getText().trim();
 
-        List<Object[]> search = User.searchUsers(keyword);
+        // Check if the keyword is empty
+        if (keyword.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Моля, въведете ключова дума за търсене!", "Грешка", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
-        String[] cols = {"ID", "Име", "Имейл", "Телефон", "Град", "Статус", "ЕГН", "Пощ.код", "Роля", "Фирма", "Име на Фирма", "Фирма ЕИК", "Фирма МОЛ", "Фирма ДДС", "Фирма Адрес"};
-        DefaultTableModel model = new DefaultTableModel(cols, 0);
+        // Prepare the columns and WHERE clause for the search
+        String[] columns = {"id", "name", "email", "phone", "city", "status", "egn", "pkod", "role", "is_firm", "firm_name", "firm_eik", "firm_mol", "firm_dds", "firm_address"};
+        String whereClause = "name LIKE ? OR email LIKE ? OR phone LIKE ? OR city LIKE ?";
+        Object[] params = {"%" + keyword + "%", "%" + keyword + "%", "%" + keyword + "%", "%" + keyword + "%"};
 
-        for (Object[] user : search) {
-            model.addRow(user);
+        // Execute the universal select method
+        ArrayList<String> searchResults = q.select(columns, "users", whereClause, params);
+
+        // Prepare the table model for displaying the results
+        String[] columnNames = {"ID", "Име", "Имейл", "Телефон", "Град", "Статус", "ЕГН", "Пощ.код", "Роля", "Фирма", "Име на Фирма", "Фирма ЕИК", "Фирма МОЛ", "Фирма ДДС", "Фирма Адрес"};
+        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+
+        // Populate the table model with data
+        for (String row : searchResults) {
+            String[] userData = row.split("---");
+            model.addRow(userData);
         }
 
         jTable1.setModel(model);
         jTable1.setDefaultEditor(Object.class, null);
 
-        // Етикет, който показва броя на съвпаденията (просто е готино)
+        // Display the number of search results
         jLabel2.setVisible(true);
-        int resultCount = search.size();
+        int resultCount = searchResults.size();
         jLabel2.setText("Резултати: " + resultCount);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     // Изтриване бутон, избира се ред от таблицата, прихваща id-то и изпълнява заявката
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-
         int selectedRow = jTable1.getSelectedRow();
 
         if (selectedRow == -1) {
@@ -346,17 +338,17 @@ public class userListPanel extends javax.swing.JPanel {
             return;
         }
 
+        // Кастване на ID-то към int от String
         String idString = jTable1.getValueAt(selectedRow, 0).toString();
         int userId = Integer.parseInt(idString);
 
         int confirm = JOptionPane.showConfirmDialog(this, "Сигурни ли сте, че искате да изтриете този потребител?", "Потвърждение", JOptionPane.YES_NO_OPTION);
 
         if (confirm == JOptionPane.YES_OPTION) {
-
-            boolean isDeleted = User.deleteUser(userId);
+            // Use the universal delete method
+            boolean isDeleted = q.delete("users", "id", userId); // Pass userId directly instead of params array
 
             if (isDeleted) {
-
                 refreshUserList();
                 JOptionPane.showMessageDialog(this, "Потребителят е изтрит успешно.");
             } else {
@@ -365,16 +357,15 @@ public class userListPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    
     // Изпрати имейл бутон [Ръчно]
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         int selectedRow = jTable1.getSelectedRow();
         if (selectedRow != -1) {
 
-            String userEmail = jTable1.getValueAt(selectedRow, 2).toString();
+            String email = jTable1.getValueAt(selectedRow, 2).toString();
             String userName = jTable1.getValueAt(selectedRow, 1).toString();
 
-            new SendEmailForm(userEmail, userName).setVisible(true);
+            new SendEmailForm(email, userName).setVisible(true);
         } else {
             JOptionPane.showMessageDialog(this, "Моля, изберете потребител.");
         }
@@ -382,33 +373,37 @@ public class userListPanel extends javax.swing.JPanel {
 
     // Обновяване на данните с бутон
     public void refreshUserList() {
-        List<Object[]> userList = User.getAllUsers();
+        String[] columns = {"id", "name", "email", "phone", "city", "status", "egn", "pkod", "role", "is_firm",
+            "firm_name", "firm_eik", "firm_mol", "firm_dds", "firm_address"};
+        String table = "users";
+        String whereClause = ""; // No filter to fetch all users
+        Object[] params = null;  // No parameters for full selection
+
+        ArrayList<String> userList = q.select(columns, table, whereClause, params);
 
         String[] cols = {"ID", "Име", "Имейл", "Телефон", "Град", "Статус", "ЕГН", "Пощ.код", "Роля", "Фирма",
             "Име на Фирма", "Фирма ЕИК", "Фирма МОЛ", "Фирма ДДС", "Фирма Адрес"};
-
         DefaultTableModel model = new DefaultTableModel(cols, 0);
 
-        for (Object[] user : userList) {
-            if ((int) user[9] == 1) {
-                user[9] = "Да";
+        for (String user : userList) {
+            String[] userDetails = user.split("---");
+            userDetails[9] = userDetails[9].equals("1") ? "Да" : "Не"; // Convert is_firm to "Да"/"Не"
+
+            // Translate role to human-readable form
+            if (userDetails[8].equals("admin")) {
+                userDetails[8] = "Администратор";
             } else {
-                user[9] = "Не";
+                userDetails[8] = "Клиент";
             }
 
-            if (user[8].equals("admin")) {
-                user[8] = "Администратор";
+            // Translate status to human-readable form
+            if (userDetails[5].equals("active")) {
+                userDetails[5] = "Активен";
             } else {
-                user[8] = "Клиент";
+                userDetails[5] = "Неактивен";
             }
 
-            if (user[5].equals("active")) {
-                user[5] = "Активен";
-            } else {
-                user[5] = "Неактивен";
-            }
-
-            model.addRow(user);
+            model.addRow(userDetails);
         }
 
         jTable1.setModel(model);

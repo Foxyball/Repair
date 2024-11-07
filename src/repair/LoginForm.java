@@ -16,8 +16,9 @@ public class LoginForm extends javax.swing.JFrame {
     public LoginForm() {
         initComponents();
 
+        // ЛОГО
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("logo.png")));
-        // fixiran razmer
+        // заключване промяната на размера
         this.setResizable(false);
     }
 
@@ -66,6 +67,7 @@ public class LoginForm extends javax.swing.JFrame {
         jLabel3.setText("Име");
 
         txtUsername.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        txtUsername.setText("admin@abv.bg");
         txtUsername.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtUsernameActionPerformed(evt);
@@ -73,6 +75,7 @@ public class LoginForm extends javax.swing.JFrame {
         });
 
         txtPassword.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        txtPassword.setText("parolata1");
 
         btnLogin.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnLogin.setText("ВХОД");
@@ -167,8 +170,11 @@ public class LoginForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUsernameActionPerformed
 
-
+    // Бутон за вход
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+
+        // Създаване на нова инстанция на config за връзка с базата данни
+        config dbConfig = new config();
 
         String email = txtUsername.getText();
         String password = new String(txtPassword.getPassword());
@@ -179,41 +185,51 @@ public class LoginForm extends javax.swing.JFrame {
             return;
         }
 
-        try (Connection connection = config.getConnection()) {
-            String q = "SELECT * FROM users WHERE email=? AND password=?";
-            try (PreparedStatement stmt = connection.prepareStatement(q)) {
+        try {
+            String q = "SELECT * FROM users WHERE email = ? AND password = ?";
+            try (PreparedStatement stmt = dbConfig.conn.prepareStatement(q)) {
                 stmt.setString(1, email);
                 stmt.setString(2, password);
 
-                ResultSet ress = stmt.executeQuery();
+                try (ResultSet ress = stmt.executeQuery()) {
+                    if (ress.next()) {
+                        int id = ress.getInt("id");
+                        String user_name = ress.getString("name"); // Вземане на име за dashboard
+                        String user_email = ress.getString("email");
+                        String user_role = ress.getString("role");
 
-                if (ress.next()) {
+                        User user = new User(id, user_name, user_email, "", "", user_role,
+                                ress.getInt("pkod"), ress.getString("city"), ress.getString("status"),
+                                ress.getString("egn"), ress.getInt("is_firm"), ress.getString("firm_name"),
+                                ress.getString("firm_eik"), ress.getString("firm_mol"), ress.getString("firm_dds"),
+                                ress.getString("firm_address"));
 
-                    int id = ress.getInt("id");
-                    String user_name = ress.getString("name"); // vzimame mu imeto za posle v dashboarda, kato $_SESSION['name']
-                    User.user_id = id;
-                    User.name = user_name;
+                        // Създаване на потребител, който да бъде записан като влязъл
+                        User loggedInUser = new User(id, user_name, user_email, "", "", "", 0, "", "", "", 0, "", "", "", "", "");
+                        LoggedInUser.setUser(loggedInUser);
+                        System.out.println("Welcome, " + LoggedInUser.getUser().getName());
 
-                    String role = ress.getString("role");
-                    if (role.equals("admin")) {
-                        AdminForm adminform = new AdminForm("admin");
-                        adminform.setVisible(true);
-                        this.dispose();
-                    } else if (role.equals("user")) {
-                        AdminForm adminform = new AdminForm("user");
-                        adminform.setVisible(true);
-
-                        this.dispose();
+                        // Показване на подходящата форма в зависимост от ролята
+                        if (user_role.equals("admin")) {
+                            AdminForm adminform = new AdminForm("admin");
+                            adminform.setVisible(true);
+                            this.dispose();
+                        } else if (user_role.equals("user")) {
+                            AdminForm adminform = new AdminForm("user");
+                            adminform.setVisible(true);
+                            this.dispose();
+                        }
+                    } else {
+                        // Потребителят не е намерен
+                        JOptionPane.showMessageDialog(null, "Грешен имейл или парола");
                     }
-                } else {
-                    // User not found
-                    JOptionPane.showMessageDialog(null, "Грешен имейл или парола");
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        }// end of try
-
+        } finally {
+            dbConfig.close(); // Затваряне на връзката в края
+        }
     }//GEN-LAST:event_btnLoginActionPerformed
 
     /**

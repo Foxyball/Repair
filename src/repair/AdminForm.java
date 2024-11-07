@@ -10,19 +10,23 @@ public class AdminForm extends javax.swing.JFrame {
     dashboardPanel dashboardPanel;
     userAddPanel userAddPanel;
     userListPanel userListPanel;
+    LoggedInUser LoggedInUser;
 
     public AdminForm(String role) {
         initComponents();
         this.setLocationRelativeTo(null); // Centrirane
         this.setSize(1250, 800);
 
+        // Assuming LoggedInUser is a utility class that stores the current user
+        User loggedInUser = LoggedInUser.getUser();
+
+        // Access logged-in user's email (already retrieved during login)
+        String email = LoggedInUser.getUser().getEmail();
+
+// Access the logged-in user's name to display on the dashboard
+        lbl_user.setText(LoggedInUser.getUser().getName());
+
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("logo.png")));
-
-        int user_id = User.user_id;
-        User.loadUserEmail(user_id);
-
-        // za welcome message vzimame imeto ot bazata
-        lbl_user.setText(String.valueOf(User.name));
 
         //Ще показваме и скриваме елементи според ролята
         if (role.equals("admin")) {
@@ -30,7 +34,7 @@ public class AdminForm extends javax.swing.JFrame {
         } else if (role.equals("user")) {
             // Show user
         } else {
-        
+
         }
 
 //        sideLayoutPanel.setLayout(new GridLayout(4,1));
@@ -89,7 +93,6 @@ public class AdminForm extends javax.swing.JFrame {
     };
 
     //************************************
-    
     // Заради бутона в userListPanel “Добавяне“
     public void switchToUserAddPanel() {
         CardLayout cardLayout = (CardLayout) contentPanel.getLayout();
@@ -97,13 +100,13 @@ public class AdminForm extends javax.swing.JFrame {
     }
 
     // Заради бутона за редактиране в userListPanel
-    public void switchToUserEditPanel(int id, String name, String email, String phone, String city, String status, String egn, String pkod, String role, String is_firm,String firm_name, String firm_eik, String firm_mol,String firm_dds, String firm_address) {
-    // Нова инстанция на userEditPanel с параметрите
-    userEditPanel editPanel = new userEditPanel(id, name, email, phone, city, status, egn, pkod, role, is_firm,firm_name,firm_eik,firm_mol,firm_dds,firm_address);
-    contentPanel.add(editPanel, "editUser");
-    CardLayout cardLayout = (CardLayout) contentPanel.getLayout();
-    cardLayout.show(contentPanel, "editUser");
-}
+    public void switchToUserEditPanel(int id, String name, String email, String phone, String city, String status, String egn, String pkod, String role, String is_firm, String firm_name, String firm_eik, String firm_mol, String firm_dds, String firm_address) {
+        // Нова инстанция на userEditPanel с параметрите
+        userEditPanel editPanel = new userEditPanel(id, name, email, phone, city, status, egn, pkod, role, is_firm, firm_name, firm_eik, firm_mol, firm_dds, firm_address);
+        contentPanel.add(editPanel, "editUser");
+        CardLayout cardLayout = (CardLayout) contentPanel.getLayout();
+        cardLayout.show(contentPanel, "editUser");
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -331,12 +334,14 @@ public class AdminForm extends javax.swing.JFrame {
 
     // logout user function
     public void logout() {
-        User.user_id = 0;
-        User.name = null;
+        // Assuming you're storing the logged-in user in a class like LoggedInUser
+        LoggedInUser.setUser(null);  // Clear the stored user (this is a custom utility class)
 
+        // Create and show the LoginForm
         LoginForm loginForm = new LoginForm();
         loginForm.setVisible(true);
 
+        // Close the current window
         this.dispose();
     }
 

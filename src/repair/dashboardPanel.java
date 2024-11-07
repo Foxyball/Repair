@@ -4,6 +4,7 @@
  */
 package repair;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -16,37 +17,41 @@ public class dashboardPanel extends javax.swing.JPanel {
     /**
      * Creates new form dashboardPanel
      */
-    
     DefaultTableModel model;
-    
+    config q = new config();
+
     public dashboardPanel() {
         initComponents();
-        
-        loadUserData();
-    }
 
-    
-     // ТУК ЩЕ ЗАРЕДИМ ПОСЛЕДНИТЕ 10 бр. ЗАЯВКИ, КОИТО НЕ СА ПОЧНАТИ
-    // ТОВА Е ДЕМО ЗАЯВКА ТУК В МОМЕНТА
-    private void loadUserData() {
-        List<Object[]> userList = User.getAllUsers();
-        String[] cols = {"Име", "Имейл", "Телефон", "Град", "Статус"};
-
-        // Като от упражнения за задаване на модел на контроли
+        String[] cols = {"ID", "Име", "Имейл", "Телефон", "Град", "Статус"};
         model = new DefaultTableModel(cols, 0);
-        
+
         // Прави таблицата да не се едитва
         jTable1.setDefaultEditor(Object.class, null);
 
-        // Обхождане и добавяне към модела , като foreach($users as $user) { ... } ?>
-        for (Object[] user : userList) {
-            model.addRow(user);
+        String filter = "";
+        ArrayList<User> users = q.loadUserData(filter);
+
+        for (User user : users) {
+            Object[] row = userToArr(user);
+            model.addRow(row);
         }
 
         jTable1.setModel(model);
     }
-    
-    
+
+    // функция за връщане свойствата на обекта под формата на масив
+    private Object[] userToArr(User user) {
+        return new Object[]{
+            user.getUserId(),
+            user.getName(),
+            user.getEmail(),
+            user.getPhone(),
+            user.getCity(),
+            user.getStatus()
+        };
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package repair;
 
 import java.awt.event.ActionEvent;
@@ -11,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,14 +26,26 @@ public class userAddPanel extends javax.swing.JPanel {
 
     private boolean isFirmChecked = false;
 
+    //**********************************//
+    //  КРИПТИРАНЕ НА ПАРОЛАТА          //
+    //**********************************//
     private static final String PASSWORD_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+";
     private static final int PASSWORD_LENGTH = 8;
 
     DefaultTableModel model;
+    config q = new config();
 
     public userAddPanel() {
         initComponents();
-        loadUserData();
+
+        // задаване на колоните в таблицата
+        String[] cols = {"ID", "Име", "Имейл", "Телефон", "Град", "Статус"};
+
+        // Като от упражнения за задаване на модел на контроли
+        model = new DefaultTableModel(cols, 0);
+
+        // Прави таблицата да не се едитва
+        jTable1.setDefaultEditor(Object.class, null);
 
         //**********************************//
         //  СКРИВАНЕ НА ФИРМЕНИТЕ ПОЛЕТА    //
@@ -52,6 +61,17 @@ public class userAddPanel extends javax.swing.JPanel {
         firm_dds_txt.setVisible(false);
         firm_address_txt.setVisible(false);
 
+        String filter = "";
+        ArrayList<User> users = q.loadUserData(filter);
+
+        // обхождане на масива и добавяне в таблицата
+        for (User user : users) {
+            Object[] row = userToArr(user);
+            model.addRow(row);
+        }
+
+        // задаване на новия модел
+        jTable1.setModel(model);
     }
 
     /**
@@ -324,26 +344,19 @@ public class userAddPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    // Метод за SELECT заявка да изведе потребителите
-    private void loadUserData() {
-        List<Object[]> userList = User.getAllUsers();
-        String[] cols = {"Име", "Имейл", "Телефон", "Град", "Статус"};
-
-        // Като от упражнения за задаване на модел на контроли
-        model = new DefaultTableModel(cols, 0);
-        
-        // Прави таблицата да не се едитва
-        jTable1.setDefaultEditor(Object.class, null);
-
-        // Обхождане и добавяне към модела , като foreach($users as $user) { ... } ?>
-        for (Object[] user : userList) {
-            model.addRow(user);
-        }
-
-        jTable1.setModel(model);
+    // функция за връщане свойствата на обекта под формата на масив
+    private Object[] userToArr(User user) {
+        return new Object[]{
+            user.getUserId(),
+            user.getName(),
+            user.getEmail(),
+            user.getPhone(),
+            user.getCity(),
+            user.getStatus()
+        };
     }
 
-    // Понеже не работи правилно с .isSelected(), алтернативен метод
+    // Проверяване дали е отметнат чекбокса за фирма и показване/скриване на полетата
     private void is_firm_checkboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_is_firm_checkboxActionPerformed
 
         isFirmChecked = !isFirmChecked;
@@ -376,11 +389,12 @@ public class userAddPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_is_firm_checkboxActionPerformed
 
+    // Добавяне бутон
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
         String name = jTextField2.getText();
         String email = jTextField3.getText();
-//        String password = new String(jPasswordField1.getPassword());
+//        String password = new String(jPasswordField1.getPassword()); парола не задаваме ние, тя се генерира и праща до потребителя по имейл
         String password = generateTemporaryPassword();
         String phone = jTextField4.getText();
         String role = jComboBox2.getSelectedItem().toString();
@@ -388,7 +402,6 @@ public class userAddPanel extends javax.swing.JPanel {
         String status = jComboBox1.getSelectedItem().toString();
         String egn = jTextField7.getText();
 
-        // Валидация за празни полета (required)
         if (name.isEmpty() || email.isEmpty() || password.isEmpty() || phone.isEmpty() || role.isEmpty() || city.isEmpty() || egn.isEmpty() || jTextField5.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Моля, попълнете всички полета", "Грешка", JOptionPane.ERROR_MESSAGE);
             return;
@@ -431,7 +444,20 @@ public class userAddPanel extends javax.swing.JPanel {
         }
 
         // Добавяне в базата, извиква метода от клас User.java
-        boolean success = User.insertUser(name, password, email, phone, role, pkod, city, status, egn, is_firm, firm_name, firm_eik, firm_mol, firm_dds, firm_address);
+//        boolean success = User.insertUser(name, password, email, phone, role, pkod, city, status, egn, is_firm, firm_name, firm_eik, firm_mol, firm_dds, firm_address);
+        // Create the columns and values arrays for the insert query
+        String[] columns = {
+            "name", "password", "email", "phone", "role", "pkod", "city",
+            "status", "egn", "is_firm", "firm_name", "firm_eik",
+            "firm_mol", "firm_dds", "firm_address"
+        };
+
+        Object[] values = {
+            name, password, email, phone, role, pkod, city, status,
+            egn, is_firm, firm_name, firm_eik, firm_mol, firm_dds, firm_address
+        };
+
+        boolean success = q.insert("users", columns, values);
 
         String subject = "Вашата временна парола";
         String message = "Здравейте " + name + ",\n\nВашата временна парола е: " + password + "\n\nМоля, променете я след влизане в системата.";
