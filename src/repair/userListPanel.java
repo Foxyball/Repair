@@ -245,7 +245,7 @@ public class userListPanel extends javax.swing.JPanel {
             int userId = Integer.parseInt(idString);
 
             // Извикване на универсалния метод select
-            String[] columns = {"id", "name", "email", "phone", "city", "status", "egn", "pkod", "role", "is_firm", "firm_name", "firm_eik", "firm_mol", "firm_address", "firm_dds"};
+            String[] columns = {"id", "name", "email", "phone", "city", "status", "egn", "pkod", "role", "is_firm", "firm_name", "firm_eik", "firm_mol", "firm_dds", "firm_address"};
             String whereClause = "id = ?";
             Object[] params = {userId};
 
@@ -255,23 +255,23 @@ public class userListPanel extends javax.swing.JPanel {
                 // Разделяне на първия (и единствен) ред на масив от стойности
                 String[] userData = result.get(0).split("---");
 
-                int id = Integer.parseInt(userData[0]);
-                String name = userData[1];
-                String email = userData[2];
-                String phone = userData[3];
-                String city = userData[4];
-                String status = userData[5];
-                String egn = userData[6];
-                String pkod = userData[7];
-                String role = userData[8];
-                String is_firm = userData[9];
-                String firm_name = userData[10];
-                String firm_eik = userData[11];
-                String firm_mol = userData[12];
-                String firm_address = userData[13];
-                String firm_dds = userData[14];
+                int id = Integer.parseInt(userData.length > 0 ? userData[0] : "0");
+                String name = userData.length > 1 ? userData[1] : "";
+                String email = userData.length > 2 ? userData[2] : "";
+                String phone = userData.length > 3 ? userData[3] : "";
+                String city = userData.length > 4 ? userData[4] : "";
+                String status = userData.length > 5 ? userData[5] : "";
+                String egn = userData.length > 6 ? userData[6] : "";
+                String pkod = userData.length > 7 ? userData[7] : "";
+                String role = userData.length > 8 ? userData[8] : "";
+                String is_firm = userData.length > 9 ? userData[9] : "";
+                String firm_name = userData.length > 10 ? userData[10] : "";
+                String firm_eik = userData.length > 11 ? userData[11] : "";
+                String firm_mol = userData.length > 12 ? userData[12] : "";
+                String firm_dds = userData.length > 13 ? userData[13] : "";
+                String firm_address = userData.length > 14 ? userData[14] : "";
 
-                // Pass the data to the userEditPanel
+                // Подаване на данните към панела за редактиране, за да се визуализират
                 adminForm.switchToUserEditPanel(id, name, email, phone, city, status, egn, pkod, role, is_firm, firm_name, firm_eik, firm_mol, firm_dds, firm_address);
             } else {
                 JOptionPane.showMessageDialog(this, "Не е намерен потребител с този ID!");
@@ -376,8 +376,8 @@ public class userListPanel extends javax.swing.JPanel {
         String[] columns = {"id", "name", "email", "phone", "city", "status", "egn", "pkod", "role", "is_firm",
             "firm_name", "firm_eik", "firm_mol", "firm_dds", "firm_address"};
         String table = "users";
-        String whereClause = ""; // No filter to fetch all users
-        Object[] params = null;  // No parameters for full selection
+        String whereClause = ""; 
+        Object[] params = null;
 
         ArrayList<String> userList = q.select(columns, table, whereClause, params);
 
@@ -389,14 +389,12 @@ public class userListPanel extends javax.swing.JPanel {
             String[] userDetails = user.split("---");
             userDetails[9] = userDetails[9].equals("1") ? "Да" : "Не"; // Convert is_firm to "Да"/"Не"
 
-            // Translate role to human-readable form
             if (userDetails[8].equals("admin")) {
                 userDetails[8] = "Администратор";
             } else {
                 userDetails[8] = "Клиент";
             }
 
-            // Translate status to human-readable form
             if (userDetails[5].equals("active")) {
                 userDetails[5] = "Активен";
             } else {
@@ -410,6 +408,10 @@ public class userListPanel extends javax.swing.JPanel {
 
         // да не може да се редактира в самата таблица
         jTable1.setDefaultEditor(Object.class, null);
+        
+        // Скриване на резултати: 4
+        jLabel2.setVisible(false);
+        jTextField1.setText("");
     }
 
 

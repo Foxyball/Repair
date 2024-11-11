@@ -10,6 +10,8 @@ public class AdminForm extends javax.swing.JFrame {
     dashboardPanel dashboardPanel;
     userAddPanel userAddPanel;
     userListPanel userListPanel;
+    brandListPanel brandListPanel;
+    brandAddPanel brandAddPanel;
     LoggedInUser LoggedInUser;
 
     public AdminForm(String role) {
@@ -17,13 +19,8 @@ public class AdminForm extends javax.swing.JFrame {
         this.setLocationRelativeTo(null); // Centrirane
         this.setSize(1250, 800);
 
-        // Assuming LoggedInUser is a utility class that stores the current user
         User loggedInUser = LoggedInUser.getUser();
-
-        // Access logged-in user's email (already retrieved during login)
         String email = LoggedInUser.getUser().getEmail();
-
-// Access the logged-in user's name to display on the dashboard
         lbl_user.setText(LoggedInUser.getUser().getName());
 
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("logo.png")));
@@ -37,7 +34,6 @@ public class AdminForm extends javax.swing.JFrame {
 
         }
 
-//        sideLayoutPanel.setLayout(new GridLayout(4,1));
         contentPanel = new JPanel(new CardLayout());
         sideLayoutPanel.setLayout(new BoxLayout(sideLayoutPanel, BoxLayout.Y_AXIS));
 
@@ -76,6 +72,27 @@ public class AdminForm extends javax.swing.JFrame {
         jButton3.setActionCommand("listUser");
         sideLayoutPanel.add(Box.createVerticalStrut(10));
         sideLayoutPanel.add(jButton3);
+
+        jLabel2.setAlignmentX(Component.LEFT_ALIGNMENT);
+        jLabel2.setFont(new Font("Arial", Font.BOLD, 16));
+
+        sideLayoutPanel.add(jLabel2);
+
+        // Добавяне на марка
+        brandAddPanel = new brandAddPanel();
+        contentPanel.add(brandAddPanel, "addBrand");
+        jButton5.addActionListener(switchPanelListener);
+        jButton5.setActionCommand("addBrand");
+        sideLayoutPanel.add(Box.createVerticalStrut(10));
+        sideLayoutPanel.add(jButton5);
+
+        // Всички марки (brands)
+        brandListPanel = new brandListPanel();
+        contentPanel.add(brandListPanel, "listBrand");
+        jButton4.addActionListener(switchPanelListener);
+        jButton4.setActionCommand("listBrand");
+        sideLayoutPanel.add(Box.createVerticalStrut(10));
+        sideLayoutPanel.add(jButton4);
 
         //************************************  
         this.setLayout(new BorderLayout());
@@ -117,6 +134,9 @@ public class AdminForm extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jButton5 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         logoutButton = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
@@ -158,6 +178,25 @@ public class AdminForm extends javax.swing.JFrame {
             }
         });
 
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/add_user_1.png"))); // NOI18N
+        jButton4.setText("Всички марки");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("МАРКИ");
+
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/add_user_1.png"))); // NOI18N
+        jButton5.setText("Добави марка");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout sideLayoutPanelLayout = new javax.swing.GroupLayout(sideLayoutPanel);
         sideLayoutPanel.setLayout(sideLayoutPanelLayout);
         sideLayoutPanelLayout.setHorizontalGroup(
@@ -165,18 +204,25 @@ public class AdminForm extends javax.swing.JFrame {
             .addGroup(sideLayoutPanelLayout.createSequentialGroup()
                 .addGroup(sideLayoutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(sideLayoutPanelLayout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(jLabel1)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(sideLayoutPanelLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(sideLayoutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(sideLayoutPanelLayout.createSequentialGroup()
+                        .addGroup(sideLayoutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(sideLayoutPanelLayout.createSequentialGroup()
+                                .addGap(14, 14, 14)
+                                .addComponent(jLabel1))
+                            .addGroup(sideLayoutPanelLayout.createSequentialGroup()
+                                .addGap(35, 35, 35)
+                                .addComponent(jButton2)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(sideLayoutPanelLayout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addComponent(jButton2)
+                .addContainerGap()
+                .addComponent(jLabel2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         sideLayoutPanelLayout.setVerticalGroup(
@@ -190,7 +236,13 @@ public class AdminForm extends javax.swing.JFrame {
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton3)
-                .addContainerGap(351, Short.MAX_VALUE))
+                .addGap(23, 23, 23)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton4)
+                .addContainerGap(236, Short.MAX_VALUE))
         );
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
@@ -332,6 +384,14 @@ public class AdminForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton5ActionPerformed
+
     // logout user function
     public void logout() {
         // Assuming you're storing the logged-in user in a class like LoggedInUser
@@ -392,7 +452,10 @@ public class AdminForm extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;

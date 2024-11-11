@@ -50,16 +50,8 @@ public class userAddPanel extends javax.swing.JPanel {
         //**********************************//
         //  СКРИВАНЕ НА ФИРМЕНИТЕ ПОЛЕТА    //
         //**********************************//
-        firm_name_lbl.setVisible(false);
-        firm_mol_lbl.setVisible(false);
-        firm_eik_lbl.setVisible(false);
-        firm_dds_lbl.setVisible(false);
-        firm_address_lbl.setVisible(false);
-        firm_name_txt.setVisible(false);
-        firm_mol_txt.setVisible(false);
-        firm_eik_txt.setVisible(false);
-        firm_dds_txt.setVisible(false);
-        firm_address_txt.setVisible(false);
+        is_firm_checkbox.setSelected(false);
+        toggleFirmFieldsVisibility(false);
 
         String filter = "";
         ArrayList<User> users = q.loadUserData(filter);
@@ -83,8 +75,6 @@ public class userAddPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
-        buttonGroup2 = new javax.swing.ButtonGroup();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -139,7 +129,6 @@ public class userAddPanel extends javax.swing.JPanel {
 
         is_firm_lbl.setText("Фирма ?");
 
-        buttonGroup2.add(is_firm_checkbox);
         is_firm_checkbox.setText("ДА");
         is_firm_checkbox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -200,70 +189,67 @@ public class userAddPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addContainerGap(143, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(390, 390, 390)
-                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(72, 72, 72)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jLabel8)
-                                    .addComponent(jLabel9)
-                                    .addComponent(jLabel10))
-                                .addGap(36, 36, 36)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jPasswordField1)
-                                    .addComponent(jTextField3)
-                                    .addComponent(jTextField2)
-                                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel13)
-                                            .addComponent(jLabel14)
-                                            .addComponent(jLabel15))
-                                        .addGap(79, 79, 79)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jTextField6)
-                                            .addComponent(jComboBox1, 0, 98, Short.MAX_VALUE)
-                                            .addComponent(jTextField7)))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel12)
-                                        .addGap(36, 36, 36)
-                                        .addComponent(jTextField5))
-                                    .addComponent(jLabel6))))
-                        .addGap(130, 130, 130)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel10))
+                        .addGap(36, 36, 36)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPasswordField1)
+                            .addComponent(jTextField3)
+                            .addComponent(jTextField2)
+                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(64, 64, 64)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(is_firm_lbl)
-                                    .addComponent(firm_name_lbl))
-                                .addGap(34, 34, 34)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(firm_name_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(is_firm_checkbox)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(firm_eik_lbl)
-                                    .addComponent(firm_mol_lbl)
-                                    .addComponent(firm_dds_lbl)
-                                    .addComponent(firm_address_lbl))
-                                .addGap(25, 25, 25)
+                                    .addComponent(jLabel13)
+                                    .addComponent(jLabel14)
+                                    .addComponent(jLabel15))
+                                .addGap(79, 79, 79)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(firm_eik_txt, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
-                                    .addComponent(firm_mol_txt)
-                                    .addComponent(firm_dds_txt)
-                                    .addComponent(firm_address_txt))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(jTextField6)
+                                    .addComponent(jComboBox1, 0, 98, Short.MAX_VALUE)
+                                    .addComponent(jTextField7)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel12)
+                                .addGap(36, 36, 36)
+                                .addComponent(jTextField5))
+                            .addComponent(jLabel6))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1063, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(21, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(is_firm_lbl)
+                            .addComponent(firm_name_lbl))
+                        .addGap(34, 34, 34)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(is_firm_checkbox)
+                            .addComponent(firm_name_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(firm_eik_lbl)
+                            .addComponent(firm_mol_lbl)
+                            .addComponent(firm_dds_lbl)
+                            .addComponent(firm_address_lbl))
+                        .addGap(25, 25, 25)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(firm_eik_txt)
+                            .addComponent(firm_mol_txt)
+                            .addComponent(firm_dds_txt)
+                            .addComponent(firm_address_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(59, 59, 59)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(77, 77, 77))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 681, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -271,35 +257,54 @@ public class userAddPanel extends javax.swing.JPanel {
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(1, 1, 1)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(is_firm_lbl)
-                                    .addComponent(is_firm_checkbox)))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel13)
-                                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(is_firm_lbl)
+                            .addComponent(is_firm_checkbox))
+                        .addGap(214, 214, 214))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel14)
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel15)
-                                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel12)
-                                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(jLabel13)
+                                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel14)
+                                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel15)
+                                            .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(jLabel12)
+                                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                    .addComponent(jLabel7)
+                                                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addGap(18, 18, 18)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                    .addComponent(jLabel8)
+                                                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addGap(18, 18, 18)
+                                                .addComponent(jLabel9))
+                                            .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(jLabel10)
+                                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel6)
-                                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGap(32, 32, 32)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(firm_name_lbl)
                                     .addComponent(firm_name_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -320,29 +325,22 @@ public class userAddPanel extends javax.swing.JPanel {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(firm_address_lbl)
                                     .addComponent(firm_address_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel8)
-                                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel9))
-                            .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel10)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(196, 196, 196))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    // Обновяване на данните в таблицата
+    public void refreshTable() {
+        model.setRowCount(0);
+        String filter = "";
+        ArrayList<User> users = q.loadUserData(filter);
+        for (User user : users) {
+            Object[] row = userToArr(user);
+            model.addRow(row);
+        }
+    }
 
     // функция за връщане свойствата на обекта под формата на масив
     private Object[] userToArr(User user) {
@@ -356,37 +354,23 @@ public class userAddPanel extends javax.swing.JPanel {
         };
     }
 
+    private void toggleFirmFieldsVisibility(boolean visible) {
+        firm_name_lbl.setVisible(visible);
+        firm_mol_lbl.setVisible(visible);
+        firm_eik_lbl.setVisible(visible);
+        firm_dds_lbl.setVisible(visible);
+        firm_address_lbl.setVisible(visible);
+        firm_name_txt.setVisible(visible);
+        firm_mol_txt.setVisible(visible);
+        firm_eik_txt.setVisible(visible);
+        firm_dds_txt.setVisible(visible);
+        firm_address_txt.setVisible(visible);
+    }
+
     // Проверяване дали е отметнат чекбокса за фирма и показване/скриване на полетата
     private void is_firm_checkboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_is_firm_checkboxActionPerformed
-
-        isFirmChecked = !isFirmChecked;
-
-        is_firm_checkbox.setSelected(isFirmChecked);
-
-        if (isFirmChecked) {
-
-            firm_name_lbl.setVisible(true);
-            firm_mol_lbl.setVisible(true);
-            firm_eik_lbl.setVisible(true);
-            firm_dds_lbl.setVisible(true);
-            firm_address_lbl.setVisible(true);
-            firm_name_txt.setVisible(true);
-            firm_mol_txt.setVisible(true);
-            firm_eik_txt.setVisible(true);
-            firm_dds_txt.setVisible(true);
-            firm_address_txt.setVisible(true);
-        } else {
-            firm_name_lbl.setVisible(false);
-            firm_mol_lbl.setVisible(false);
-            firm_eik_lbl.setVisible(false);
-            firm_dds_lbl.setVisible(false);
-            firm_address_lbl.setVisible(false);
-            firm_name_txt.setVisible(false);
-            firm_mol_txt.setVisible(false);
-            firm_eik_txt.setVisible(false);
-            firm_dds_txt.setVisible(false);
-            firm_address_txt.setVisible(false);
-        }
+        isFirmChecked = is_firm_checkbox.isSelected();
+        toggleFirmFieldsVisibility(isFirmChecked);
     }//GEN-LAST:event_is_firm_checkboxActionPerformed
 
     // Добавяне бутон
@@ -416,13 +400,13 @@ public class userAddPanel extends javax.swing.JPanel {
             return;
         }
 
-        // Полета за фирмата
+// Полета за фирмата
         int is_firm = is_firm_checkbox.isSelected() ? 1 : 0;
-        String firm_name = is_firm == 1 ? firm_name_txt.getText() : null;
-        String firm_eik = is_firm == 1 ? firm_eik_txt.getText() : null;
-        String firm_mol = is_firm == 1 ? firm_mol_txt.getText() : null;
-        String firm_dds = is_firm == 1 ? firm_dds_txt.getText() : null;
-        String firm_address = is_firm == 1 ? firm_address_txt.getText() : null;
+        String firm_name = is_firm == 1 ? firm_name_txt.getText() : "";
+        String firm_eik = is_firm == 1 ? firm_eik_txt.getText() : "";
+        String firm_mol = is_firm == 1 ? firm_mol_txt.getText() : "";
+        String firm_dds = is_firm == 1 ? firm_dds_txt.getText() : "";
+        String firm_address = is_firm == 1 ? firm_address_txt.getText() : "";
 
         // Преименуване на ролята
         if (role.equals("Клиент")) {
@@ -443,19 +427,28 @@ public class userAddPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Невалиден статус", "Грешка", JOptionPane.ERROR_MESSAGE);
         }
 
-        // Добавяне в базата, извиква метода от клас User.java
-//        boolean success = User.insertUser(name, password, email, phone, role, pkod, city, status, egn, is_firm, firm_name, firm_eik, firm_mol, firm_dds, firm_address);
-        // Create the columns and values arrays for the insert query
         String[] columns = {
             "name", "password", "email", "phone", "role", "pkod", "city",
-            "status", "egn", "is_firm", "firm_name", "firm_eik",
-            "firm_mol", "firm_dds", "firm_address"
+            "status", "egn", "is_firm"
         };
 
         Object[] values = {
             name, password, email, phone, role, pkod, city, status,
-            egn, is_firm, firm_name, firm_eik, firm_mol, firm_dds, firm_address
+            egn
         };
+
+        // Добавяне на фирмени данни
+        if (is_firm == 1) {
+            columns = new String[]{
+                "name", "password", "email", "phone", "role", "pkod", "city",
+                "status", "egn", "is_firm", "firm_name", "firm_eik", "firm_mol", "firm_dds", "firm_address"
+            };
+
+            values = new Object[]{
+                name, password, email, phone, role, pkod, city, status,
+                egn, is_firm, firm_name, firm_eik, firm_mol, firm_dds, firm_address
+            };
+        }
 
         boolean success = q.insert("users", columns, values);
 
@@ -468,6 +461,7 @@ public class userAddPanel extends javax.swing.JPanel {
         if (success) {
             JOptionPane.showMessageDialog(this, "Успешно добавяне!" + "\n" + "Временна парола: " + password);
             clearFields();
+            refreshTable();
         } else {
             JOptionPane.showMessageDialog(this, "Възникна грешка при добавянето на потребителя.", "Грешка", JOptionPane.ERROR_MESSAGE);
         }
@@ -527,8 +521,6 @@ public class userAddPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JLabel firm_address_lbl;
     private javax.swing.JTextField firm_address_txt;
     private javax.swing.JLabel firm_dds_lbl;

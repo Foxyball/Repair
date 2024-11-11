@@ -359,16 +359,16 @@ public class userEditPanel extends javax.swing.JPanel {
 
         is_firm = is_firm_checkbox.isSelected() ? "1" : "0";
 
-        String firm_name = firm_name_txt.getText();
-        String firm_mol = firm_mol_txt.getText();
-        String firm_eik = firm_eik_txt.getText();
-        String firm_dds = firm_dds_txt.getText();
-        String firm_address = firm_address_txt.getText();
+        // Взимаме стойностите на фирмените полета, като проверяваме дали е чекнато или не, при ънчек нулира полетата на празен низ, защото не е фирма
+        String firm_name = isFirmChecked ? firm_name_txt.getText() : "";
+        String firm_mol = isFirmChecked ? firm_mol_txt.getText() : "";
+        String firm_eik = isFirmChecked ? firm_eik_txt.getText() : "";
+        String firm_dds = isFirmChecked ? firm_dds_txt.getText() : "";
+        String firm_address = isFirmChecked ? firm_address_txt.getText() : "";
 
-        String[] columns = {"name", "email", "phone", "city", "status", "egn", "pkod", "role", "is_firm", "firm_name", "firm_mol", "firm_eik", "firm_dds", "firm_address"};
-        Object[] values = {name, email, phone, city, status, egn, pkod, role, is_firm, firm_name, firm_mol, firm_eik, firm_dds, firm_address};
+        String[] columns = {"name", "email", "phone", "city", "status", "egn", "pkod", "role", "is_firm", "firm_name", "firm_eik", "firm_mol", "firm_dds", "firm_address"};
+        Object[] values = {name, email, phone, city, status, egn, pkod, role, is_firm, firm_name, firm_eik, firm_mol, firm_dds, firm_address};
 
-        // Call the update method from config
         boolean success = q.update("users", columns, values, "id", id);
 
         if (success) {

@@ -12,7 +12,6 @@ import javax.mail.Session;
  *
  * @author thefo
  */
-
 // Config for db connection
 public class config {
 
@@ -28,6 +27,7 @@ public class config {
     private static final String SMTP_HOST = "sandbox.smtp.mailtrap.io";
     private static final String SMTP_PORT = "587"; // Mailtrap SMTP port
 
+    // Конструктор
     public config() {
         try {
             conn = DriverManager.getConnection(DATABASE_URL);
@@ -49,30 +49,6 @@ public class config {
 
     }
 
-//    public static Connection getConnection(){
-//         Connection connection = null; // Create a new connection each time
-//        if(connection == null) {
-//            try {
-//                Class.forName("org.sqlite.JDBC");
-//                connection=DriverManager.getConnection(DATABASE_URL);
-//                System.out.println("Connected to database");
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        }
-//        return connection;
-//    }
-//    public static void closeConnection() {
-//        if (connection != null) {
-//            try {
-//                connection.close();
-//                System.out.println("Disconnected from database");
-//            } catch (Exception e) {
-//                   e.printStackTrace();
-//            }
-//        }
-//        
-//    }
     public static Properties getMailProperties() {
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
@@ -88,6 +64,29 @@ public class config {
                 return new PasswordAuthentication(EMAIL_FROM, EMAIL_PASSWORD);
             }
         });
+    }
+
+    // SELECT заявка за извличане на brands
+    public ArrayList<Brand> loadBrandData() {
+        ArrayList<Brand> brands = new ArrayList<>();
+        String q = "SELECT * FROM brands";
+
+        try (PreparedStatement stmt = conn.prepareStatement(q)) {
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Brand brand = new Brand(
+                        rs.getInt("brand_id"),
+                        rs.getString("brand_name")
+                );
+                brands.add(brand);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error loading brand data: " + e.getMessage());
+        }
+
+        return brands;
     }
 
     // SELECT заявка за извличане на users
