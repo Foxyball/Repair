@@ -61,6 +61,10 @@ public class User {
     public String getRole() {
         return role;
     }
+    
+    public int getPKOD(){
+        return pkod;
+    }
 
     public String getCity() {
         return city;
@@ -70,5 +74,31 @@ public class User {
         return status;
     }
 
+    public String getEGN() {
+        return egn;
+    }
+    
+    public int getIsFirm() {
+        return is_firm;
+    }
+    
+    public String getFirmName() {
+        return firm_name;
+    }
    
+    public String getFirmEIK() {
+        return firm_eik;
+    }
+    
+    public String getFirmMOL(){
+        return firm_mol;
+    }
+    
+    public String getFirmDDS() {
+        return firm_dds;
+    }
+    
+    public String getFirmAddress() {
+        return firm_address;
+    }
 }

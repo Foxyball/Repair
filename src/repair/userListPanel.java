@@ -36,7 +36,7 @@ public class userListPanel extends javax.swing.JPanel {
 
         timer.start();
 
-        String[] cols = {"ID", "Име", "Имейл", "Телефон", "Град", "Статус"};
+        String[] cols = {"id", "Име", "Имейл", "Телефон", "Град", "Статус", "ЕГН", "ПКОД", "Достъп", "Фирма", "Фирма име", "Фирма ЕИК", "Фирма МОЛ", "Фирма ДДС", "Фирма адрес"};
         model = new DefaultTableModel(cols, 0);
 
         // Прави таблицата да не се едитва
@@ -56,13 +56,44 @@ public class userListPanel extends javax.swing.JPanel {
 
     // функция за връщане свойствата на обекта под формата на масив
     private Object[] userToArr(User user) {
+
+        String isFirm;
+        if (user.getIsFirm() == 1) {
+            isFirm = "Да";
+        } else {
+            isFirm = "Не";
+        }
+
+        String role;
+        if (user.getRole().equals("admin")) {
+            role = "Администратор";
+        } else {
+            role = "Клиент";
+        }
+
+        String status;
+        if (user.getStatus().equals("active")) {
+            status = "Активен";
+        } else {
+            status = "Неактивен";
+        }
+
         return new Object[]{
             user.getUserId(),
             user.getName(),
             user.getEmail(),
             user.getPhone(),
             user.getCity(),
-            user.getStatus()
+            status,
+            user.getEGN(),
+            user.getPKOD(),
+            role,
+            isFirm,
+            user.getFirmName(),
+            user.getFirmEIK(),
+            user.getFirmMOL(),
+            user.getFirmDDS(),
+            user.getFirmAddress()
         };
     }
 
@@ -143,7 +174,8 @@ public class userListPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel1.setText("Всички потребители");
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel1.setText("ВСИЧКИ ПОТРЕБИТЕЛИ");
 
         jButton6.setText("Експорт");
 
@@ -162,40 +194,37 @@ public class userListPanel extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 960, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(110, 110, 110)
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton7)
-                        .addGap(41, 41, 41)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jButton4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton7)
+                                .addGap(41, 41, 41)
+                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel2)))))
                 .addContainerGap(43, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 14, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 925, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(78, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(9, 9, 9)
+                .addGap(51, 51, 51)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -209,7 +238,7 @@ public class userListPanel extends javax.swing.JPanel {
                         .addComponent(jButton6)
                         .addComponent(jButton7)))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 511, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 469, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -296,22 +325,18 @@ public class userListPanel extends javax.swing.JPanel {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         String keyword = jTextField1.getText().trim();
 
-        // Check if the keyword is empty
         if (keyword.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Моля, въведете ключова дума за търсене!", "Грешка", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        // Prepare the columns and WHERE clause for the search
         String[] columns = {"id", "name", "email", "phone", "city", "status", "egn", "pkod", "role", "is_firm", "firm_name", "firm_eik", "firm_mol", "firm_dds", "firm_address"};
         String whereClause = "name LIKE ? OR email LIKE ? OR phone LIKE ? OR city LIKE ?";
         Object[] params = {"%" + keyword + "%", "%" + keyword + "%", "%" + keyword + "%", "%" + keyword + "%"};
 
-        // Execute the universal select method
         ArrayList<String> searchResults = q.select(columns, "users", whereClause, params);
 
-        // Prepare the table model for displaying the results
-        String[] columnNames = {"ID", "Име", "Имейл", "Телефон", "Град", "Статус", "ЕГН", "Пощ.код", "Роля", "Фирма", "Име на Фирма", "Фирма ЕИК", "Фирма МОЛ", "Фирма ДДС", "Фирма Адрес"};
+        String[] columnNames = {"id", "Име", "Имейл", "Телефон", "Град", "Статус", "ЕГН", "ПКОД", "Достъп", "Фирма", "Фирма име", "Фирма ЕИК", "Фирма МОЛ", "Фирма ДДС", "Фирма адрес"};
         DefaultTableModel model = new DefaultTableModel(columnNames, 0);
 
         // Populate the table model with data
@@ -376,18 +401,24 @@ public class userListPanel extends javax.swing.JPanel {
         String[] columns = {"id", "name", "email", "phone", "city", "status", "egn", "pkod", "role", "is_firm",
             "firm_name", "firm_eik", "firm_mol", "firm_dds", "firm_address"};
         String table = "users";
-        String whereClause = ""; 
+        String whereClause = "";
         Object[] params = null;
 
         ArrayList<String> userList = q.select(columns, table, whereClause, params);
 
-        String[] cols = {"ID", "Име", "Имейл", "Телефон", "Град", "Статус", "ЕГН", "Пощ.код", "Роля", "Фирма",
-            "Име на Фирма", "Фирма ЕИК", "Фирма МОЛ", "Фирма ДДС", "Фирма Адрес"};
+        String[] cols = {"id", "Име", "Имейл", "Телефон", "Град", "Статус", "ЕГН", "ПКОД", "Достъп", "Фирма", "Фирма име", "Фирма ЕИК", "Фирма МОЛ", "Фирма ДДС", "Фирма адрес"};
         DefaultTableModel model = new DefaultTableModel(cols, 0);
 
         for (String user : userList) {
             String[] userDetails = user.split("---");
-            userDetails[9] = userDetails[9].equals("1") ? "Да" : "Не"; // Convert is_firm to "Да"/"Не"
+            
+            // Обхожда масива и проверява за null стойности, за да ги визуализира като празна клетка, а не null
+            for (int i = 0; i < userDetails.length; i++) {
+                if (userDetails[i] == null || userDetails[i].equals("null")) {
+                    userDetails[i] = "";
+                }
+            }
+            userDetails[9] = userDetails[9].equals("1") ? "Да" : "Не";
 
             if (userDetails[8].equals("admin")) {
                 userDetails[8] = "Администратор";
@@ -408,7 +439,7 @@ public class userListPanel extends javax.swing.JPanel {
 
         // да не може да се редактира в самата таблица
         jTable1.setDefaultEditor(Object.class, null);
-        
+
         // Скриване на резултати: 4
         jLabel2.setVisible(false);
         jTextField1.setText("");

@@ -87,7 +87,7 @@ public class AdminForm extends javax.swing.JFrame {
         sideLayoutPanel.add(jButton5);
 
         // Всички марки (brands)
-        brandListPanel = new brandListPanel();
+        brandListPanel = new brandListPanel(this);
         contentPanel.add(brandListPanel, "listBrand");
         jButton4.addActionListener(switchPanelListener);
         jButton4.setActionCommand("listBrand");
@@ -110,19 +110,27 @@ public class AdminForm extends javax.swing.JFrame {
     };
 
     //************************************
-    // Заради бутона в userListPanel “Добавяне“
+    // СЛУШАЧИ ОТ ПАНЕЛИТЕ ЗА ПРЕВКЛЮЧВАНЕ МЕЖДУ ПАНЕЛИТЕ
+    // Слушач за клик на бутона от панела за Всички Потребители - Добавяне
     public void switchToUserAddPanel() {
         CardLayout cardLayout = (CardLayout) contentPanel.getLayout();
         cardLayout.show(contentPanel, "addUser");
     }
 
-    // Заради бутона за редактиране в userListPanel
+    // Слушач за клик на бутона от панела за Всички Потребители - Редактиране
     public void switchToUserEditPanel(int id, String name, String email, String phone, String city, String status, String egn, String pkod, String role, String is_firm, String firm_name, String firm_eik, String firm_mol, String firm_dds, String firm_address) {
         // Нова инстанция на userEditPanel с параметрите
         userEditPanel editPanel = new userEditPanel(id, name, email, phone, city, status, egn, pkod, role, is_firm, firm_name, firm_eik, firm_mol, firm_dds, firm_address);
         contentPanel.add(editPanel, "editUser");
         CardLayout cardLayout = (CardLayout) contentPanel.getLayout();
         cardLayout.show(contentPanel, "editUser");
+    }
+
+    
+    // Слушач за клик на бутона от панела за Всички Марки - Добавяне
+    public void switchToBrandAddPanel() {
+        CardLayout cardLayout = (CardLayout) contentPanel.getLayout();
+        cardLayout.show(contentPanel, "addBrand");
     }
 
     @SuppressWarnings("unchecked")
@@ -360,7 +368,7 @@ public class AdminForm extends javax.swing.JFrame {
 
     // [Menu Bar] За приложението
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        JDialog dialog = new JDialog(this, "About Application", true);
+        JDialog dialog = new JDialog(this, "За Приложението", true);
         AboutAppPanel about = new AboutAppPanel(dialog);
 
         dialog.getContentPane().add(about);

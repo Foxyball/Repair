@@ -1,10 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package repair;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -13,28 +13,66 @@ import java.util.ArrayList;
 public class brandListPanel extends javax.swing.JPanel {
 
     config q = new config();
+    DefaultTableModel model;
+    private AdminForm adminForm;
 
-    public brandListPanel() {
+    public brandListPanel(AdminForm adminForm) {
         initComponents();
+        this.adminForm = adminForm;
 
+        jButton1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                adminForm.switchToBrandAddPanel();
+            }
+        });
+
+        // TOVA ZA POSLE TRQBVA TRQBVA PRI ZAQVKATA
         // Изчистване на първоначалните данни при стартиране
         jComboBox1.removeAllItems();
-
-        ArrayList<Brand> brands = q.loadBrandData();
+        ArrayList<Brand> brands = q.loadBrandData(); // samo masiva ni trqbva
         for (Brand brand : brands) {
             jComboBox1.addItem(brand);
         }
-        
-        
-        
-        
-         // Добавяне на ActionListener за отпечатване на ID при избран елемент
+
+        // Добавяне на ActionListener за отпечатване на ID при избран елемент
         jComboBox1.addActionListener(e -> {
             Brand selectedBrand = (Brand) jComboBox1.getSelectedItem();
             if (selectedBrand != null) {
                 System.out.println("Selected Brand ID: " + selectedBrand.getBrandId());
             }
         });
+        //**************************************************************************
+
+        model = (DefaultTableModel) jTable1.getModel();
+
+        for (Brand brand : brands) {
+            Object[] row = brandsToArr(brand);
+            model.addRow(row);
+        }
+
+        // да не може да се редактира в самата таблица
+        jTable1.setDefaultEditor(Object.class, null);
+
+        jTable1.setModel(model);
+
+    }
+
+    private Object[] brandsToArr(Brand brand) {
+        return new Object[]{
+            brand.getBrandId(),
+            brand.getBrandName()
+        };
+    }
+
+    // Обновяване на данните в таблицата
+    public void refreshTable() {
+        model.setRowCount(0);
+        ArrayList<Brand> brands = q.loadBrandData();
+        for (Brand brand : brands) {
+            Object[] row = brandsToArr(brand);
+            model.addRow(row);
+        }
     }
 
     /**
@@ -48,22 +86,87 @@ public class brandListPanel extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel1.setText("ВСИЧКИ МАРКИ");
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Марка"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        jButton1.setText("Добавяне");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("Изтриване");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jButton4.setText("Обнови");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(531, Short.MAX_VALUE)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(283, 283, 283))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(345, 345, 345))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(55, 55, 55))))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(45, 45, 45)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(128, 128, 128)
+                        .addComponent(jButton3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton4))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 41, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(126, 126, 126)
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(335, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton3)
+                    .addComponent(jButton4))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -84,9 +187,78 @@ public class brandListPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    // Бутон за изтриване
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        int selectedRow = jTable1.getSelectedRow();
+
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Моля, изберете потребител за изтриване.");
+            return;
+        }
+
+        // Кастване на ID-то към int от String
+        String idString = jTable1.getValueAt(selectedRow, 0).toString();
+        int brandId = Integer.parseInt(idString);
+
+        int confirm = JOptionPane.showConfirmDialog(this, "Сигурни ли сте, че искате да изтриете тази марка?", "Потвърждение", JOptionPane.YES_NO_OPTION);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            boolean isDeleted = q.delete("brands", "brand_id", brandId);
+
+            if (isDeleted) {
+                refreshTable();
+                JOptionPane.showMessageDialog(this, "Марката е изтрита успешно.");
+            } else {
+                JOptionPane.showMessageDialog(this, "Грешка при изтриване на марка.");
+            }
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        refreshBrandList();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    // Обновяване на данните с бутон
+    public void refreshBrandList() {
+
+        model.setRowCount(0);
+
+        String[] columns = {"brand_id", "brand_name"};
+        String table = "brands";
+        String whereClause = "";
+        Object[] params = null;
+
+        ArrayList<String> brandList = q.select(columns, table, whereClause, params);
+
+        for (String brand : brandList) {
+            String[] brandDetails = brand.split("---");
+
+            model.addRow(brandDetails);
+        }
+
+        jTable1.setModel(model);
+
+        // да не може да се редактира в самата таблица
+        jTable1.setDefaultEditor(Object.class, null);
+
+        // Скриване на резултати: 4
+//        jLabel2.setVisible(false);
+//        jTextField1.setText("");
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JComboBox<Brand> jComboBox1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }
