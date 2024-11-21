@@ -101,4 +101,48 @@ public class User {
     public String getFirmAddress() {
         return firm_address;
     }
+    
+    
+     // функция за връщане свойствата на обекта под формата на масив
+    public Object[] toArray() {
+
+        String isFirm;
+        if (getIsFirm() == 1) {
+            isFirm = "Да";
+        } else {
+            isFirm = "Не";
+        }
+
+        String role;
+        if (getRole().equals("admin")) {
+            role = "Администратор";
+        } else {
+            role = "Клиент";
+        }
+
+        String status;
+        if (getStatus().equals("active")) {
+            status = "Активен";
+        } else {
+            status = "Неактивен";
+        }
+
+        return new Object[]{
+            getUserId(),
+            getName(),
+            getEmail(),
+            getPhone(),
+            getCity(),
+            status,
+            getEGN(),
+            getPKOD(),
+            role,
+            isFirm,
+            getFirmName(),
+            getFirmEIK(),
+            getFirmMOL(),
+            getFirmDDS(),
+            getFirmAddress()
+        };
+    }
 }

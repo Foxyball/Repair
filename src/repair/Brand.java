@@ -25,4 +25,11 @@ public class Brand {
     public String toString() {
         return brand_name;
     }
+
+    public Object[] toArray() {
+        return new Object[]{
+            getBrandId(),
+            getBrandName()
+        };
+    }
 }

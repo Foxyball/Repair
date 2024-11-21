@@ -2,6 +2,7 @@ package repair;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
@@ -27,74 +28,22 @@ public class userListPanel extends javax.swing.JPanel {
             }
         });
 
-        timer = new Timer(50000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                refreshUserList();
-            }
-        });
-
-        timer.start();
-
         String[] cols = {"id", "Име", "Имейл", "Телефон", "Град", "Статус", "ЕГН", "ПКОД", "Достъп", "Фирма", "Фирма име", "Фирма ЕИК", "Фирма МОЛ", "Фирма ДДС", "Фирма адрес"};
         model = new DefaultTableModel(cols, 0);
 
         // Прави таблицата да не се едитва
         jTable1.setDefaultEditor(Object.class, null);
+        jTable1.setAutoCreateRowSorter(true); // позволява сортиране по колони
 
         String filter = "";
         ArrayList<User> users = q.loadUserData(filter);
 
         for (User user : users) {
-            Object[] row = userToArr(user);
-            model.addRow(row);
+            model.addRow(user.toArray());
         }
 
         jTable1.setModel(model);
 
-    }
-
-    // функция за връщане свойствата на обекта под формата на масив
-    private Object[] userToArr(User user) {
-
-        String isFirm;
-        if (user.getIsFirm() == 1) {
-            isFirm = "Да";
-        } else {
-            isFirm = "Не";
-        }
-
-        String role;
-        if (user.getRole().equals("admin")) {
-            role = "Администратор";
-        } else {
-            role = "Клиент";
-        }
-
-        String status;
-        if (user.getStatus().equals("active")) {
-            status = "Активен";
-        } else {
-            status = "Неактивен";
-        }
-
-        return new Object[]{
-            user.getUserId(),
-            user.getName(),
-            user.getEmail(),
-            user.getPhone(),
-            user.getCity(),
-            status,
-            user.getEGN(),
-            user.getPKOD(),
-            role,
-            isFirm,
-            user.getFirmName(),
-            user.getFirmEIK(),
-            user.getFirmMOL(),
-            user.getFirmDDS(),
-            user.getFirmAddress()
-        };
     }
 
     /**
@@ -178,6 +127,11 @@ public class userListPanel extends javax.swing.JPanel {
         jLabel1.setText("ВСИЧКИ ПОТРЕБИТЕЛИ");
 
         jButton6.setText("Експорт");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Резултати: 0");
 
@@ -396,6 +350,15 @@ public class userListPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButton7ActionPerformed
 
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        MessageFormat header = new MessageFormat("Клиенти");
+        try {
+            jTable1.print(javax.swing.JTable.PrintMode.FIT_WIDTH, header, null);
+        } catch (java.awt.print.PrinterException e) {
+            System.err.format("Грешка при принтиране %s%n", e.getMessage());
+        }
+    }//GEN-LAST:event_jButton6ActionPerformed
+
     // Обновяване на данните с бутон
     public void refreshUserList() {
         String[] columns = {"id", "name", "email", "phone", "city", "status", "egn", "pkod", "role", "is_firm",
@@ -411,7 +374,7 @@ public class userListPanel extends javax.swing.JPanel {
 
         for (String user : userList) {
             String[] userDetails = user.split("---");
-            
+
             // Обхожда масива и проверява за null стойности, за да ги визуализира като празна клетка, а не null
             for (int i = 0; i < userDetails.length; i++) {
                 if (userDetails[i] == null || userDetails[i].equals("null")) {

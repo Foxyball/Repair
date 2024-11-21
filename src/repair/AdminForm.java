@@ -12,6 +12,7 @@ public class AdminForm extends javax.swing.JFrame {
     userListPanel userListPanel;
     brandListPanel brandListPanel;
     brandAddPanel brandAddPanel;
+    brandEditPanel brandEditPanel;
     LoggedInUser LoggedInUser;
 
     public AdminForm(String role) {
@@ -131,6 +132,16 @@ public class AdminForm extends javax.swing.JFrame {
     public void switchToBrandAddPanel() {
         CardLayout cardLayout = (CardLayout) contentPanel.getLayout();
         cardLayout.show(contentPanel, "addBrand");
+    }
+    
+    
+    // Слушач за клик на бутона от панела за Всички Марки - Редактиране
+    public void switchToBrandEditPanel(int brand_id, String brand_name) {
+        // Нова инстанция на brandEditPanel с параметрите
+        brandEditPanel editPanel = new brandEditPanel(brand_id, brand_name);
+        contentPanel.add(editPanel, "editBrand");
+        CardLayout cardLayout = (CardLayout) contentPanel.getLayout();
+        cardLayout.show(contentPanel, "editBrand");
     }
 
     @SuppressWarnings("unchecked")

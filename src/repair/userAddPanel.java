@@ -58,8 +58,7 @@ public class userAddPanel extends javax.swing.JPanel {
 
         // обхождане на масива и добавяне в таблицата
         for (User user : users) {
-            Object[] row = userToArr(user);
-            model.addRow(row);
+        model.addRow(user.toArray());
         }
 
         // задаване на новия модел
@@ -326,52 +325,11 @@ public class userAddPanel extends javax.swing.JPanel {
         String filter = "";
         ArrayList<User> users = q.loadUserData(filter);
         for (User user : users) {
-            Object[] row = userToArr(user);
-            model.addRow(row);
+           model.addRow(user.toArray());
         }
     }
 
-    // функция за връщане свойствата на обекта под формата на масив
-    private Object[] userToArr(User user) {
-        String isFirm;
-        if (user.getIsFirm() == 1) {
-            isFirm = "Да";
-        } else {
-            isFirm = "Не";
-        }
 
-        String role;
-        if (user.getRole().equals("admin")) {
-            role = "Администратор";
-        } else {
-            role = "Клиент";
-        }
-
-        String status;
-        if (user.getStatus().equals("active")) {
-            status = "Активен";
-        } else {
-            status = "Неактивен";
-        }
-
-        return new Object[]{
-            user.getUserId(),
-            user.getName(),
-            user.getEmail(),
-            user.getPhone(),
-            user.getCity(),
-            status,
-            user.getEGN(),
-            user.getPKOD(),
-            role,
-            isFirm,
-            user.getFirmName(),
-            user.getFirmEIK(),
-            user.getFirmMOL(),
-            user.getFirmDDS(),
-            user.getFirmAddress()
-        };
-    }
 
     private void toggleFirmFieldsVisibility(boolean visible) {
         firm_name_lbl.setVisible(visible);
