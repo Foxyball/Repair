@@ -82,7 +82,7 @@ public class LoginForm extends javax.swing.JFrame {
         txtPassword.setText("parolata1");
         txtPassword.setLabelText("Парола");
 
-        txtUsername.setText("admin@abv.bg");
+        txtUsername.setText("admin@repair.bg");
         txtUsername.setLabelText("Имейл");
 
         button1.setBackground(new java.awt.Color(0, 151, 236));

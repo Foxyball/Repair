@@ -40,62 +40,8 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
-                  <Component id="firm_name_txt" min="-2" pref="144" max="-2" attributes="0"/>
-                  <EmptySpace pref="72" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabel14" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="jComboBox2" min="-2" pref="96" max="-2" attributes="0"/>
-                      <Component id="jComboBox1" min="-2" pref="98" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="130" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="is_firm_lbl" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
-                          <Component id="is_firm_checkbox" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="firm_eik_lbl" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="firm_mol_lbl" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="firm_dds_lbl" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="firm_address_lbl" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="firm_eik_txt" alignment="0" max="32767" attributes="0"/>
-                              <Component id="firm_mol_txt" alignment="0" max="32767" attributes="0"/>
-                              <Component id="firm_dds_txt" alignment="0" max="32767" attributes="0"/>
-                              <Component id="firm_address_txt" alignment="0" min="-2" pref="98" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                  </Group>
-                  <EmptySpace pref="124" max="32767" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="btnAddUser" min="-2" pref="135" max="-2" attributes="0"/>
-                      <Component id="lblEditUser" min="-2" pref="600" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="txtUserName" min="-2" pref="144" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="txtUserPhone" min="-2" pref="144" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="txtUserEGN" min="-2" pref="144" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="txtUserID" min="-2" pref="144" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -106,7 +52,66 @@
                           <Component id="txtUserPKOD" min="-2" pref="144" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="txtUserName" min="-2" pref="144" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="txtUserPhone" min="-2" pref="144" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="txtUserEGN" min="-2" pref="144" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="comboUserStatus" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Component id="comboUserRole" max="32767" attributes="0"/>
+                                  <EmptySpace min="-2" pref="198" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
                   </Group>
+              </Group>
+              <Group type="102" alignment="1" attributes="0">
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="-2" pref="307" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="firm_eik_txt" min="-2" pref="144" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="firm_dds_txt" min="-2" pref="144" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Component id="firm_name_txt" min="-2" pref="144" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="firm_mol_txt" min="-2" pref="144" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  <Component id="is_firm_lbl" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="is_firm_checkbox" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="firm_address_txt" min="-2" pref="144" max="-2" attributes="0"/>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="btnAddUser" min="-2" pref="135" max="-2" attributes="0"/>
+                              <Component id="lblEditUser" min="-2" pref="600" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                  </Group>
+                  <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -115,64 +120,53 @@
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="lblEditUser" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="is_firm_lbl" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="is_firm_checkbox" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="firm_eik_lbl" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="firm_eik_txt" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="firm_mol_lbl" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="firm_mol_txt" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="firm_dds_lbl" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="firm_dds_txt" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="firm_address_lbl" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="firm_address_txt" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel14" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="firm_name_txt" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="lblEditUser" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="is_firm_lbl" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="is_firm_checkbox" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
-                              <Component id="jComboBox1" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="firm_name_txt" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="firm_mol_txt" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="firm_eik_txt" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="firm_dds_txt" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="firm_address_txt" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jComboBox2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtUserID" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtUserEmail" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtUserCity" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtUserPKOD" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="txtUserName" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtUserPhone" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtUserEGN" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace pref="22" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="comboUserRole" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="txtUserID" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtUserEmail" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtUserCity" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtUserPKOD" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="txtUserName" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtUserPhone" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtUserEGN" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace pref="68" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="comboUserStatus" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnAddUser" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="77" max="-2" attributes="0"/>
               </Group>
@@ -180,24 +174,6 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="jLabel6">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="&#x414;&#x43e;&#x441;&#x442;&#x44a;&#x43f;"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="firm_eik_txt">
-        </Component>
-        <Component class="javax.swing.JTextField" name="firm_mol_txt">
-        </Component>
-        <Component class="javax.swing.JTextField" name="firm_dds_txt">
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel14">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="&#x421;&#x442;&#x430;&#x442;&#x443;&#x441;"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="firm_address_txt">
-        </Component>
         <Component class="javax.swing.JLabel" name="is_firm_lbl">
           <Properties>
             <Property name="text" type="java.lang.String" value="&#x424;&#x438;&#x440;&#x43c;&#x430; ?"/>
@@ -210,52 +186,6 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="is_firm_checkboxActionPerformed"/>
           </Events>
-        </Component>
-        <Component class="javax.swing.JLabel" name="firm_eik_lbl">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="&#x424;&#x438;&#x440;&#x43c;&#x430; &#x415;&#x418;&#x41a;"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="firm_mol_lbl">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="&#x424;&#x438;&#x440;&#x43c;&#x430; &#x41c;&#x41e;&#x41b;"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="firm_dds_lbl">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="&#x424;&#x438;&#x440;&#x43c;&#x430; &#x414;&#x414;&#x421;"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="firm_address_lbl">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="&#x410;&#x434;&#x440;&#x435;&#x441; &#x43d;&#x430; &#x444;&#x438;&#x440;&#x43c;&#x430;"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JComboBox" name="jComboBox2">
-          <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="2">
-                <StringItem index="0" value="&#x41a;&#x43b;&#x438;&#x435;&#x43d;&#x442;"/>
-                <StringItem index="1" value="&#x410;&#x434;&#x43c;&#x438;&#x43d;&#x438;&#x441;&#x442;&#x440;&#x430;&#x442;&#x43e;&#x440;"/>
-              </StringArray>
-            </Property>
-          </Properties>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-          </AuxValues>
-        </Component>
-        <Component class="javax.swing.JComboBox" name="jComboBox1">
-          <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="2">
-                <StringItem index="0" value="&#x410;&#x43a;&#x442;&#x438;&#x432;&#x435;&#x43d;"/>
-                <StringItem index="1" value="&#x41d;&#x435;&#x430;&#x43a;&#x442;&#x438;&#x432;&#x435;&#x43d;"/>
-              </StringArray>
-            </Property>
-          </Properties>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-          </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="lblEditUser">
           <Properties>
@@ -321,6 +251,46 @@
         <Component class="repair.TextField" name="txtUserPKOD">
           <Properties>
             <Property name="labelText" type="java.lang.String" value="&#x41f;&#x43e;&#x449;. &#x43a;&#x43e;&#x434;"/>
+          </Properties>
+        </Component>
+        <Component class="repair.ComboBox" name="comboUserRole">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="2">
+                <StringItem index="0" value="&#x41a;&#x43b;&#x438;&#x435;&#x43d;&#x442;"/>
+                <StringItem index="1" value="&#x410;&#x434;&#x43c;&#x438;&#x43d;&#x438;&#x441;&#x442;&#x440;&#x430;&#x442;&#x43e;&#x440;"/>
+              </StringArray>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="repair.ComboBox" name="comboUserStatus">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="2">
+                <StringItem index="0" value="&#x410;&#x43a;&#x442;&#x438;&#x432;&#x435;&#x43d;"/>
+                <StringItem index="1" value="&#x41d;&#x435;&#x430;&#x43a;&#x442;&#x438;&#x432;&#x435;&#x43d;"/>
+              </StringArray>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="repair.TextField" name="firm_eik_txt">
+          <Properties>
+            <Property name="labelText" type="java.lang.String" value="&#x424;&#x438;&#x440;&#x43c;&#x430; &#x415;&#x418;&#x41a;"/>
+          </Properties>
+        </Component>
+        <Component class="repair.TextField" name="firm_mol_txt">
+          <Properties>
+            <Property name="labelText" type="java.lang.String" value="&#x424;&#x438;&#x440;&#x43c;&#x430; &#x41c;&#x41e;&#x41b;"/>
+          </Properties>
+        </Component>
+        <Component class="repair.TextField" name="firm_dds_txt">
+          <Properties>
+            <Property name="labelText" type="java.lang.String" value="&#x424;&#x438;&#x440;&#x43c;&#x430; &#x414;&#x414;&#x421;"/>
+          </Properties>
+        </Component>
+        <Component class="repair.TextField" name="firm_address_txt">
+          <Properties>
+            <Property name="labelText" type="java.lang.String" value="&#x410;&#x434;&#x440;&#x435;&#x441; &#x43d;&#x430; &#x444;&#x438;&#x440;&#x43c;&#x430;"/>
           </Properties>
         </Component>
       </SubComponents>

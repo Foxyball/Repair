@@ -163,7 +163,7 @@
         </Component>
         <Component class="repair.TextField" name="txtUsername">
           <Properties>
-            <Property name="text" type="java.lang.String" value="admin@abv.bg"/>
+            <Property name="text" type="java.lang.String" value="admin@repair.bg"/>
             <Property name="labelText" type="java.lang.String" value="&#x418;&#x43c;&#x435;&#x439;&#x43b;"/>
           </Properties>
         </Component>
