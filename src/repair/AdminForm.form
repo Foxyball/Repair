@@ -80,7 +80,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="sideLayoutPanel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="695" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="675" max="32767" attributes="0"/>
                   </Group>
                   <Component id="jPanel1" max="32767" attributes="0"/>
               </Group>
@@ -170,7 +170,7 @@
         <Component class="javax.swing.JButton" name="jButton1">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/repair/assets/add_user_1.png"/>
+              <Image iconType="3" name="/repair/assets/addUser.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="&#x414;&#x43e;&#x431;&#x430;&#x432;&#x438; &#x43f;&#x43e;&#x442;&#x440;&#x435;&#x431;&#x438;&#x442;&#x435;&#x43b;"/>
           </Properties>
@@ -201,7 +201,7 @@
         <Component class="javax.swing.JButton" name="jButton3">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/repair/assets/add_user_1.png"/>
+              <Image iconType="3" name="/repair/assets/user.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="&#x412;&#x441;&#x438;&#x447;&#x43a;&#x438; &#x43f;&#x43e;&#x442;&#x440;&#x435;&#x431;&#x438;&#x442;&#x435;&#x43b;&#x438;"/>
           </Properties>
@@ -211,9 +211,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButton4">
           <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/repair/assets/add_user_1.png"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="&#x412;&#x441;&#x438;&#x447;&#x43a;&#x438; &#x43c;&#x430;&#x440;&#x43a;&#x438;"/>
           </Properties>
           <Events>
@@ -228,9 +225,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButton5">
           <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/repair/assets/add_user_1.png"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="&#x414;&#x43e;&#x431;&#x430;&#x432;&#x438; &#x43c;&#x430;&#x440;&#x43a;&#x430;"/>
           </Properties>
           <Events>

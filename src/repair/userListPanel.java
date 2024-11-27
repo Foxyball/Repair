@@ -19,9 +19,9 @@ public class userListPanel extends javax.swing.JPanel {
         initComponents();
 
         this.adminForm = adminForm;
-        jLabel2.setVisible(false); // Резултати от търсене етикет
+        lblSearchResults.setVisible(false); // Резултати от търсене етикет
 
-        jButton1.addActionListener(new ActionListener() {
+        btnAddUser.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 adminForm.switchToUserAddPanel();
@@ -32,8 +32,8 @@ public class userListPanel extends javax.swing.JPanel {
         model = new DefaultTableModel(cols, 0);
 
         // Прави таблицата да не се едитва
-        jTable1.setDefaultEditor(Object.class, null);
-        jTable1.setAutoCreateRowSorter(true); // позволява сортиране по колони
+        userTable.setDefaultEditor(Object.class, null);
+        userTable.setAutoCreateRowSorter(true); // позволява сортиране по колони
 
         String filter = "";
         ArrayList<User> users = q.loadUserData(filter);
@@ -42,7 +42,7 @@ public class userListPanel extends javax.swing.JPanel {
             model.addRow(user.toArray());
         }
 
-        jTable1.setModel(model);
+        userTable.setModel(model);
 
     }
 
@@ -56,144 +56,160 @@ public class userListPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jButton6 = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        jButton7 = new javax.swing.JButton();
+        txtSearchUser = new javax.swing.JTextField();
+        lblAllUser = new javax.swing.JLabel();
+        lblSearchResults = new javax.swing.JLabel();
+        btnSearchUser = new repair.Button();
+        btnRefreshUser = new repair.Button();
+        btnExportUser = new repair.Button();
+        btnDeleteUser = new repair.Button();
+        btnEditUser = new repair.Button();
+        btnAddUser = new repair.Button();
+        btnSendEmailUser = new repair.Button();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        userTable = new repair.Table();
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        txtSearchUser.setBackground(new java.awt.Color(255, 255, 255));
+        txtSearchUser.setForeground(new java.awt.Color(0, 0, 0));
+        txtSearchUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSearchUserActionPerformed(evt);
+            }
+        });
+
+        lblAllUser.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lblAllUser.setText("ВСИЧКИ ПОТРЕБИТЕЛИ");
+
+        lblSearchResults.setText("Резултати: 0");
+
+        btnSearchUser.setBackground(new java.awt.Color(0, 153, 255));
+        btnSearchUser.setForeground(new java.awt.Color(255, 255, 255));
+        btnSearchUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/search.png"))); // NOI18N
+        btnSearchUser.setText("Търсене");
+        btnSearchUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchUserActionPerformed(evt);
+            }
+        });
+
+        btnRefreshUser.setBackground(new java.awt.Color(0, 153, 255));
+        btnRefreshUser.setForeground(new java.awt.Color(255, 255, 255));
+        btnRefreshUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/refresh.png"))); // NOI18N
+        btnRefreshUser.setText("Обнови");
+        btnRefreshUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshUserActionPerformed(evt);
+            }
+        });
+
+        btnExportUser.setBackground(new java.awt.Color(0, 153, 255));
+        btnExportUser.setForeground(new java.awt.Color(255, 255, 255));
+        btnExportUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/export.png"))); // NOI18N
+        btnExportUser.setText("Експорт");
+        btnExportUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportUserActionPerformed(evt);
+            }
+        });
+
+        btnDeleteUser.setBackground(new java.awt.Color(0, 153, 255));
+        btnDeleteUser.setForeground(new java.awt.Color(255, 255, 255));
+        btnDeleteUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/erase.png"))); // NOI18N
+        btnDeleteUser.setText("Изтриване");
+        btnDeleteUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteUserActionPerformed(evt);
+            }
+        });
+
+        btnEditUser.setBackground(new java.awt.Color(0, 153, 255));
+        btnEditUser.setForeground(new java.awt.Color(255, 255, 255));
+        btnEditUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/editing.png"))); // NOI18N
+        btnEditUser.setText("Редактиране");
+        btnEditUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditUserActionPerformed(evt);
+            }
+        });
+
+        btnAddUser.setBackground(new java.awt.Color(0, 153, 255));
+        btnAddUser.setForeground(new java.awt.Color(255, 255, 255));
+        btnAddUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/save.png"))); // NOI18N
+        btnAddUser.setText("Добавяне");
+
+        btnSendEmailUser.setBackground(new java.awt.Color(0, 153, 255));
+        btnSendEmailUser.setForeground(new java.awt.Color(255, 255, 255));
+        btnSendEmailUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/email.png"))); // NOI18N
+        btnSendEmailUser.setText("Изпрати Имейл");
+        btnSendEmailUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSendEmailUserActionPerformed(evt);
+            }
+        });
+
+        userTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {}
+
             },
             new String [] {
 
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
-
-        jButton1.setText("Добавяне");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jButton2.setText("Редактиране");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        jButton3.setText("Изтриване");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
-        jButton4.setText("Обнови");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-
-        jButton5.setText("Търсене");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
-
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel1.setText("ВСИЧКИ ПОТРЕБИТЕЛИ");
-
-        jButton6.setText("Експорт");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
-            }
-        });
-
-        jLabel2.setText("Резултати: 0");
-
-        jButton7.setText("Изпрати Имейл");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
-            }
-        });
+        jScrollPane2.setViewportView(userTable);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
+                .addGap(12, 12, 12)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 960, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(btnAddUser, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
+                        .addComponent(btnEditUser, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton6)
+                        .addComponent(btnDeleteUser, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(9, 9, 9)
+                        .addComponent(btnExportUser, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jButton4)
+                                .addComponent(btnRefreshUser, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton7)
-                                .addGap(41, 41, 41)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnSendEmailUser, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(29, 29, 29)
+                                .addComponent(txtSearchUser, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton5)
+                                .addComponent(btnSearchUser, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel2)))))
-                .addContainerGap(43, Short.MAX_VALUE))
+                                .addComponent(lblSearchResults))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(75, 75, 75)
+                                .addComponent(lblAllUser)))
+                        .addGap(0, 362, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(51, 51, 51)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton1)
-                        .addComponent(jButton2)
-                        .addComponent(jButton3)
-                        .addComponent(jButton4)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton6)
-                        .addComponent(jButton7)))
+                .addComponent(lblAllUser)
+                .addGap(81, 81, 81)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtSearchUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSearchUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblSearchResults)
+                    .addComponent(btnRefreshUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnExportUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDeleteUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEditUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAddUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSendEmailUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 469, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(41, 41, 41))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -214,17 +230,109 @@ public class userListPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
 
-    // Прихващане на полетата при клик на ред от таблицата
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        int selectedRow = jTable1.getSelectedRow();
+    private void txtSearchUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchUserActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSearchUserActionPerformed
+
+    private void btnSearchUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchUserActionPerformed
+        String keyword = txtSearchUser.getText().trim();
+
+        if (keyword.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Моля, въведете ключова дума за търсене!", "Грешка", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String[] columns = {"id", "name", "email", "phone", "city", "status", "egn", "pkod", "role", "is_firm", "firm_name", "firm_eik", "firm_mol", "firm_dds", "firm_address"};
+        String whereClause = "name LIKE ? OR email LIKE ? OR phone LIKE ? OR city LIKE ?";
+        Object[] params = {"%" + keyword + "%", "%" + keyword + "%", "%" + keyword + "%", "%" + keyword + "%"};
+
+        ArrayList<String> searchResults = q.select(columns, "users", whereClause, params);
+
+        String[] columnNames = {"id", "Име", "Имейл", "Телефон", "Град", "Статус", "ЕГН", "ПКОД", "Достъп", "Фирма", "Фирма име", "Фирма ЕИК", "Фирма МОЛ", "Фирма ДДС", "Фирма адрес"};
+        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+
+        for (String row : searchResults) {
+            String[] userDetails = row.split("---");
+
+            // Обхожда масива и проверява за null стойности, за да ги визуализира като празна клетка, а не null
+            for (int i = 0; i < userDetails.length; i++) {
+                if (userDetails[i] == null || userDetails[i].equals("null")) {
+                    userDetails[i] = "";
+                }
+            }
+            userDetails[9] = userDetails[9].equals("1") ? "Да" : "Не";
+
+            if (userDetails[8].equals("admin")) {
+                userDetails[8] = "Администратор";
+            } else {
+                userDetails[8] = "Клиент";
+            }
+
+            if (userDetails[5].equals("active")) {
+                userDetails[5] = "Активен";
+            } else {
+                userDetails[5] = "Неактивен";
+            }
+
+            model.addRow(userDetails);
+        }
+
+        userTable.setModel(model);
+        userTable.setDefaultEditor(Object.class, null);
+
+        // Display the number of search results
+        lblSearchResults.setVisible(true);
+        int resultCount = searchResults.size();
+        lblSearchResults.setText("Резултати: " + resultCount);
+    }//GEN-LAST:event_btnSearchUserActionPerformed
+
+    private void btnRefreshUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshUserActionPerformed
+        refreshUserList();
+    }//GEN-LAST:event_btnRefreshUserActionPerformed
+
+    private void btnExportUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportUserActionPerformed
+        MessageFormat header = new MessageFormat("Клиенти");
+        try {
+            userTable.print(javax.swing.JTable.PrintMode.FIT_WIDTH, header, null);
+        } catch (java.awt.print.PrinterException e) {
+            System.err.format("Грешка при принтиране %s%n", e.getMessage());
+        }
+    }//GEN-LAST:event_btnExportUserActionPerformed
+
+    private void btnDeleteUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteUserActionPerformed
+        int selectedRow = userTable.getSelectedRow();
+
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Моля, изберете потребител за изтриване.");
+            return;
+        }
+
+        // Кастване на ID-то към int от String
+        String idString = userTable.getValueAt(selectedRow, 0).toString();
+        int userId = Integer.parseInt(idString);
+
+        int confirm = JOptionPane.showConfirmDialog(this, "Сигурни ли сте, че искате да изтриете този потребител?", "Потвърждение", JOptionPane.YES_NO_OPTION);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            // Use the universal delete method
+            boolean isDeleted = q.delete("users", "id", userId); // Pass userId directly instead of params array
+
+            if (isDeleted) {
+                refreshUserList();
+                JOptionPane.showMessageDialog(this, "Потребителят е изтрит успешно.");
+            } else {
+                JOptionPane.showMessageDialog(this, "Грешка при изтриване на потребителя.");
+            }
+        }
+    }//GEN-LAST:event_btnDeleteUserActionPerformed
+
+    private void btnEditUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditUserActionPerformed
+        int selectedRow = userTable.getSelectedRow();
         if (selectedRow != -1) {
 
             // Кастване на ID-то към int от String
-            String idString = jTable1.getValueAt(selectedRow, 0).toString();
+            String idString = userTable.getValueAt(selectedRow, 0).toString();
             int userId = Integer.parseInt(idString);
 
             // Извикване на универсалния метод select
@@ -263,101 +371,20 @@ public class userListPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Моля, изберете ред от таблицата!");
         }
 
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnEditUserActionPerformed
 
-    // Бутон за обновяване
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        refreshUserList();
-    }//GEN-LAST:event_jButton4ActionPerformed
-
-
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
-
-    // Търсачка
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        String keyword = jTextField1.getText().trim();
-
-        if (keyword.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Моля, въведете ключова дума за търсене!", "Грешка", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        String[] columns = {"id", "name", "email", "phone", "city", "status", "egn", "pkod", "role", "is_firm", "firm_name", "firm_eik", "firm_mol", "firm_dds", "firm_address"};
-        String whereClause = "name LIKE ? OR email LIKE ? OR phone LIKE ? OR city LIKE ?";
-        Object[] params = {"%" + keyword + "%", "%" + keyword + "%", "%" + keyword + "%", "%" + keyword + "%"};
-
-        ArrayList<String> searchResults = q.select(columns, "users", whereClause, params);
-
-        String[] columnNames = {"id", "Име", "Имейл", "Телефон", "Град", "Статус", "ЕГН", "ПКОД", "Достъп", "Фирма", "Фирма име", "Фирма ЕИК", "Фирма МОЛ", "Фирма ДДС", "Фирма адрес"};
-        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
-
-        // Populate the table model with data
-        for (String row : searchResults) {
-            String[] userData = row.split("---");
-            model.addRow(userData);
-        }
-
-        jTable1.setModel(model);
-        jTable1.setDefaultEditor(Object.class, null);
-
-        // Display the number of search results
-        jLabel2.setVisible(true);
-        int resultCount = searchResults.size();
-        jLabel2.setText("Резултати: " + resultCount);
-    }//GEN-LAST:event_jButton5ActionPerformed
-
-    // Изтриване бутон, избира се ред от таблицата, прихваща id-то и изпълнява заявката
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        int selectedRow = jTable1.getSelectedRow();
-
-        if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(this, "Моля, изберете потребител за изтриване.");
-            return;
-        }
-
-        // Кастване на ID-то към int от String
-        String idString = jTable1.getValueAt(selectedRow, 0).toString();
-        int userId = Integer.parseInt(idString);
-
-        int confirm = JOptionPane.showConfirmDialog(this, "Сигурни ли сте, че искате да изтриете този потребител?", "Потвърждение", JOptionPane.YES_NO_OPTION);
-
-        if (confirm == JOptionPane.YES_OPTION) {
-            // Use the universal delete method
-            boolean isDeleted = q.delete("users", "id", userId); // Pass userId directly instead of params array
-
-            if (isDeleted) {
-                refreshUserList();
-                JOptionPane.showMessageDialog(this, "Потребителят е изтрит успешно.");
-            } else {
-                JOptionPane.showMessageDialog(this, "Грешка при изтриване на потребителя.");
-            }
-        }
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    // Изпрати имейл бутон [Ръчно]
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        int selectedRow = jTable1.getSelectedRow();
+    private void btnSendEmailUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendEmailUserActionPerformed
+        int selectedRow = userTable.getSelectedRow();
         if (selectedRow != -1) {
 
-            String email = jTable1.getValueAt(selectedRow, 2).toString();
-            String userName = jTable1.getValueAt(selectedRow, 1).toString();
+            String email = userTable.getValueAt(selectedRow, 2).toString();
+            String userName = userTable.getValueAt(selectedRow, 1).toString();
 
             new SendEmailForm(email, userName).setVisible(true);
         } else {
             JOptionPane.showMessageDialog(this, "Моля, изберете потребител.");
         }
-    }//GEN-LAST:event_jButton7ActionPerformed
-
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        MessageFormat header = new MessageFormat("Клиенти");
-        try {
-            jTable1.print(javax.swing.JTable.PrintMode.FIT_WIDTH, header, null);
-        } catch (java.awt.print.PrinterException e) {
-            System.err.format("Грешка при принтиране %s%n", e.getMessage());
-        }
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_btnSendEmailUserActionPerformed
 
     // Обновяване на данните с бутон
     public void refreshUserList() {
@@ -398,30 +425,30 @@ public class userListPanel extends javax.swing.JPanel {
             model.addRow(userDetails);
         }
 
-        jTable1.setModel(model);
+        userTable.setModel(model);
 
         // да не може да се редактира в самата таблица
-        jTable1.setDefaultEditor(Object.class, null);
+        userTable.setDefaultEditor(Object.class, null);
 
         // Скриване на резултати: 4
-        jLabel2.setVisible(false);
-        jTextField1.setText("");
+        lblSearchResults.setVisible(false);
+        txtSearchUser.setText("");
     }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private repair.Button btnAddUser;
+    private repair.Button btnDeleteUser;
+    private repair.Button btnEditUser;
+    private repair.Button btnExportUser;
+    private repair.Button btnRefreshUser;
+    private repair.Button btnSearchUser;
+    private repair.Button btnSendEmailUser;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lblAllUser;
+    private javax.swing.JLabel lblSearchResults;
+    private javax.swing.JTextField txtSearchUser;
+    private repair.Table userTable;
     // End of variables declaration//GEN-END:variables
 }

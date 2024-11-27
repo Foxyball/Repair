@@ -23,8 +23,8 @@ public class brandEditPanel extends javax.swing.JPanel {
 
         this.brand_id = brand_id;
 
-        jTextField1.setText(brand_name);
-        jLabel1.setText("РЕДАКТИРАНЕ НА МАРКА - " + brand_name);
+        txtBrandName.setText(brand_name);
+        lblEditBrand.setText("РЕДАКТИРАНЕ НА МАРКА - " + brand_name);
     }
 
     /**
@@ -36,64 +36,57 @@ public class brandEditPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        lblEditBrand = new javax.swing.JLabel();
+        btnSaveBrand = new repair.Button();
+        txtBrandName = new repair.TextField();
 
-        jLabel2.setText("Име на марка");
+        lblEditBrand.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lblEditBrand.setText("РЕДАКТИРАНЕ НА МАРКА");
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/save.png"))); // NOI18N
-        jButton2.setText("Запази");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnSaveBrand.setBackground(new java.awt.Color(0, 153, 255));
+        btnSaveBrand.setForeground(new java.awt.Color(255, 255, 255));
+        btnSaveBrand.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/save.png"))); // NOI18N
+        btnSaveBrand.setText("Запази");
+        btnSaveBrand.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-        jButton2.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jButton2KeyPressed(evt);
+                btnSaveBrandActionPerformed(evt);
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel1.setText("РЕДАКТИРАНЕ НА МАРКА");
+        txtBrandName.setLabelText("Име на марка");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(274, Short.MAX_VALUE)
+                .addContainerGap(281, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(266, 266, 266))
+                        .addComponent(lblEditBrand, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(136, 136, 136))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(136, 136, 136))))
+                        .addComponent(txtBrandName, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnSaveBrand, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(239, 239, 239))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(jLabel1)
-                .addGap(133, 133, 133)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(264, 264, 264))
+                .addComponent(lblEditBrand)
+                .addGap(150, 150, 150)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtBrandName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSaveBrand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(211, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        String brand_name = jTextField1.getText();
+    // Бутон Запази
+    private void btnSaveBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveBrandActionPerformed
+       String brand_name = txtBrandName.getText();
 
         String[] columns = {"brand_name"};
         Object[] values = {brand_name};
@@ -105,17 +98,12 @@ public class brandEditPanel extends javax.swing.JPanel {
         } else {
             JOptionPane.showMessageDialog(this, "Грешка при запазване на промените.");
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton2KeyPressed
-
-    }//GEN-LAST:event_jButton2KeyPressed
+    }//GEN-LAST:event_btnSaveBrandActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JTextField jTextField1;
+    private repair.Button btnSaveBrand;
+    private javax.swing.JLabel lblEditBrand;
+    private repair.TextField txtBrandName;
     // End of variables declaration//GEN-END:variables
 }

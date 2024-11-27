@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
+
 package repair;
 
 import java.util.ArrayList;
@@ -15,28 +12,10 @@ import javax.swing.table.DefaultTableModel;
 public class brandAddPanel extends javax.swing.JPanel {
 
     config q = new config();
-    DefaultTableModel model;
 
     public brandAddPanel() {
         initComponents();
-
-        model = (DefaultTableModel) table1.getModel();
-
-        ArrayList<Brand> brands = q.loadBrandData();
-        for (Brand brand : brands) {
-            model.addRow(brand.toArray());
-        }
-
-        table1.setModel(model);
-    }
-
-    // Обновяване на данните в таблицата
-    public void refreshTable() {
-        model.setRowCount(0);
-        ArrayList<Brand> brands = q.loadBrandData();
-        for (Brand brand : brands) {
-            model.addRow(brand.toArray());
-        }
+      
     }
 
     /**
@@ -49,19 +28,21 @@ public class brandAddPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        lblAddBrand = new javax.swing.JLabel();
         txtBrandName = new repair.TextField();
         btnAddBrand = new repair.Button();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        table1 = new repair.Table();
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel1.setText("ДОБАВЯНЕ НА МАРКА");
+        lblAddBrand.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lblAddBrand.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblAddBrand.setText("ДОБАВЯНЕ НА МАРКА");
+        lblAddBrand.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        lblAddBrand.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         txtBrandName.setLabelText("Име на марка");
 
         btnAddBrand.setBackground(new java.awt.Color(0, 153, 255));
         btnAddBrand.setForeground(new java.awt.Color(255, 255, 255));
+        btnAddBrand.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/save.png"))); // NOI18N
         btnAddBrand.setText("Добави");
         btnAddBrand.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -69,51 +50,32 @@ public class brandAddPanel extends javax.swing.JPanel {
             }
         });
 
-        table1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "ID", "Марка"
-            }
-        ));
-        jScrollPane2.setViewportView(table1);
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(184, Short.MAX_VALUE)
+                .addContainerGap(258, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(txtBrandName, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnAddBrand, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(216, 216, 216))
+                        .addComponent(lblAddBrand, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(366, 366, 366))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 678, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(171, 171, 171))))
+                        .addComponent(txtBrandName, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnAddBrand, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(231, 231, 231))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(17, 17, 17)
-                .addComponent(jLabel1)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(btnAddBrand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(txtBrandName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(71, 71, 71)))
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(19, 19, 19))
+                .addComponent(lblAddBrand)
+                .addGap(180, 180, 180)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtBrandName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAddBrand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(289, 289, 289))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -159,7 +121,6 @@ public class brandAddPanel extends javax.swing.JPanel {
         if (success) {
             JOptionPane.showMessageDialog(this, "Успешно добавяне!");
             clearFields();
-            refreshTable();
         } else {
             JOptionPane.showMessageDialog(this, "Възникна грешка при добавянето на марка.", "Грешка", JOptionPane.ERROR_MESSAGE);
         }
@@ -168,10 +129,8 @@ public class brandAddPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private repair.Button btnAddBrand;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private repair.Table table1;
+    private javax.swing.JLabel lblAddBrand;
     private repair.TextField txtBrandName;
     // End of variables declaration//GEN-END:variables
 }

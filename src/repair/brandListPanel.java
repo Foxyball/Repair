@@ -20,7 +20,9 @@ public class brandListPanel extends javax.swing.JPanel {
         initComponents();
         this.adminForm = adminForm;
 
-        jButton1.addActionListener(new ActionListener() {
+        lblSearchResults.setVisible(false); // Резултати от търсене етикет
+
+        btnAddBrand.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 adminForm.switchToBrandAddPanel();
@@ -44,21 +46,19 @@ public class brandListPanel extends javax.swing.JPanel {
         });
         //**************************************************************************
 
-        model = (DefaultTableModel) table1.getModel();
+        model = (DefaultTableModel) brandTable.getModel();
 
         for (Brand brand : brands) {
             model.addRow(brand.toArray());
         }
 
         // да не може да се редактира в самата таблица
-        table1.setDefaultEditor(Object.class, null);
-        table1.setAutoCreateRowSorter(true); // позволява сортиране по колони
+        brandTable.setDefaultEditor(Object.class, null);
+        brandTable.setAutoCreateRowSorter(true); // позволява сортиране по колони
 
-        table1.setModel(model);
+        brandTable.setModel(model);
 
     }
-
-
 
     // Обновяване на данните в таблицата
     public void refreshTable() {
@@ -79,47 +79,25 @@ public class brandListPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        lblAllBrand = new javax.swing.JLabel();
         comboBox1 = new repair.ComboBox();
         jScrollPane1 = new javax.swing.JScrollPane();
-        table1 = new repair.Table();
+        brandTable = new repair.Table();
+        btnAddBrand = new repair.Button();
+        btnEditBrand = new repair.Button();
+        btnDeleteBrand = new repair.Button();
+        btnRefreshBrand = new repair.Button();
+        txtSearchBrand = new javax.swing.JTextField();
+        btnSearchBrand = new repair.Button();
+        lblSearchResults = new javax.swing.JLabel();
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel1.setText("ВСИЧКИ МАРКИ");
+        lblAllBrand.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lblAllBrand.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblAllBrand.setText("ВСИЧКИ МАРКИ");
+        lblAllBrand.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        lblAllBrand.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        jButton1.setText("Добавяне");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jButton3.setText("Изтриване");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
-        jButton4.setText("Обнови");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-
-        jButton2.setText("Редактиране");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        table1.setModel(new javax.swing.table.DefaultTableModel(
+        brandTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -127,51 +105,115 @@ public class brandListPanel extends javax.swing.JPanel {
                 "ID", "Марка"
             }
         ));
-        jScrollPane1.setViewportView(table1);
+        jScrollPane1.setViewportView(brandTable);
+
+        btnAddBrand.setBackground(new java.awt.Color(0, 153, 255));
+        btnAddBrand.setForeground(new java.awt.Color(255, 255, 255));
+        btnAddBrand.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/save.png"))); // NOI18N
+        btnAddBrand.setText("Добавяне");
+
+        btnEditBrand.setBackground(new java.awt.Color(0, 153, 255));
+        btnEditBrand.setForeground(new java.awt.Color(255, 255, 255));
+        btnEditBrand.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/editing.png"))); // NOI18N
+        btnEditBrand.setText("Редактиране");
+        btnEditBrand.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditBrandActionPerformed(evt);
+            }
+        });
+
+        btnDeleteBrand.setBackground(new java.awt.Color(0, 153, 255));
+        btnDeleteBrand.setForeground(new java.awt.Color(255, 255, 255));
+        btnDeleteBrand.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/erase.png"))); // NOI18N
+        btnDeleteBrand.setText("Изтриване");
+        btnDeleteBrand.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteBrandActionPerformed(evt);
+            }
+        });
+
+        btnRefreshBrand.setBackground(new java.awt.Color(0, 153, 255));
+        btnRefreshBrand.setForeground(new java.awt.Color(255, 255, 255));
+        btnRefreshBrand.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/refresh.png"))); // NOI18N
+        btnRefreshBrand.setText("Обнови");
+        btnRefreshBrand.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshBrandActionPerformed(evt);
+            }
+        });
+
+        txtSearchBrand.setBackground(new java.awt.Color(255, 255, 255));
+        txtSearchBrand.setForeground(new java.awt.Color(0, 0, 0));
+        txtSearchBrand.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSearchBrandActionPerformed(evt);
+            }
+        });
+
+        btnSearchBrand.setBackground(new java.awt.Color(0, 153, 255));
+        btnSearchBrand.setForeground(new java.awt.Color(255, 255, 255));
+        btnSearchBrand.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/search.png"))); // NOI18N
+        btnSearchBrand.setText("Търсене");
+        btnSearchBrand.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchBrandActionPerformed(evt);
+            }
+        });
+
+        lblSearchResults.setText("Резултати: 0");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(comboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(69, 69, 69))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(45, 45, 45)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 829, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 28, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnAddBrand, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton2)
-                                .addGap(17, 17, 17)
-                                .addComponent(jButton3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton4)
-                                .addGap(458, 458, 458))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jLabel1)
+                                .addComponent(comboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(69, 69, 69))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnEditBrand, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnDeleteBrand, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnRefreshBrand, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(31, 31, 31)
+                                .addComponent(txtSearchBrand, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnSearchBrand, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lblSearchResults)
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblAllBrand)
+                .addGap(354, 354, 354))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                .addComponent(lblAllBrand)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(comboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(16, 16, 16)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4)
-                    .addComponent(jButton2))
+                    .addComponent(btnAddBrand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEditBrand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDeleteBrand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRefreshBrand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSearchBrand, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSearchBrand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblSearchResults))
                 .addGap(34, 34, 34)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
@@ -195,47 +237,12 @@ public class brandListPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    // Бутон за изтриване
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        int selectedRow = table1.getSelectedRow();
-
-        if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(this, "Моля, изберете потребител за изтриване.");
-            return;
-        }
-
-        // Кастване на ID-то към int от String
-        String idString = table1.getValueAt(selectedRow, 0).toString();
-        int brandId = Integer.parseInt(idString);
-
-        int confirm = JOptionPane.showConfirmDialog(this, "Сигурни ли сте, че искате да изтриете тази марка?", "Потвърждение", JOptionPane.YES_NO_OPTION);
-
-        if (confirm == JOptionPane.YES_OPTION) {
-            boolean isDeleted = q.delete("brands", "brand_id", brandId);
-
-            if (isDeleted) {
-                refreshTable();
-                JOptionPane.showMessageDialog(this, "Марката е изтрита успешно.");
-            } else {
-                JOptionPane.showMessageDialog(this, "Грешка при изтриване на марка.");
-            }
-        }
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        refreshBrandList();
-    }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        int selectedRow = table1.getSelectedRow();
+    private void btnEditBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditBrandActionPerformed
+        int selectedRow = brandTable.getSelectedRow();
         if (selectedRow != -1) {
 
             // Кастване на ID-то към int от String
-            String idString = table1.getValueAt(selectedRow, 0).toString();
+            String idString = brandTable.getValueAt(selectedRow, 0).toString();
             int brandId = Integer.parseInt(idString);
 
             // Извикване на универсалния метод select
@@ -260,7 +267,72 @@ public class brandListPanel extends javax.swing.JPanel {
         } else {
             JOptionPane.showMessageDialog(this, "Моля, изберете ред от таблицата!");
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnEditBrandActionPerformed
+
+    private void btnDeleteBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteBrandActionPerformed
+        int selectedRow = brandTable.getSelectedRow();
+
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Моля, изберете потребител за изтриване.");
+            return;
+        }
+
+        // Кастване на ID-то към int от String
+        String idString = brandTable.getValueAt(selectedRow, 0).toString();
+        int brandId = Integer.parseInt(idString);
+
+        int confirm = JOptionPane.showConfirmDialog(this, "Сигурни ли сте, че искате да изтриете тази марка?", "Потвърждение", JOptionPane.YES_NO_OPTION);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            boolean isDeleted = q.delete("brands", "brand_id", brandId);
+
+            if (isDeleted) {
+                refreshTable();
+                JOptionPane.showMessageDialog(this, "Марката е изтрита успешно.");
+            } else {
+                JOptionPane.showMessageDialog(this, "Грешка при изтриване на марка.");
+            }
+        }
+    }//GEN-LAST:event_btnDeleteBrandActionPerformed
+
+    private void btnRefreshBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshBrandActionPerformed
+        refreshBrandList();
+    }//GEN-LAST:event_btnRefreshBrandActionPerformed
+
+    private void txtSearchBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchBrandActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSearchBrandActionPerformed
+
+    // Търсачка
+    private void btnSearchBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchBrandActionPerformed
+        String keyword = txtSearchBrand.getText().trim();
+
+        if (keyword.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Моля, въведете ключова дума за търсене!", "Грешка", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String[] columns = {"brand_id", "brand_name"};
+        String whereClause = "brand_name LIKE ?";
+        Object[] params = {"%" + keyword + "%"};
+
+        ArrayList<String> searchResults = q.select(columns, "brands", whereClause, params);
+
+        String[] columnNames = {"id", "Марка"};
+        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+
+        for (String row : searchResults) {
+            String[] brandData = row.split("---");
+            model.addRow(brandData);
+        }
+
+        brandTable.setModel(model);
+        brandTable.setDefaultEditor(Object.class, null);
+
+        lblSearchResults.setVisible(true);
+        int resultCount = searchResults.size();
+        lblSearchResults.setText("Резултати: " + resultCount);
+    }//GEN-LAST:event_btnSearchBrandActionPerformed
 
     // Обновяване на данните с бутон
     public void refreshBrandList() {
@@ -280,10 +352,10 @@ public class brandListPanel extends javax.swing.JPanel {
             model.addRow(brandDetails);
         }
 
-        table1.setModel(model);
+        brandTable.setModel(model);
 
         // да не може да се редактира в самата таблица
-        table1.setDefaultEditor(Object.class, null);
+        brandTable.setDefaultEditor(Object.class, null);
 
         // Скриване на резултати: 4
 //        jLabel2.setVisible(false);
@@ -292,14 +364,17 @@ public class brandListPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private repair.Table brandTable;
+    private repair.Button btnAddBrand;
+    private repair.Button btnDeleteBrand;
+    private repair.Button btnEditBrand;
+    private repair.Button btnRefreshBrand;
+    private repair.Button btnSearchBrand;
     private repair.ComboBox comboBox1;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private repair.Table table1;
+    private javax.swing.JLabel lblAllBrand;
+    private javax.swing.JLabel lblSearchResults;
+    private javax.swing.JTextField txtSearchBrand;
     // End of variables declaration//GEN-END:variables
 }

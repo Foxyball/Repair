@@ -173,7 +173,7 @@ public class AdminForm extends javax.swing.JFrame {
 
         sideLayoutPanel.setBackground(new java.awt.Color(204, 204, 204));
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/add_user_1.png"))); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/addUser.png"))); // NOI18N
         jButton1.setText("Добави потребител");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -189,7 +189,7 @@ public class AdminForm extends javax.swing.JFrame {
         jButton2.setText("НАЧАЛО");
         jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/add_user_1.png"))); // NOI18N
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/user.png"))); // NOI18N
         jButton3.setText("Всички потребители");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -197,7 +197,6 @@ public class AdminForm extends javax.swing.JFrame {
             }
         });
 
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/add_user_1.png"))); // NOI18N
         jButton4.setText("Всички марки");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -208,7 +207,6 @@ public class AdminForm extends javax.swing.JFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("МАРКИ");
 
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/add_user_1.png"))); // NOI18N
         jButton5.setText("Добави марка");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -348,7 +346,7 @@ public class AdminForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(sideLayoutPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 695, Short.MAX_VALUE))
+                        .addGap(0, 675, Short.MAX_VALUE))
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
