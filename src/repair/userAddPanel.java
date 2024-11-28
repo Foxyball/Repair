@@ -218,6 +218,10 @@ public class userAddPanel extends javax.swing.JPanel {
         firm_eik_txt.setVisible(visible);
         firm_dds_txt.setVisible(visible);
         firm_address_txt.setVisible(visible);
+        
+            // преизчислява промените по layout-a заради скритите полета
+            this.revalidate();
+            this.repaint();
     }
 
     // Проверяване дали е отметнат чекбокса за фирма и показване/скриване на полетата
