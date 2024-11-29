@@ -262,7 +262,7 @@ public class brandListPanel extends javax.swing.JPanel {
                 // Подаване на данните към панела за редактиране, за да се визуализират
                 adminForm.switchToBrandEditPanel(brand_id, brand_name);
             } else {
-                JOptionPane.showMessageDialog(this, "Не е намерен потребител с този ID!");
+                JOptionPane.showMessageDialog(this, "Не е намерена марка с това ID!");
             }
         } else {
             JOptionPane.showMessageDialog(this, "Моля, изберете ред от таблицата!");
@@ -273,7 +273,7 @@ public class brandListPanel extends javax.swing.JPanel {
         int selectedRow = brandTable.getSelectedRow();
 
         if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(this, "Моля, изберете потребител за изтриване.");
+            JOptionPane.showMessageDialog(this, "Моля, изберете марка за изтриване.");
             return;
         }
 
@@ -358,8 +358,8 @@ public class brandListPanel extends javax.swing.JPanel {
         brandTable.setDefaultEditor(Object.class, null);
 
         // Скриване на резултати: 4
-//        jLabel2.setVisible(false);
-//        jTextField1.setText("");
+        lblSearchResults.setVisible(false);
+        txtSearchBrand.setText("");
     }
 
 

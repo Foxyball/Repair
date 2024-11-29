@@ -323,20 +323,20 @@ public class userAddPanel extends javax.swing.JPanel {
 
     // Прави празни полетата, за лесно следващо добавяне
     private void clearFields() {
-        txtUserName.setText("");  // Clear name
-        txtUserEmail.setText("");  // Clear email
-        txtUserPhone.setText("");  // Clear phone
-        comboUserRole.setSelectedIndex(0);  // Reset role
-        txtUserPKOD.setText("");  // Clear PKOD (postal code)
-        txtUserCity.setText("");  // Clear city
-        comboUserStatus.setSelectedIndex(0);  // Reset status
-        txtUserEGN.setText("");  // Clear EGN
-        is_firm_checkbox.setSelected(false);  // Reset firm checkbox
-        firm_name_txt.setText("");  // Clear firm name
-        firm_eik_txt.setText("");  // Clear firm EIK
-        firm_mol_txt.setText("");  // Clear firm MOL
-        firm_dds_txt.setText("");  // Clear firm DDS
-        firm_address_txt.setText("");  // Clear firm address
+        txtUserName.setText("");  
+        txtUserEmail.setText("");  
+        txtUserPhone.setText("");  
+        comboUserRole.setSelectedIndex(0);  
+        txtUserPKOD.setText("");  
+        txtUserCity.setText(""); 
+        comboUserStatus.setSelectedIndex(0);  
+        txtUserEGN.setText(""); 
+        is_firm_checkbox.setSelected(false); 
+        firm_name_txt.setText("");  
+        firm_eik_txt.setText("");  
+        firm_mol_txt.setText(""); 
+        firm_dds_txt.setText(""); 
+        firm_address_txt.setText(""); 
     }
 
     // Метод за генериране на временна парола

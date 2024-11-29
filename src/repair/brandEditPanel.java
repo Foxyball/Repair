@@ -87,6 +87,11 @@ public class brandEditPanel extends javax.swing.JPanel {
     // Бутон Запази
     private void btnSaveBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveBrandActionPerformed
        String brand_name = txtBrandName.getText();
+       
+         if (brand_name.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Моля, попълнете всички полета", "Грешка", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
         String[] columns = {"brand_name"};
         Object[] values = {brand_name};

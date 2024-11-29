@@ -291,6 +291,12 @@ public class userEditPanel extends javax.swing.JPanel {
         String pkod = txtUserPKOD.getText();
         String role = comboUserRole.getSelectedItem().toString();
         String is_firm = isFirmChecked ? "1" : "0";
+        
+        
+         if (name.isEmpty() || email.isEmpty() || phone.isEmpty() || role.isEmpty() || city.isEmpty() || egn.isEmpty() || txtUserPKOD.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Моля, попълнете всички полета", "Грешка", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
         role = comboUserRole.getSelectedItem().toString();
         if (role.equals("Клиент")) {

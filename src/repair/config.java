@@ -65,6 +65,33 @@ public class config {
             }
         });
     }
+    
+    
+     // SELECT заявка за извличане на shelves
+    public ArrayList<Shelf> loadShelfData() {
+        ArrayList<Shelf> shelves = new ArrayList<>();
+        String q = "SELECT shelf_id, shelf_name, max_capacity,current_load FROM shelves";
+
+        try (PreparedStatement stmt = conn.prepareStatement(q)) {
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Shelf shelf = new Shelf(
+                        rs.getInt("shelf_id"),
+                        rs.getString("shelf_name"),
+                        rs.getInt("max_capacity"),
+                        rs.getInt("current_load")
+                );
+                shelves.add(shelf);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error loading shelf data: " + e.getMessage());
+        }
+
+        return shelves;
+    }
+    
 
     // SELECT заявка за извличане на brands
     public ArrayList<Brand> loadBrandData() {

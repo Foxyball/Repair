@@ -13,7 +13,6 @@ public class userListPanel extends javax.swing.JPanel {
     DefaultTableModel model;
     config q = new config();
     private AdminForm adminForm;
-    private Timer timer;
 
     public userListPanel(AdminForm adminForm) {
         initComponents();

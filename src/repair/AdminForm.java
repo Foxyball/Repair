@@ -13,6 +13,9 @@ public class AdminForm extends javax.swing.JFrame {
     brandListPanel brandListPanel;
     brandAddPanel brandAddPanel;
     brandEditPanel brandEditPanel;
+    shelfAddPanel shelfAddPanel;
+    shelfListPanel shelfListPanel;
+    shelfEditPanel shelfEditPanel;
     LoggedInUser LoggedInUser;
 
     public AdminForm(String role) {
@@ -47,53 +50,73 @@ public class AdminForm extends javax.swing.JFrame {
 
         dashboardPanel = new dashboardPanel();
         contentPanel.add(dashboardPanel, "dashboard");
-        jButton2.addActionListener(switchPanelListener);
-        jButton2.setActionCommand("dashboard");
+        btnDashboard.addActionListener(switchPanelListener);
+        btnDashboard.setActionCommand("dashboard");
         sideLayoutPanel.add(Box.createVerticalStrut(10)); // Add more spacing
-        sideLayoutPanel.add(jButton2);                    // Add button2
+        sideLayoutPanel.add(btnDashboard);                    // Add button2
         sideLayoutPanel.add(Box.createVerticalStrut(20)); // Add vertical spacing
 
-        jLabel1.setAlignmentX(Component.LEFT_ALIGNMENT); // Center the label horizontally
-        jLabel1.setFont(new Font("Arial", Font.BOLD, 16));  // Optional: Set font for better visibility
+        lblUsers.setAlignmentX(Component.LEFT_ALIGNMENT); // Center the label horizontally
+        lblUsers.setFont(new Font("Arial", Font.BOLD, 16));  // Optional: Set font for better visibility
 
-        sideLayoutPanel.add(jLabel1);
+        sideLayoutPanel.add(lblUsers);
 
         // Добавяне на потребител
         userAddPanel = new userAddPanel();
         contentPanel.add(userAddPanel, "addUser");
-        jButton1.addActionListener(switchPanelListener);
-        jButton1.setActionCommand("addUser");
+        btnAddUser.addActionListener(switchPanelListener);
+        btnAddUser.setActionCommand("addUser");
         sideLayoutPanel.add(Box.createVerticalStrut(10)); // Add vertical spacing
-        sideLayoutPanel.add(jButton1);                    // Add button1
+        sideLayoutPanel.add(btnAddUser);                    // Add button1
 
         // Всички потребители
         userListPanel = new userListPanel(this);
         contentPanel.add(userListPanel, "listUser");
-        jButton3.addActionListener(switchPanelListener);
-        jButton3.setActionCommand("listUser");
+        btnAllUser.addActionListener(switchPanelListener);
+        btnAllUser.setActionCommand("listUser");
         sideLayoutPanel.add(Box.createVerticalStrut(10));
-        sideLayoutPanel.add(jButton3);
+        sideLayoutPanel.add(btnAllUser);
 
-        jLabel2.setAlignmentX(Component.LEFT_ALIGNMENT);
-        jLabel2.setFont(new Font("Arial", Font.BOLD, 16));
+        lblBrands.setAlignmentX(Component.LEFT_ALIGNMENT);
+        lblBrands.setFont(new Font("Arial", Font.BOLD, 16));
 
-        sideLayoutPanel.add(jLabel2);
+        sideLayoutPanel.add(lblBrands);
 
         // Добавяне на марка
         brandAddPanel = new brandAddPanel();
         contentPanel.add(brandAddPanel, "addBrand");
-        jButton5.addActionListener(switchPanelListener);
-        jButton5.setActionCommand("addBrand");
+        btnAddBrand.addActionListener(switchPanelListener);
+        btnAddBrand.setActionCommand("addBrand");
         sideLayoutPanel.add(Box.createVerticalStrut(10));
-        sideLayoutPanel.add(jButton5);
+        sideLayoutPanel.add(btnAddBrand);
 
         // Всички марки (brands)
         brandListPanel = new brandListPanel(this);
         contentPanel.add(brandListPanel, "listBrand");
-        jButton4.addActionListener(switchPanelListener);
-        jButton4.setActionCommand("listBrand");
+        btnAllBrand.addActionListener(switchPanelListener);
+        btnAllBrand.setActionCommand("listBrand");
         sideLayoutPanel.add(Box.createVerticalStrut(10));
-        sideLayoutPanel.add(jButton4);
+        sideLayoutPanel.add(btnAllBrand);
+
+        lblShelfs.setAlignmentX(Component.LEFT_ALIGNMENT);
+        lblShelfs.setFont(new Font("Arial", Font.BOLD, 16));
+        sideLayoutPanel.add(lblShelfs);
+
+        // Добавяне на рафт (shelves)
+        shelfAddPanel = new shelfAddPanel();
+        contentPanel.add(shelfAddPanel, "addShelf");
+        btnAddShelf.addActionListener(switchPanelListener);
+        btnAddShelf.setActionCommand("addShelf");
+        sideLayoutPanel.add(Box.createVerticalStrut(10));
+        sideLayoutPanel.add(btnAddShelf);
+
+        // Всички рафтове (shelves)
+        shelfListPanel = new shelfListPanel(this);
+        contentPanel.add(shelfListPanel, "listShelf");
+        btnAllShelf.addActionListener(switchPanelListener);
+        btnAllShelf.setActionCommand("listShelf");
+        sideLayoutPanel.add(Box.createVerticalStrut(10));
+        sideLayoutPanel.add(btnAllShelf);
 
         //************************************  
         this.setLayout(new BorderLayout());
@@ -127,14 +150,12 @@ public class AdminForm extends javax.swing.JFrame {
         cardLayout.show(contentPanel, "editUser");
     }
 
-    
     // Слушач за клик на бутона от панела за Всички Марки - Добавяне
     public void switchToBrandAddPanel() {
         CardLayout cardLayout = (CardLayout) contentPanel.getLayout();
         cardLayout.show(contentPanel, "addBrand");
     }
-    
-    
+
     // Слушач за клик на бутона от панела за Всички Марки - Редактиране
     public void switchToBrandEditPanel(int brand_id, String brand_name) {
         // Нова инстанция на brandEditPanel с параметрите
@@ -144,18 +165,36 @@ public class AdminForm extends javax.swing.JFrame {
         cardLayout.show(contentPanel, "editBrand");
     }
 
+    // Слушач за клик на бутона от панела за Всички Рафтове - Добавяне
+    public void switchToShelfAddPanel() {
+        CardLayout cardLayout = (CardLayout) contentPanel.getLayout();
+        cardLayout.show(contentPanel, "addShelf");
+    }
+
+    // Слушач за клик на бутона от панела за Всички Рафтове - Редактиране
+    public void switchToShelfEditPanel(int shelf_id, String shelf_name, int max_capacity, int current_load) {
+        // Нова инстанция на shelfEditPanel с параметрите
+        shelfEditPanel editPanel = new shelfEditPanel(shelf_id, shelf_name, max_capacity, current_load);
+        contentPanel.add(editPanel, "editShelf");
+        CardLayout cardLayout = (CardLayout) contentPanel.getLayout();
+        cardLayout.show(contentPanel, "editShelf");
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         sideLayoutPanel = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        jButton5 = new javax.swing.JButton();
+        btnAddUser = new javax.swing.JButton();
+        lblUsers = new javax.swing.JLabel();
+        btnDashboard = new javax.swing.JButton();
+        btnAllUser = new javax.swing.JButton();
+        btnAllBrand = new javax.swing.JButton();
+        lblBrands = new javax.swing.JLabel();
+        btnAddBrand = new javax.swing.JButton();
+        lblShelfs = new javax.swing.JLabel();
+        btnAddShelf = new javax.swing.JButton();
+        btnAllShelf = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         logoutButton = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
@@ -171,46 +210,65 @@ public class AdminForm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        sideLayoutPanel.setBackground(new java.awt.Color(204, 204, 204));
+        sideLayoutPanel.setBackground(new java.awt.Color(241, 241, 230));
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/addUser.png"))); // NOI18N
-        jButton1.setText("Добави потребител");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnAddUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/addUser.png"))); // NOI18N
+        btnAddUser.setText("Добави потребител");
+        btnAddUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnAddUserActionPerformed(evt);
             }
         });
 
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("ПОТРЕБИТЕЛИ");
+        lblUsers.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblUsers.setText("ПОТРЕБИТЕЛИ");
 
-        jButton2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/dashboard.png"))); // NOI18N
-        jButton2.setText("НАЧАЛО");
-        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnDashboard.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        btnDashboard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/dashboard.png"))); // NOI18N
+        btnDashboard.setText("НАЧАЛО");
+        btnDashboard.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/user.png"))); // NOI18N
-        jButton3.setText("Всички потребители");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnAllUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/user.png"))); // NOI18N
+        btnAllUser.setText("Всички потребители");
+        btnAllUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnAllUserActionPerformed(evt);
             }
         });
 
-        jButton4.setText("Всички марки");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnAllBrand.setText("Всички марки");
+        btnAllBrand.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnAllBrandActionPerformed(evt);
             }
         });
 
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("МАРКИ");
+        lblBrands.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblBrands.setText("МАРКИ");
 
-        jButton5.setText("Добави марка");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        btnAddBrand.setText("Добави марка");
+        btnAddBrand.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                btnAddBrandActionPerformed(evt);
+            }
+        });
+
+        lblShelfs.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblShelfs.setText("РАФТОВЕ");
+
+        btnAddShelf.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/shelfAdd.png"))); // NOI18N
+        btnAddShelf.setText("Добави рафт");
+        btnAddShelf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddShelfActionPerformed(evt);
+            }
+        });
+
+        btnAllShelf.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/shelf.png"))); // NOI18N
+        btnAllShelf.setText("Всички рафтове");
+        btnAllShelf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAllShelfActionPerformed(evt);
             }
         });
 
@@ -221,48 +279,57 @@ public class AdminForm extends javax.swing.JFrame {
             .addGroup(sideLayoutPanelLayout.createSequentialGroup()
                 .addGroup(sideLayoutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(sideLayoutPanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(sideLayoutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(sideLayoutPanelLayout.createSequentialGroup()
                         .addGroup(sideLayoutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(sideLayoutPanelLayout.createSequentialGroup()
                                 .addGap(14, 14, 14)
-                                .addComponent(jLabel1))
+                                .addComponent(lblUsers))
                             .addGroup(sideLayoutPanelLayout.createSequentialGroup()
                                 .addGap(35, 35, 35)
-                                .addComponent(jButton2)))
+                                .addComponent(btnDashboard)))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnAllBrand, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAddBrand, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(sideLayoutPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(sideLayoutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnAllUser, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnAddUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(sideLayoutPanelLayout.createSequentialGroup()
+                                .addGroup(sideLayoutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblBrands)
+                                    .addComponent(lblShelfs))
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addComponent(btnAllShelf, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAddShelf, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
-            .addGroup(sideLayoutPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         sideLayoutPanelLayout.setVerticalGroup(
             sideLayoutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(sideLayoutPanelLayout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addComponent(jButton2)
+                .addComponent(btnDashboard)
                 .addGap(50, 50, 50)
-                .addComponent(jLabel1)
+                .addComponent(lblUsers)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(btnAddUser)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
+                .addComponent(btnAllUser)
                 .addGap(23, 23, 23)
-                .addComponent(jLabel2)
+                .addComponent(lblBrands)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton5)
+                .addComponent(btnAddBrand)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton4)
-                .addContainerGap(236, Short.MAX_VALUE))
+                .addComponent(btnAllBrand)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblShelfs)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnAddShelf)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnAllShelf)
+                .addContainerGap(156, Short.MAX_VALUE))
         );
 
-        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel1.setBackground(new java.awt.Color(241, 241, 230));
 
         logoutButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/logout.png"))); // NOI18N
         logoutButton.setText("Изход");
@@ -362,9 +429,9 @@ public class AdminForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnAddUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddUserActionPerformed
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnAddUserActionPerformed
 
     private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
         int dialogButton = JOptionPane.YES_NO_OPTION;
@@ -397,17 +464,25 @@ public class AdminForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnAllUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAllUserActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnAllUserActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void btnAllBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAllBrandActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_btnAllBrandActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void btnAddBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddBrandActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_btnAddBrandActionPerformed
+
+    private void btnAddShelfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddShelfActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAddShelfActionPerformed
+
+    private void btnAllShelfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAllShelfActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAllShelfActionPerformed
 
     // logout user function
     public void logout() {
@@ -466,13 +541,13 @@ public class AdminForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton btnAddBrand;
+    private javax.swing.JButton btnAddShelf;
+    private javax.swing.JButton btnAddUser;
+    private javax.swing.JButton btnAllBrand;
+    private javax.swing.JButton btnAllShelf;
+    private javax.swing.JButton btnAllUser;
+    private javax.swing.JButton btnDashboard;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -483,6 +558,9 @@ public class AdminForm extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JLabel lblBrands;
+    private javax.swing.JLabel lblShelfs;
+    private javax.swing.JLabel lblUsers;
     private javax.swing.JLabel lbl_user;
     private javax.swing.JButton logoutButton;
     private javax.swing.JPanel sideLayoutPanel;
