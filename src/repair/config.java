@@ -65,9 +65,49 @@ public class config {
             }
         });
     }
-    
-    
-     // SELECT заявка за извличане на shelves
+
+    // SELECT заявка за извличане на machines с JOIN към categories и brands
+    public ArrayList<Machine> loadMachineData() {
+        ArrayList<Machine> machines = new ArrayList<>();
+        String q = """
+    SELECT p.product_id, 
+           p.product_name, 
+           p.category_id, 
+           c.category_name, 
+           p.brand_id, 
+           b.brand_name, 
+           p.price, 
+           p.qty
+    FROM products p
+    JOIN categories c ON p.category_id = c.cat_id
+    JOIN brands b ON p.brand_id = b.brand_id
+""";
+
+        try (PreparedStatement stmt = conn.prepareStatement(q)) {
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Machine machine = new Machine(
+                        rs.getInt("product_id"),
+                        rs.getString("product_name"),
+                        rs.getInt("category_id"),
+                        rs.getString("category_name"),
+                        rs.getInt("brand_id"),
+                        rs.getString("brand_name"),
+                        rs.getDouble("price"),
+                        rs.getInt("qty")
+                );
+                machines.add(machine);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error loading product data: " + e.getMessage());
+        }
+
+        return machines;
+    }
+
+    // SELECT заявка за извличане на shelves
     public ArrayList<Shelf> loadShelfData() {
         ArrayList<Shelf> shelves = new ArrayList<>();
         String q = "SELECT shelf_id, shelf_name, max_capacity,current_load FROM shelves";
@@ -91,7 +131,6 @@ public class config {
 
         return shelves;
     }
-    
 
     // SELECT заявка за извличане на brands
     public ArrayList<Brand> loadBrandData() {
@@ -167,8 +206,9 @@ public class config {
             sql += " WHERE " + whereClause;
         }
 
+        System.out.println("Executing SQL: " + sql);  // debug
+
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-            // Set parameters if available
             if (params != null) {
                 for (int i = 0; i < params.length; i++) {
                     stmt.setObject(i + 1, params[i]);
@@ -178,7 +218,9 @@ public class config {
                 while (rs.next()) {
                     StringBuilder row = new StringBuilder();
                     for (String column : columns) {
-                        row.append(rs.getString(column)).append("---");
+                        String columnName = column.contains(".") ? column.split("\\.")[1] : column;
+                        row.append(rs.getString(columnName)).append("---");
+//                        row.append(rs.getString(column)).append("---");
                     }
                     result.add(row.substring(0, row.length() - 3)); // Remove last separator
                 }

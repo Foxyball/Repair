@@ -8,14 +8,19 @@ public class AdminForm extends javax.swing.JFrame {
 
     JPanel contentPanel;
     dashboardPanel dashboardPanel;
+
     userAddPanel userAddPanel;
     userListPanel userListPanel;
+
     brandListPanel brandListPanel;
     brandAddPanel brandAddPanel;
-    brandEditPanel brandEditPanel;
+
     shelfAddPanel shelfAddPanel;
     shelfListPanel shelfListPanel;
-    shelfEditPanel shelfEditPanel;
+
+    machineAddPanel machineAddPanel;
+    machineListPanel machineListPanel;
+
     LoggedInUser LoggedInUser;
 
     public AdminForm(String role) {
@@ -118,6 +123,27 @@ public class AdminForm extends javax.swing.JFrame {
         sideLayoutPanel.add(Box.createVerticalStrut(10));
         sideLayoutPanel.add(btnAllShelf);
 
+        lblMachines.setAlignmentX(Component.LEFT_ALIGNMENT);
+        lblMachines.setFont(new Font("Arial", Font.BOLD, 16));
+        sideLayoutPanel.add(lblMachines);
+
+        // Добавяне на машина (products)
+        machineAddPanel = new machineAddPanel();
+        contentPanel.add(machineAddPanel, "addMachine");
+        btnAddMachine.addActionListener(switchPanelListener);
+        btnAddMachine.setActionCommand("addMachine");
+        sideLayoutPanel.add(Box.createVerticalStrut(10));
+        sideLayoutPanel.add(btnAddMachine);
+
+        // Всички машини (products)
+        machineListPanel = new machineListPanel(this);
+        contentPanel.add(machineListPanel, "listMachine");
+        btnAllMachine.addActionListener(switchPanelListener);
+        btnAllMachine.setActionCommand("listMachine");
+        sideLayoutPanel.add(Box.createVerticalStrut(10));
+        sideLayoutPanel.add(btnAllMachine);
+
+        // Layout, не променяй
         //************************************  
         this.setLayout(new BorderLayout());
         this.add(jPanel1, BorderLayout.NORTH);
@@ -180,6 +206,21 @@ public class AdminForm extends javax.swing.JFrame {
         cardLayout.show(contentPanel, "editShelf");
     }
 
+    // Слушач за клик на бутона от панела за Всички Машини - Добавяне
+    public void switchToMachineAddPanel() {
+        CardLayout cardLayout = (CardLayout) contentPanel.getLayout();
+        cardLayout.show(contentPanel, "addMachine");
+    }
+
+    // Слушач за клик на бутона от панела за Всички Машини - Редактиране
+    public void switchToMachineEditPanel(int product_id, String product_name, int category_id, String category_name, int brand_id, String brand_name, double price, int qty) {
+        // Нова инстанция на machineEditPanel с параметрите
+        machineEditPanel editPanel = new machineEditPanel(product_id, product_name, category_id, category_name, brand_id, brand_name, price, qty);
+        contentPanel.add(editPanel, "editMachine");
+        CardLayout cardLayout = (CardLayout) contentPanel.getLayout();
+        cardLayout.show(contentPanel, "editMachine");
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -195,6 +236,9 @@ public class AdminForm extends javax.swing.JFrame {
         lblShelfs = new javax.swing.JLabel();
         btnAddShelf = new javax.swing.JButton();
         btnAllShelf = new javax.swing.JButton();
+        lblMachines = new javax.swing.JLabel();
+        btnAddMachine = new javax.swing.JButton();
+        btnAllMachine = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         logoutButton = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
@@ -272,23 +316,46 @@ public class AdminForm extends javax.swing.JFrame {
             }
         });
 
+        lblMachines.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblMachines.setText("МАШИНИ");
+
+        btnAddMachine.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/machineAdd.png"))); // NOI18N
+        btnAddMachine.setText("Добави машина");
+        btnAddMachine.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddMachineActionPerformed(evt);
+            }
+        });
+
+        btnAllMachine.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/machine.png"))); // NOI18N
+        btnAllMachine.setText("Всички машини");
+        btnAllMachine.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAllMachineActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout sideLayoutPanelLayout = new javax.swing.GroupLayout(sideLayoutPanel);
         sideLayoutPanel.setLayout(sideLayoutPanelLayout);
         sideLayoutPanelLayout.setHorizontalGroup(
             sideLayoutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(sideLayoutPanelLayout.createSequentialGroup()
                 .addGroup(sideLayoutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnAllBrand, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAddBrand, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAllShelf, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAddShelf, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(sideLayoutPanelLayout.createSequentialGroup()
                         .addGroup(sideLayoutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(sideLayoutPanelLayout.createSequentialGroup()
-                                .addGap(14, 14, 14)
-                                .addComponent(lblUsers))
-                            .addGroup(sideLayoutPanelLayout.createSequentialGroup()
                                 .addGap(35, 35, 35)
-                                .addComponent(btnDashboard)))
+                                .addComponent(btnDashboard))
+                            .addGroup(sideLayoutPanelLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(sideLayoutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblMachines)
+                                    .addComponent(lblUsers))))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(btnAllBrand, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAddBrand, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(sideLayoutPanelLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(sideLayoutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -298,9 +365,9 @@ public class AdminForm extends javax.swing.JFrame {
                                 .addGroup(sideLayoutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblBrands)
                                     .addComponent(lblShelfs))
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addComponent(btnAllShelf, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAddShelf, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(btnAllMachine, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnAddMachine, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         sideLayoutPanelLayout.setVerticalGroup(
@@ -326,7 +393,13 @@ public class AdminForm extends javax.swing.JFrame {
                 .addComponent(btnAddShelf)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnAllShelf)
-                .addContainerGap(156, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblMachines)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnAddMachine)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnAllMachine)
+                .addContainerGap(70, Short.MAX_VALUE))
         );
 
         jPanel1.setBackground(new java.awt.Color(241, 241, 230));
@@ -484,6 +557,14 @@ public class AdminForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAllShelfActionPerformed
 
+    private void btnAddMachineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddMachineActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAddMachineActionPerformed
+
+    private void btnAllMachineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAllMachineActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAllMachineActionPerformed
+
     // logout user function
     public void logout() {
         // Assuming you're storing the logged-in user in a class like LoggedInUser
@@ -542,9 +623,11 @@ public class AdminForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddBrand;
+    private javax.swing.JButton btnAddMachine;
     private javax.swing.JButton btnAddShelf;
     private javax.swing.JButton btnAddUser;
     private javax.swing.JButton btnAllBrand;
+    private javax.swing.JButton btnAllMachine;
     private javax.swing.JButton btnAllShelf;
     private javax.swing.JButton btnAllUser;
     private javax.swing.JButton btnDashboard;
@@ -559,6 +642,7 @@ public class AdminForm extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JLabel lblBrands;
+    private javax.swing.JLabel lblMachines;
     private javax.swing.JLabel lblShelfs;
     private javax.swing.JLabel lblUsers;
     private javax.swing.JLabel lbl_user;

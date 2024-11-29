@@ -1,20 +1,53 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package repair;
 
-/**
- *
- * @author thefo
- */
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 public class machineListPanel extends javax.swing.JPanel {
 
-    /**
-     * Creates new form machineListPanel
-     */
-    public machineListPanel() {
+    config q = new config();
+    DefaultTableModel model;
+    private AdminForm adminForm;
+
+    public machineListPanel(AdminForm adminForm) {
         initComponents();
+        this.adminForm = adminForm;
+
+        lblSearchResults.setVisible(false); // Резултати от търсене етикет
+
+        btnAddMachine.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                adminForm.switchToMachineAddPanel();
+            }
+        });
+
+        ArrayList<Machine> machines = q.loadMachineData();
+
+        model = (DefaultTableModel) machineTable.getModel();
+
+        for (Machine machine : machines) {
+            model.addRow(machine.toArray());
+        }
+
+        // да не може да се редактира в самата таблица
+        machineTable.setDefaultEditor(Object.class, null);
+        machineTable.setAutoCreateRowSorter(true); // позволява сортиране по колони
+
+        machineTable.setModel(model);
+
+    }
+
+    // Обновяване на данните в таблицата
+    public void refreshTable() {
+        model.setRowCount(0);
+        ArrayList<Machine> machines = q.loadMachineData();
+        for (Machine machine : machines) {
+            model.addRow(machine.toArray());
+        }
     }
 
     /**
@@ -26,19 +59,306 @@ public class machineListPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        lblAllMachine = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        machineTable = new repair.Table();
+        btnAddMachine = new repair.Button();
+        btnEditMachine = new repair.Button();
+        btnDeleteBrand = new repair.Button();
+        btnRefreshMachine = new repair.Button();
+        txtSearchMachine = new javax.swing.JTextField();
+        btnSearchBrand = new repair.Button();
+        lblSearchResults = new javax.swing.JLabel();
+
+        lblAllMachine.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lblAllMachine.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblAllMachine.setText("ВСИЧКИ МАШИНИ");
+        lblAllMachine.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        lblAllMachine.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        machineTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Машина", "Цена", "Категория", "Марка", "Колич."
+            }
+        ));
+        jScrollPane1.setViewportView(machineTable);
+
+        btnAddMachine.setBackground(new java.awt.Color(0, 153, 255));
+        btnAddMachine.setForeground(new java.awt.Color(255, 255, 255));
+        btnAddMachine.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/save.png"))); // NOI18N
+        btnAddMachine.setText("Добавяне");
+
+        btnEditMachine.setBackground(new java.awt.Color(0, 153, 255));
+        btnEditMachine.setForeground(new java.awt.Color(255, 255, 255));
+        btnEditMachine.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/editing.png"))); // NOI18N
+        btnEditMachine.setText("Редактиране");
+        btnEditMachine.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditMachineActionPerformed(evt);
+            }
+        });
+
+        btnDeleteBrand.setBackground(new java.awt.Color(0, 153, 255));
+        btnDeleteBrand.setForeground(new java.awt.Color(255, 255, 255));
+        btnDeleteBrand.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/erase.png"))); // NOI18N
+        btnDeleteBrand.setText("Изтриване");
+        btnDeleteBrand.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteBrandActionPerformed(evt);
+            }
+        });
+
+        btnRefreshMachine.setBackground(new java.awt.Color(0, 153, 255));
+        btnRefreshMachine.setForeground(new java.awt.Color(255, 255, 255));
+        btnRefreshMachine.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/refresh.png"))); // NOI18N
+        btnRefreshMachine.setText("Обнови");
+        btnRefreshMachine.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshMachineActionPerformed(evt);
+            }
+        });
+
+        txtSearchMachine.setBackground(new java.awt.Color(255, 255, 255));
+        txtSearchMachine.setForeground(new java.awt.Color(0, 0, 0));
+        txtSearchMachine.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSearchMachineActionPerformed(evt);
+            }
+        });
+
+        btnSearchBrand.setBackground(new java.awt.Color(0, 153, 255));
+        btnSearchBrand.setForeground(new java.awt.Color(255, 255, 255));
+        btnSearchBrand.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/search.png"))); // NOI18N
+        btnSearchBrand.setText("Търсене");
+        btnSearchBrand.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchBrandActionPerformed(evt);
+            }
+        });
+
+        lblSearchResults.setText("Резултати: 0");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(45, 45, 45)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 829, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 28, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnAddMachine, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnEditMachine, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnDeleteBrand, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnRefreshMachine, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31)
+                        .addComponent(txtSearchMachine, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnSearchBrand, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblSearchResults)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblAllMachine)
+                .addGap(354, 354, 354))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblAllMachine)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAddMachine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEditMachine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDeleteBrand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRefreshMachine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSearchMachine, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSearchBrand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblSearchResults))
+                .addGap(34, 34, 34)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnEditMachineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditMachineActionPerformed
+        int selectedRow = machineTable.getSelectedRow();
+        if (selectedRow != -1) {
+
+            // Кастване на ID-то към int от String
+            String idString = machineTable.getValueAt(selectedRow, 0).toString();
+            int machineId = Integer.parseInt(idString);
+
+            // Извикване на универсалния метод select
+            String[] columns = {"p.product_id", "p.product_name", "p.category_id", "p.brand_id", "p.price", "p.qty", "c.category_name", "b.brand_name"};
+            String whereClause = "p.product_id = ?";
+            Object[] params = {machineId};
+
+            String table = "products p JOIN categories c ON p.category_id = c.cat_id JOIN brands b ON p.brand_id = b.brand_id";
+
+            ArrayList<String> result = q.select(columns, table, whereClause, params);
+            System.out.println(result);
+
+            if (!result.isEmpty()) {
+                // Разделяне на първия (и единствен) ред на масив от стойности
+                String[] machineData = result.get(0).split("---");
+
+                int product_id = Integer.parseInt(machineData[0]);
+                String product_name = machineData[1];
+                int category_id = Integer.parseInt(machineData[2]);
+                int brand_id = Integer.parseInt(machineData[3]);
+                double price = Double.parseDouble(machineData[4]);
+                int qty = Integer.parseInt(machineData[5]);
+                String category_name = (machineData[6] != null) ? machineData[6] : "Unknown Category";
+                String brand_name = (machineData[7] != null) ? machineData[7] : "Unknown Brand";
+
+                // Подаване на данните към панела за редактиране, за да се визуализират
+                adminForm.switchToMachineEditPanel(product_id, product_name, category_id, category_name, brand_id, brand_name, price, qty);
+            } else {
+                JOptionPane.showMessageDialog(this, "Не е намерена машина с това ID!");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Моля, изберете ред от таблицата!");
+        }
+    }//GEN-LAST:event_btnEditMachineActionPerformed
+
+    private void btnDeleteBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteBrandActionPerformed
+        int selectedRow = machineTable.getSelectedRow();
+
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Моля, изберете машина за изтриване.");
+            return;
+        }
+
+        // Кастване на ID-то към int от String
+        String idString = machineTable.getValueAt(selectedRow, 0).toString();
+        int machineId = Integer.parseInt(idString);
+
+        int confirm = JOptionPane.showConfirmDialog(this, "Сигурни ли сте, че искате да изтриете тази машина?", "Потвърждение", JOptionPane.YES_NO_OPTION);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            boolean isDeleted = q.delete("products", "product_id", machineId);
+
+            if (isDeleted) {
+                refreshTable();
+                JOptionPane.showMessageDialog(this, "Машината е изтрита успешно.");
+            } else {
+                JOptionPane.showMessageDialog(this, "Грешка при изтриване на машина.");
+            }
+        }
+    }//GEN-LAST:event_btnDeleteBrandActionPerformed
+
+    private void btnRefreshMachineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshMachineActionPerformed
+        refreshMachineList();
+    }//GEN-LAST:event_btnRefreshMachineActionPerformed
+
+    private void txtSearchMachineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchMachineActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSearchMachineActionPerformed
+
+    // Търсачка
+    private void btnSearchBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchBrandActionPerformed
+        String keyword = txtSearchMachine.getText().trim();
+
+        if (keyword.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Моля, въведете ключова дума за търсене!", "Грешка", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String[] columns = {"product_id", "product_name", "category_name", "brand_name", "price", "qty"};
+        String whereClause = "product_name LIKE ?";
+        Object[] params = {"%" + keyword + "%"};
+
+        ArrayList<String> searchResults = q.select(columns, "products p"
+                + " JOIN categories c ON p.category_id = c.cat_id"
+                + " JOIN brands b ON p.brand_id = b.brand_id", whereClause, params);
+
+        String[] columnNames = {"ID", "Машина", "Категория", "Марка", "Цена", "Колич."};
+        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+
+        for (String row : searchResults) {
+            String[] machineData = row.split("---");
+            model.addRow(machineData);
+        }
+
+        machineTable.setModel(model);
+        machineTable.setDefaultEditor(Object.class, null);
+
+        lblSearchResults.setVisible(true);
+        int resultCount = searchResults.size();
+        lblSearchResults.setText("Резултати: " + resultCount);
+    }//GEN-LAST:event_btnSearchBrandActionPerformed
+
+    // Обновяване на данните с бутон
+    public void refreshMachineList() {
+
+        model.setRowCount(0);
+
+        String[] columns = {"product_id", "product_name", "category_name", "brand_name", "price", "qty"};
+        String table = "products p"
+                + " JOIN categories c ON p.category_id = c.cat_id"
+                + " JOIN brands b ON p.brand_id = b.brand_id";
+        String whereClause = "";
+        Object[] params = null;
+
+        ArrayList<String> machineList = q.select(columns, table, whereClause, params);;
+
+        for (String machine : machineList) {
+            String[] machineDetails = machine.split("---");
+
+            model.addRow(machineDetails);
+        }
+
+        machineTable.setModel(model);
+
+        // да не може да се редактира в самата таблица
+        machineTable.setDefaultEditor(Object.class, null);
+
+        // Скриване на резултати: 4
+        lblSearchResults.setVisible(false);
+        txtSearchMachine.setText("");
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private repair.Button btnAddMachine;
+    private repair.Button btnDeleteBrand;
+    private repair.Button btnEditMachine;
+    private repair.Button btnRefreshMachine;
+    private repair.Button btnSearchBrand;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblAllMachine;
+    private javax.swing.JLabel lblSearchResults;
+    private repair.Table machineTable;
+    private javax.swing.JTextField txtSearchMachine;
     // End of variables declaration//GEN-END:variables
 }
