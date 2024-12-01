@@ -118,9 +118,9 @@
                   <Table columnCount="6" rowCount="0">
                     <Column editable="true" title="ID" type="java.lang.Object"/>
                     <Column editable="true" title="&#x41c;&#x430;&#x448;&#x438;&#x43d;&#x430;" type="java.lang.Object"/>
-                    <Column editable="true" title="&#x426;&#x435;&#x43d;&#x430;" type="java.lang.Object"/>
                     <Column editable="true" title="&#x41a;&#x430;&#x442;&#x435;&#x433;&#x43e;&#x440;&#x438;&#x44f;" type="java.lang.Object"/>
                     <Column editable="true" title="&#x41c;&#x430;&#x440;&#x43a;&#x430;" type="java.lang.Object"/>
+                    <Column editable="true" title="&#x426;&#x435;&#x43d;&#x430;" type="java.lang.Object"/>
                     <Column editable="true" title="&#x41a;&#x43e;&#x43b;&#x438;&#x447;." type="java.lang.Object"/>
                   </Table>
                 </Property>

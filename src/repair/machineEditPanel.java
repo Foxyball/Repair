@@ -1,6 +1,8 @@
 package repair;
 
 import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 
 public class machineEditPanel extends javax.swing.JPanel {
 
@@ -11,26 +13,41 @@ public class machineEditPanel extends javax.swing.JPanel {
         initComponents();
 
         this.product_id = product_id;
-        
-         comboMachineBrand.removeAllItems();
-        ArrayList<Brand> brands = q.loadBrandData();
-        for (Brand brand : brands) {
-            comboMachineBrand.addItem(brand);
-        }
 
-        // Добавяне на ActionListener за отпечатване на ID при избран елемент
-        comboMachineBrand.addActionListener(e -> {
-            Brand selectedBrand = (Brand) comboMachineBrand.getSelectedItem();
-            if (selectedBrand != null) {
-                System.out.println("Selected Brand ID: " + selectedBrand.getBrandId());
-            }
-        });
-
+        // Set text fields
         txtMachineName.setText(product_name);
-//        comboMachineCategory.setSelectedIndex(category_id);
-        comboMachineBrand.setSelectedIndex(brand_id);
         txtMachinePrice.setText(String.valueOf(price));
         txtMachineQTY.setText(String.valueOf(qty));
+
+        ArrayList<Category> categories = q.loadCategoryData();
+        DefaultComboBoxModel<Category> catModel = new DefaultComboBoxModel<>();
+        for (Category category : categories) {
+            catModel.addElement(category);
+        }
+        comboMachineCategory.setModel(catModel);
+
+        for (int i = 0; i < catModel.getSize(); i++) {
+            Category category = catModel.getElementAt(i);
+            if (category.getCatId() == category_id) {
+                comboMachineCategory.setSelectedItem(category);
+                break;
+            }
+        }
+
+        ArrayList<Brand> brands = q.loadBrandData();
+        DefaultComboBoxModel<Brand> brandModel = new DefaultComboBoxModel<>();
+        for (Brand brand : brands) {
+            brandModel.addElement(brand);
+        }
+        comboMachineBrand.setModel(brandModel);
+
+        for (int i = 0; i < brandModel.getSize(); i++) {
+            Brand brand = brandModel.getElementAt(i);
+            if (brand.getBrandId() == brand_id) {
+                comboMachineBrand.setSelectedItem(brand);
+                break;
+            }
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -117,7 +134,53 @@ public class machineEditPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEditMachineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditMachineActionPerformed
-       
+
+        String machine_name = txtMachineName.getText();
+        String machine_price = txtMachinePrice.getText();
+        String machine_qty = txtMachineQTY.getText();
+        Brand selectedBrand = (Brand) comboMachineBrand.getSelectedItem();
+        Category selectedCategory = (Category) comboMachineCategory.getSelectedItem();
+
+        double price;
+        int quantity;
+
+        if (machine_name.isEmpty() || machine_price.isEmpty() || machine_qty.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Моля, попълнете всички полета", "Грешка", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        try {
+            price = Double.parseDouble(machine_price);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Моля, въведете валидна цена.", "Грешка", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        try {
+            quantity = Integer.parseInt(machine_qty);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Моля, въведете валидно количество.", "Грешка", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (selectedBrand == null || selectedCategory == null) {
+            JOptionPane.showMessageDialog(this, "Моля, изберете валидна категория и марка.", "Грешка", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        int brand_id = selectedBrand.getBrandId();
+        int category_id = selectedCategory.getCatId();
+
+        String[] columns = {"product_name", "category_id", "brand_id", "price", "qty"};
+        Object[] values = {machine_name, category_id, brand_id, price, quantity};
+
+        boolean success = q.update("products", columns, values, "product_id", product_id);
+
+        if (success) {
+            JOptionPane.showMessageDialog(this, "Промените са запазени успешно.");
+        } else {
+            JOptionPane.showMessageDialog(this, "Грешка при запазване на промените.");
+        }
     }//GEN-LAST:event_btnEditMachineActionPerformed
 
 

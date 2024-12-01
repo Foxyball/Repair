@@ -82,7 +82,7 @@ public class machineListPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "ID", "Машина", "Цена", "Категория", "Марка", "Колич."
+                "ID", "Машина", "Категория", "Марка", "Цена", "Колич."
             }
         ));
         jScrollPane1.setViewportView(machineTable);
@@ -212,38 +212,36 @@ public class machineListPanel extends javax.swing.JPanel {
     private void btnEditMachineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditMachineActionPerformed
         int selectedRow = machineTable.getSelectedRow();
         if (selectedRow != -1) {
+            try {
 
-            // Кастване на ID-то към int от String
-            String idString = machineTable.getValueAt(selectedRow, 0).toString();
-            int machineId = Integer.parseInt(idString);
+                String idString = machineTable.getValueAt(selectedRow, 0).toString();
+                int machineId = Integer.parseInt(idString);
 
-            // Извикване на универсалния метод select
-            String[] columns = {"p.product_id", "p.product_name", "p.category_id", "p.brand_id", "p.price", "p.qty", "c.category_name", "b.brand_name"};
-            String whereClause = "p.product_id = ?";
-            Object[] params = {machineId};
+                String[] columns = {"p.product_id", "p.product_name", "p.category_id", "p.brand_id", "p.price", "p.qty", "c.category_name", "b.brand_name"};
+                String whereClause = "p.product_id = ?";
+                Object[] params = {machineId};
+                String table = "products p JOIN categories c ON p.category_id = c.cat_id JOIN brands b ON p.brand_id = b.brand_id";
 
-            String table = "products p JOIN categories c ON p.category_id = c.cat_id JOIN brands b ON p.brand_id = b.brand_id";
+                ArrayList<String> result = q.select(columns, table, whereClause, params);
 
-            ArrayList<String> result = q.select(columns, table, whereClause, params);
-            System.out.println(result);
+                if (!result.isEmpty()) {
+                    String[] machineData = result.get(0).split("---");
 
-            if (!result.isEmpty()) {
-                // Разделяне на първия (и единствен) ред на масив от стойности
-                String[] machineData = result.get(0).split("---");
+                    int product_id = Integer.parseInt(machineData[0]);
+                    String product_name = machineData[1];
+                    int category_id = Integer.parseInt(machineData[2]);
+                    int brand_id = Integer.parseInt(machineData[3]);
+                    double price = Double.parseDouble(machineData[4]);
+                    int qty = Integer.parseInt(machineData[5]);
+                    String category_name = machineData[6] != null ? machineData[6] : "Неизвестна категория";
+                    String brand_name = machineData[7] != null ? machineData[7] : "Неизвестна марка";
 
-                int product_id = Integer.parseInt(machineData[0]);
-                String product_name = machineData[1];
-                int category_id = Integer.parseInt(machineData[2]);
-                int brand_id = Integer.parseInt(machineData[3]);
-                double price = Double.parseDouble(machineData[4]);
-                int qty = Integer.parseInt(machineData[5]);
-                String category_name = (machineData[6] != null) ? machineData[6] : "Unknown Category";
-                String brand_name = (machineData[7] != null) ? machineData[7] : "Unknown Brand";
-
-                // Подаване на данните към панела за редактиране, за да се визуализират
-                adminForm.switchToMachineEditPanel(product_id, product_name, category_id, category_name, brand_id, brand_name, price, qty);
-            } else {
-                JOptionPane.showMessageDialog(this, "Не е намерена машина с това ID!");
+                    adminForm.switchToMachineEditPanel(product_id, product_name, category_id, category_name, brand_id, brand_name, price, qty);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Няма намерена машина с това ID!");
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Възникна грешка: " + e.getMessage());
             }
         } else {
             JOptionPane.showMessageDialog(this, "Моля, изберете ред от таблицата!");
