@@ -65,6 +65,33 @@ public class config {
             }
         });
     }
+    
+    
+     // SELECT заявка за извличане на shelves
+    public ArrayList<Category> loadCategoryData() {
+        ArrayList<Category> categories = new ArrayList<>();
+        String q = "SELECT cat_id, category_name FROM categories";
+
+        try (PreparedStatement stmt = conn.prepareStatement(q)) {
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Category category = new Category(
+                        rs.getInt("cat_id"),
+                        rs.getString("category_name")
+                );
+                categories.add(category);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error loading category data: " + e.getMessage());
+        }
+
+        return categories;
+    }
+    
+    
+    
 
     // SELECT заявка за извличане на machines с JOIN към categories и brands
     public ArrayList<Machine> loadMachineData() {

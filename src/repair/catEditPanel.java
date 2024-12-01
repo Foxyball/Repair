@@ -4,17 +4,24 @@
  */
 package repair;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Strix
  */
 public class catEditPanel extends javax.swing.JPanel {
 
-    /**
-     * Creates new form catEditPanel
-     */
-    public catEditPanel() {
+    private int cat_id;
+    config q = new config();
+
+    public catEditPanel(int cat_id, String category_name) {
         initComponents();
+
+        this.cat_id = cat_id;
+
+        txtCategoryName.setText(category_name);
+        lblEditCategory.setText("РЕДАКТИРАНЕ НА КАТЕГОРИЯ - " + category_name);
     }
 
     /**
@@ -27,50 +34,50 @@ public class catEditPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        lblEditBrand = new javax.swing.JLabel();
-        btnSaveBrand = new repair.Button();
-        txtBrandName = new repair.TextField();
+        lblEditCategory = new javax.swing.JLabel();
+        btnSaveCategory = new repair.Button();
+        txtCategoryName = new repair.TextField();
 
-        lblEditBrand.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        lblEditBrand.setText("РЕДАКТИРАНЕ НА МАРКА");
+        lblEditCategory.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lblEditCategory.setText("РЕДАКТИРАНЕ НА КАТЕГОРИЯ");
 
-        btnSaveBrand.setBackground(new java.awt.Color(0, 153, 255));
-        btnSaveBrand.setForeground(new java.awt.Color(255, 255, 255));
-        btnSaveBrand.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/save.png"))); // NOI18N
-        btnSaveBrand.setText("Запази");
-        btnSaveBrand.addActionListener(new java.awt.event.ActionListener() {
+        btnSaveCategory.setBackground(new java.awt.Color(0, 153, 255));
+        btnSaveCategory.setForeground(new java.awt.Color(255, 255, 255));
+        btnSaveCategory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/save.png"))); // NOI18N
+        btnSaveCategory.setText("Запази");
+        btnSaveCategory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSaveBrandActionPerformed(evt);
+                btnSaveCategoryActionPerformed(evt);
             }
         });
 
-        txtBrandName.setLabelText("Име на марка");
+        txtCategoryName.setLabelText("Име на категория");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(281, Short.MAX_VALUE)
+                .addContainerGap(219, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblEditBrand, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(136, 136, 136))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtBrandName, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtCategoryName, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnSaveBrand, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(239, 239, 239))))
+                        .addComponent(btnSaveCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(239, 239, 239))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblEditCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 532, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(167, 167, 167))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(lblEditBrand)
+                .addComponent(lblEditCategory)
                 .addGap(150, 150, 150)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtBrandName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSaveBrand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCategoryName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSaveCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(211, Short.MAX_VALUE))
         );
 
@@ -96,26 +103,31 @@ public class catEditPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnSaveBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveBrandActionPerformed
-        String brand_name = txtBrandName.getText();
+    private void btnSaveCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveCategoryActionPerformed
+        String category_name = txtCategoryName.getText();
 
-        String[] columns = {"brand_name"};
-        Object[] values = {brand_name};
+        if (category_name.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Моля, попълнете всички полета", "Грешка", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
-        boolean success = q.update("brands", columns, values, "brand_id", brand_id);
+        String[] columns = {"category_name"};
+        Object[] values = {category_name};
+
+        boolean success = q.update("categories", columns, values, "cat_id", cat_id);
 
         if (success) {
             JOptionPane.showMessageDialog(this, "Промените са запазени успешно.");
         } else {
             JOptionPane.showMessageDialog(this, "Грешка при запазване на промените.");
         }
-    }//GEN-LAST:event_btnSaveBrandActionPerformed
+    }//GEN-LAST:event_btnSaveCategoryActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private repair.Button btnSaveBrand;
+    private repair.Button btnSaveCategory;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel lblEditBrand;
-    private repair.TextField txtBrandName;
+    private javax.swing.JLabel lblEditCategory;
+    private repair.TextField txtCategoryName;
     // End of variables declaration//GEN-END:variables
 }

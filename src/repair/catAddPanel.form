@@ -58,13 +58,13 @@
                       <EmptySpace pref="267" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
-                              <Component id="txtBrandName" min="-2" pref="268" max="-2" attributes="0"/>
+                              <Component id="txtCategoryName" min="-2" pref="268" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="btnAddBrand" min="-2" pref="135" max="-2" attributes="0"/>
+                              <Component id="btnAddCategory" min="-2" pref="135" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="231" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
-                              <Component id="lblAddBrand" min="-2" pref="309" max="-2" attributes="0"/>
+                              <Component id="lblAddCategory" min="-2" pref="309" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="292" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -75,11 +75,11 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                      <Component id="lblAddBrand" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblAddCategory" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="169" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="txtBrandName" alignment="3" max="32767" attributes="0"/>
-                          <Component id="btnAddBrand" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtCategoryName" alignment="3" max="32767" attributes="0"/>
+                          <Component id="btnAddCategory" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="289" max="-2" attributes="0"/>
                   </Group>
@@ -87,7 +87,7 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="lblAddBrand">
+            <Component class="javax.swing.JLabel" name="lblAddCategory">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="24" style="0"/>
@@ -98,15 +98,15 @@
                 <Property name="horizontalTextPosition" type="int" value="0"/>
               </Properties>
             </Component>
-            <Component class="repair.TextField" name="txtBrandName">
+            <Component class="repair.TextField" name="txtCategoryName">
               <Properties>
                 <Property name="labelText" type="java.lang.String" value="&#x418;&#x43c;&#x435; &#x43d;&#x430; &#x43a;&#x430;&#x442;&#x435;&#x433;&#x43e;&#x440;&#x438;&#x44f;"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtBrandNameActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtCategoryNameActionPerformed"/>
               </Events>
             </Component>
-            <Component class="repair.Button" name="btnAddBrand">
+            <Component class="repair.Button" name="btnAddCategory">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="99" red="0" type="rgb"/>
@@ -120,7 +120,7 @@
                 <Property name="text" type="java.lang.String" value="&#x414;&#x43e;&#x431;&#x430;&#x432;&#x438;"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddBrandActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddCategoryActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

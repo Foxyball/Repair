@@ -65,7 +65,6 @@ public class LoginForm extends javax.swing.JFrame {
 
         lblImage.setBackground(new java.awt.Color(241, 241, 230));
         lblImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/6b111291-a264-41d4-8760-51602e30e47d.png"))); // NOI18N
-        lblImage.setText("jLabel1");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
