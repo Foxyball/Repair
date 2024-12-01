@@ -23,6 +23,8 @@ public class AdminForm extends javax.swing.JFrame {
 
     catAddPanel catAddPanel;
     catListPanel catListPanel;
+    
+    orderAddPanel orderAddPanel;
 
     LoggedInUser LoggedInUser;
 
@@ -165,6 +167,29 @@ public class AdminForm extends javax.swing.JFrame {
         btnAllCategory.setActionCommand("listCategory");
         sideLayoutPanel.add(Box.createVerticalStrut(10));
         sideLayoutPanel.add(btnAllCategory);
+        
+        
+        
+        
+         lblOrder.setAlignmentX(Component.LEFT_ALIGNMENT);
+        lblOrder.setFont(new Font("Arial", Font.BOLD, 16));
+        sideLayoutPanel.add(lblOrder);
+
+        // Добавяне на заявка (repair_orders)
+        orderAddPanel = new orderAddPanel();
+        contentPanel.add(orderAddPanel, "addOrder");
+        btnAddOrder.addActionListener(switchPanelListener);
+        btnAddOrder.setActionCommand("addOrder");
+        sideLayoutPanel.add(Box.createVerticalStrut(10));
+        sideLayoutPanel.add(btnAddOrder);
+
+        // Всички категории (categories)
+//        catListPanel = new catListPanel(this);
+//        contentPanel.add(catListPanel, "listCategory");
+//        btnAllCategory.addActionListener(switchPanelListener);
+//        btnAllCategory.setActionCommand("listCategory");
+//        sideLayoutPanel.add(Box.createVerticalStrut(10));
+//        sideLayoutPanel.add(btnAllCategory);
 
         // Layout, не променяй
         //************************************  
@@ -280,6 +305,8 @@ public class AdminForm extends javax.swing.JFrame {
         lblCategory = new javax.swing.JLabel();
         btnAddCategory = new javax.swing.JButton();
         btnAllCategory = new javax.swing.JButton();
+        lblOrder = new javax.swing.JLabel();
+        btnAddOrder = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         logoutButton = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
@@ -395,6 +422,17 @@ public class AdminForm extends javax.swing.JFrame {
             }
         });
 
+        lblOrder.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblOrder.setText("ЗАЯВКИ");
+
+        btnAddOrder.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/repairOrderAdd.png"))); // NOI18N
+        btnAddOrder.setText("Добави заявка");
+        btnAddOrder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddOrderActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout sideLayoutPanelLayout = new javax.swing.GroupLayout(sideLayoutPanel);
         sideLayoutPanel.setLayout(sideLayoutPanelLayout);
         sideLayoutPanelLayout.setHorizontalGroup(
@@ -405,19 +443,6 @@ public class AdminForm extends javax.swing.JFrame {
                     .addComponent(btnAddShelf, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnAllBrand, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnAddBrand, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(sideLayoutPanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(sideLayoutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnAllUser, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnAddUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnAllMachine, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnAddMachine, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(sideLayoutPanelLayout.createSequentialGroup()
-                                .addGroup(sideLayoutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblShelfs)
-                                    .addComponent(lblUsers)
-                                    .addComponent(lblMachines))
-                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addComponent(btnAllCategory, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnAddCategory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(sideLayoutPanelLayout.createSequentialGroup()
@@ -428,12 +453,26 @@ public class AdminForm extends javax.swing.JFrame {
                             .addGroup(sideLayoutPanelLayout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(lblBrands)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(sideLayoutPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(sideLayoutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnAllUser, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnAddUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnAllMachine, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnAddMachine, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnAddOrder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(sideLayoutPanelLayout.createSequentialGroup()
+                                .addComponent(lblOrder)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(sideLayoutPanelLayout.createSequentialGroup()
+                                .addGroup(sideLayoutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblShelfs)
+                                    .addComponent(lblUsers)
+                                    .addComponent(lblMachines)
+                                    .addComponent(lblCategory))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
-            .addGroup(sideLayoutPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblCategory)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         sideLayoutPanelLayout.setVerticalGroup(
             sideLayoutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -470,7 +509,11 @@ public class AdminForm extends javax.swing.JFrame {
                 .addComponent(btnAddCategory)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnAllCategory)
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblOrder)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnAddOrder)
+                .addContainerGap(99, Short.MAX_VALUE))
         );
 
         jPanel1.setBackground(new java.awt.Color(241, 241, 230));
@@ -557,7 +600,7 @@ public class AdminForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(sideLayoutPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 675, Short.MAX_VALUE))
+                        .addGap(0, 681, Short.MAX_VALUE))
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -565,7 +608,7 @@ public class AdminForm extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(sideLayoutPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -644,6 +687,10 @@ public class AdminForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAllCategoryActionPerformed
 
+    private void btnAddOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddOrderActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAddOrderActionPerformed
+
     // logout user function
     public void logout() {
         // Assuming you're storing the logged-in user in a class like LoggedInUser
@@ -704,6 +751,7 @@ public class AdminForm extends javax.swing.JFrame {
     private javax.swing.JButton btnAddBrand;
     private javax.swing.JButton btnAddCategory;
     private javax.swing.JButton btnAddMachine;
+    private javax.swing.JButton btnAddOrder;
     private javax.swing.JButton btnAddShelf;
     private javax.swing.JButton btnAddUser;
     private javax.swing.JButton btnAllBrand;
@@ -725,6 +773,7 @@ public class AdminForm extends javax.swing.JFrame {
     private javax.swing.JLabel lblBrands;
     private javax.swing.JLabel lblCategory;
     private javax.swing.JLabel lblMachines;
+    private javax.swing.JLabel lblOrder;
     private javax.swing.JLabel lblShelfs;
     private javax.swing.JLabel lblUsers;
     private javax.swing.JLabel lbl_user;

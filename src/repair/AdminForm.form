@@ -80,7 +80,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="sideLayoutPanel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="675" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="681" max="32767" attributes="0"/>
                   </Group>
                   <Component id="jPanel1" max="32767" attributes="0"/>
               </Group>
@@ -92,7 +92,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="32" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
               <Component id="sideLayoutPanel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -116,23 +116,6 @@
                       <Component id="btnAddShelf" alignment="0" max="32767" attributes="0"/>
                       <Component id="btnAllBrand" alignment="1" max="32767" attributes="0"/>
                       <Component id="btnAddBrand" alignment="0" max="32767" attributes="0"/>
-                      <Group type="102" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="btnAllUser" alignment="1" max="32767" attributes="0"/>
-                              <Component id="btnAddUser" max="32767" attributes="0"/>
-                              <Component id="btnAllMachine" alignment="1" max="32767" attributes="0"/>
-                              <Component id="btnAddMachine" alignment="0" max="32767" attributes="0"/>
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="lblShelfs" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="lblUsers" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="lblMachines" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
-                      </Group>
                       <Component id="btnAllCategory" alignment="1" max="32767" attributes="0"/>
                       <Component id="btnAddCategory" alignment="0" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
@@ -148,13 +131,31 @@
                           </Group>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
+                      <Group type="102" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="btnAllUser" alignment="1" max="32767" attributes="0"/>
+                              <Component id="btnAddUser" max="32767" attributes="0"/>
+                              <Component id="btnAllMachine" alignment="1" max="32767" attributes="0"/>
+                              <Component id="btnAddMachine" alignment="0" max="32767" attributes="0"/>
+                              <Component id="btnAddOrder" alignment="0" max="32767" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="lblOrder" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace pref="97" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="lblShelfs" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lblUsers" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lblMachines" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lblCategory" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="lblCategory" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -193,7 +194,11 @@
                   <Component id="btnAddCategory" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnAllCategory" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="71" max="32767" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="lblOrder" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="btnAddOrder" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="99" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -345,6 +350,23 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAllCategoryActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblOrder">
+          <Properties>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="&#x417;&#x410;&#x42f;&#x412;&#x41a;&#x418;"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnAddOrder">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/repair/assets/repairOrderAdd.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="&#x414;&#x43e;&#x431;&#x430;&#x432;&#x438; &#x437;&#x430;&#x44f;&#x432;&#x43a;&#x430;"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddOrderActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

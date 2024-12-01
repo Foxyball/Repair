@@ -66,8 +66,8 @@ public class config {
         });
     }
     
-    
-     // SELECT заявка за извличане на shelves
+
+    // SELECT заявка за извличане на shelves
     public ArrayList<Category> loadCategoryData() {
         ArrayList<Category> categories = new ArrayList<>();
         String q = "SELECT cat_id, category_name FROM categories";
@@ -89,9 +89,6 @@ public class config {
 
         return categories;
     }
-    
-    
-    
 
     // SELECT заявка за извличане на machines с JOIN към categories и brands
     public ArrayList<Machine> loadMachineData() {

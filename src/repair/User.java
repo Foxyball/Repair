@@ -103,6 +103,10 @@ public class User {
     }
     
     
+   public String toString() {
+        return name;
+    }
+   
      // функция за връщане свойствата на обекта под формата на масив
     public Object[] toArray() {
 
