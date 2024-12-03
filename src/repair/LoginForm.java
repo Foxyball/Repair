@@ -12,7 +12,7 @@ import java.sql.ResultSet;
  * @author Hristo Sabev
  */
 public class LoginForm extends javax.swing.JFrame {
-    
+
     public LoginForm() {
         initComponents();
 
@@ -132,7 +132,7 @@ public class LoginForm extends javax.swing.JFrame {
     }//GEN-LAST:event_showPasswordCheckBoxActionPerformed
 
     private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
-       
+
         // Създаване на нова инстанция на config за връзка с базата данни
         config dbConfig = new config();
 
@@ -159,13 +159,13 @@ public class LoginForm extends javax.swing.JFrame {
                         String user_role = ress.getString("role");
 
                         User user = new User(id, user_name, user_email, "", "", user_role,
-                            ress.getInt("pkod"), ress.getString("city"), ress.getString("status"),
-                            ress.getString("egn"), ress.getInt("is_firm"), ress.getString("firm_name"),
-                            ress.getString("firm_eik"), ress.getString("firm_mol"), ress.getString("firm_dds"),
-                            ress.getString("firm_address"));
+                                ress.getInt("pkod"), ress.getString("city"), ress.getString("status"),
+                                ress.getString("egn"), ress.getInt("is_firm"), ress.getString("firm_name"),
+                                ress.getString("firm_eik"), ress.getString("firm_mol"), ress.getString("firm_dds"),
+                                ress.getString("firm_address"));
 
                         // Създаване на потребител, който да бъде записан като влязъл
-                        User loggedInUser = new User(id, user_name, user_email, "", "", "", 0, "", "", "", 0, "", "", "", "", "");
+                        User loggedInUser = new User(id, user_name, user_email, "", "", user_role, 0, "", "", "", 0, "", "", "", "", "");
                         LoggedInUser.setUser(loggedInUser);
                         System.out.println("Welcome, " + LoggedInUser.getUser().getName());
 
@@ -175,8 +175,9 @@ public class LoginForm extends javax.swing.JFrame {
                             adminform.setVisible(true);
                             this.dispose();
                         } else if (user_role.equals("user")) {
-                            AdminForm adminform = new AdminForm("user");
-                            adminform.setVisible(true);
+                            int loggedInUserId = loggedInUser.getUserId();
+                            UserForm userform = new UserForm(loggedInUserId);
+                            userform.setVisible(true);
                             this.dispose();
                         }
                     } else {

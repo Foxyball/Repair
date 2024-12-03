@@ -23,13 +23,8 @@ public class SendEmailForm extends javax.swing.JFrame {
         this.userEmail = user_email;
         this.userName = user_name;
 
-        // Populate email fields
-        String productName = "Ъглошлайф Makita GA5030R";
-        int totalPrice = 125;
-        jTextField2.setText("Вашата машина е готова - Hristov-08 ЕООД");
-        jTextArea1.setText("Здравейте, " + userName + ",\n"
-                + "Вашата машина " + productName + " е готова за взимане.\n"
-                + "Сума за плащане: " + totalPrice + " лв.");
+        jTextField2.setText("Hristov-08 ЕООД");
+        jTextArea1.setText("Здравейте, " + userName);
 
         jTextField1.setText(userEmail);
     }

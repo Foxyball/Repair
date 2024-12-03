@@ -328,15 +328,43 @@ public class orderListPanel extends javax.swing.JPanel {
             return;
         }
 
-        String[] columns = {"product_id", "product_name", "category_name", "brand_name", "price", "qty"};
-        String whereClause = "product_name LIKE ?";
-        Object[] params = {"%" + keyword + "%"};
+        String[] columns = {
+            "repair_orders.repair_id",
+            "products.product_name",
+            "users.name",
+            "users.phone",
+            "repair_orders.status",
+            "shelves.shelf_name",
+            "repair_orders.created_at"
+        };
+        String table = """
+        repair_orders
+        JOIN users ON repair_orders.user_id = users.id
+        JOIN products ON repair_orders.product_id = products.product_id
+        JOIN shelves ON repair_orders.shelf_id = shelves.shelf_id
+    """;
 
-        ArrayList<String> searchResults = q.select(columns, "products p"
-                + " JOIN categories c ON p.category_id = c.cat_id"
-                + " JOIN brands b ON p.brand_id = b.brand_id", whereClause, params);
+        // Search across multiple fields
+        String whereClause = """
+        products.product_name LIKE ? OR 
+        users.name LIKE ? OR 
+        users.phone LIKE ? OR 
+        repair_orders.status LIKE ? OR 
+        shelves.shelf_name LIKE ?
+    """;
+        Object[] params = {
+            "%" + keyword + "%",
+            "%" + keyword + "%",
+            "%" + keyword + "%",
+            "%" + keyword + "%",
+            "%" + keyword + "%"
+        };
 
-        String[] columnNames = {"ID", "Машина", "Категория", "Марка", "Цена", "Колич."};
+        ArrayList<String> searchResults = q.select(columns, table, whereClause, params);
+
+        String[] columnNames = {
+            "ID", "Машина", "Клиент", "Телефон", "Статус", "Рафт", "Дата"
+        };
         DefaultTableModel model = new DefaultTableModel(columnNames, 0);
 
         for (String row : searchResults) {

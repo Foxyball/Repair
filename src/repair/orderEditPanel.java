@@ -1,11 +1,22 @@
 package repair;
 
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.draw.LineSeparator;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import javax.mail.Message;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 public class orderEditPanel extends javax.swing.JPanel {
@@ -89,6 +100,7 @@ public class orderEditPanel extends javax.swing.JPanel {
         txtOrderFaultDesc = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtOrderConfirmedFault = new javax.swing.JTextArea();
+        btnOrderInvoice = new repair.Button();
 
         lblEditOrder.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lblEditOrder.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -128,6 +140,16 @@ public class orderEditPanel extends javax.swing.JPanel {
         txtOrderConfirmedFault.setRows(5);
         jScrollPane2.setViewportView(txtOrderConfirmedFault);
 
+        btnOrderInvoice.setBackground(new java.awt.Color(0, 153, 255));
+        btnOrderInvoice.setForeground(new java.awt.Color(255, 255, 255));
+        btnOrderInvoice.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/save.png"))); // NOI18N
+        btnOrderInvoice.setText("Фактура");
+        btnOrderInvoice.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOrderInvoiceActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -135,7 +157,9 @@ public class orderEditPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(295, 295, 295)
                 .addComponent(btnEditOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(422, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnOrderInvoice, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(lblEditOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -161,7 +185,7 @@ public class orderEditPanel extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(comboOrderShelf, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(comboOrderStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -196,7 +220,9 @@ public class orderEditPanel extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(txtOrderPartsCost, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnEditOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnEditOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnOrderInvoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(126, 126, 126))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -333,9 +359,116 @@ public class orderEditPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event_comboOrderUserItemStateChanged
 
+    // ФАКТУРА
+    private void btnOrderInvoiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrderInvoiceActionPerformed
+        generateInvoice();
+    }//GEN-LAST:event_btnOrderInvoiceActionPerformed
+
+    private void generateInvoice() {
+        User selectedUser = (User) comboOrderUser.getSelectedItem();
+        Machine selectedMachine = (Machine) comboOrderMachine.getSelectedItem();
+        double laborCost = Double.parseDouble(txtOrderLaborCost.getText());
+        double partsCost = Double.parseDouble(txtOrderPartsCost.getText());
+        int isWarranty = is_warranty_checkbox.isSelected() ? 1 : 0;
+        double totalPrice = 0;
+
+        if (isWarranty == 0) {
+            totalPrice = laborCost + partsCost;
+        } else {
+            totalPrice = 0;
+        }
+
+        String invoiceText = generateInvoiceText(selectedUser, selectedMachine, laborCost, partsCost, totalPrice, isWarranty);
+
+        String filePath = chooseFilePath();
+        if (filePath != null) {
+            generatePdfInvoice(invoiceText, filePath);
+        }
+    }
+
+    private String generateInvoiceText(User user, Machine machine, double laborCost, double partsCost, double totalPrice, int isWarranty) {
+        String userName = user.getName();
+        String userEmail = user.getEmail();
+        String productName = machine.getMachineName();
+
+        StringBuilder invoiceText = new StringBuilder();
+        invoiceText.append("Repair Order Invoice\n\n");
+        invoiceText.append("Customer: ").append(userName).append("\n");
+        invoiceText.append("Email: ").append(userEmail).append("\n");
+        invoiceText.append("Product: ").append(productName).append("\n");
+
+        if (isWarranty == 1) {
+            invoiceText.append("\nWarranty - Free\n");
+        } else {
+            invoiceText.append("\nLabor Fee: ").append(laborCost).append(" лв.\n");
+            invoiceText.append("Parts Fee: ").append(partsCost).append(" лв.\n");
+            invoiceText.append("Total: ").append(totalPrice).append(" лв.\n");
+        }
+
+        invoiceText.append("\nDate: ").append(java.time.LocalDate.now()).append("\n");
+        return invoiceText.toString();
+    }
+
+    private void generatePdfInvoice(String invoiceText, String filePath) {
+        try {
+
+            Document document = new Document();
+            PdfWriter.getInstance(document, new FileOutputStream(filePath));
+            document.open();
+
+            String logoPath = ".\\src\\repair\\logo.png";
+            Image logo = Image.getInstance(logoPath);
+            logo.setAlignment(Element.ALIGN_CENTER);
+            logo.scaleToFit(200, 200);
+            document.add(logo);
+
+            Font titleFont = new Font(Font.FontFamily.HELVETICA, 18, Font.BOLD);
+            Paragraph title = new Paragraph("Фактура за ремонт", titleFont);
+            title.setAlignment(Element.ALIGN_CENTER);
+            document.add(title);
+
+            document.add(new Chunk("\n"));
+            document.add(new LineSeparator());
+
+            Font contentFont = new Font(Font.FontFamily.HELVETICA, 12, Font.NORMAL);
+            Paragraph invoiceContent = new Paragraph(invoiceText, contentFont);
+            document.add(invoiceContent);
+
+            document.add(new Chunk("\n"));
+            document.add(new LineSeparator());
+
+            Font footerFont = new Font(Font.FontFamily.HELVETICA, 10, Font.ITALIC);
+            Paragraph footer = new Paragraph("Hristov-08 ЕООД - All rights reserved", footerFont);
+            footer.setAlignment(Element.ALIGN_CENTER);
+            document.add(footer);
+
+            document.close();
+            System.out.println("Invoice PDF generated successfully.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Грешка при генериране на фактура", "Грешка", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private String chooseFilePath() {
+
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Save Invoice");
+        fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("PDF Files", "pdf"));
+
+        int userSelection = fileChooser.showSaveDialog(null);
+
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+
+            return fileChooser.getSelectedFile().getAbsolutePath() + ".pdf";
+        }
+
+        return null;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private repair.Button btnEditOrder;
+    private repair.Button btnOrderInvoice;
     private repair.ComboBox comboOrderMachine;
     private repair.ComboBox comboOrderShelf;
     private repair.ComboBox comboOrderStatus;

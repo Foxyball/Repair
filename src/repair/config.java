@@ -66,6 +66,59 @@ public class config {
         });
     }
 
+    
+    
+    
+    public ArrayList<Order> loadUserPersonalData(int user_id) {
+    ArrayList<Order> orders = new ArrayList<>();
+    String query = """
+    SELECT ro.repair_id, 
+           u.name AS user_name, 
+           u.phone as phone,                       
+           p.product_name, 
+           ro.status, 
+           s.shelf_name, 
+           ro.created_at
+    FROM repair_orders ro
+    JOIN users u ON ro.user_id = u.id
+    JOIN products p ON ro.product_id = p.product_id
+    JOIN shelves s ON ro.shelf_id = s.shelf_id
+    WHERE ro.user_id = ?
+    ORDER BY ro.created_at DESC
+    """;
+
+    try (PreparedStatement stmt = conn.prepareStatement(query)) {
+        stmt.setInt(1, user_id);
+        ResultSet rs = stmt.executeQuery();
+
+        while (rs.next()) {
+            Order order = new Order(
+                    rs.getInt("repair_id"),
+                    rs.getString("product_name"),
+                    rs.getString("user_name"),
+                    rs.getString("phone"),
+                    rs.getString("status"),
+                    rs.getString("shelf_name"),
+                    rs.getString("created_at")
+            );
+            orders.add(order);
+        }
+    } catch (SQLException e) {
+        System.out.println("Error loading repair orders for user: " + e.getMessage());
+    }
+
+    return orders;
+}
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
     // SELECT заявка за извличане на последните 10 заявки със статус "Незавършен"
     public ArrayList<Order> loadOrderData() {
         ArrayList<Order> orders = new ArrayList<>();
