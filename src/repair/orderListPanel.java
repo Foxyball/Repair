@@ -243,10 +243,9 @@ public class orderListPanel extends javax.swing.JPanel {
                 ArrayList<String> result = q.select(columns, table, whereClause, params);
 
                 if (!result.isEmpty()) {
-                    // Parse the result data
+
                     String[] orderData = result.get(0).split("---");
 
-                    // Parse the values from the result
                     int repair_id = Integer.parseInt(orderData[0]);
                     int user_id = Integer.parseInt(orderData[1]);
                     int product_id = Integer.parseInt(orderData[2]);
@@ -266,7 +265,6 @@ public class orderListPanel extends javax.swing.JPanel {
                     String category_name = orderData[16];
                     String brand_name = orderData[17];
 
-                    // Pass all the data to the edit panel
                     adminForm.switchToOrderEditPanel(
                             repair_id, user_id, product_id, shelf_id,
                             fault_desc, work_carried_out_desc, created_at,
@@ -344,7 +342,6 @@ public class orderListPanel extends javax.swing.JPanel {
         JOIN shelves ON repair_orders.shelf_id = shelves.shelf_id
     """;
 
-        // Search across multiple fields
         String whereClause = """
         products.product_name LIKE ? OR 
         users.name LIKE ? OR 

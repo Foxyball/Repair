@@ -10,7 +10,9 @@ import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.draw.LineSeparator;
 import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.mail.Message;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
@@ -297,13 +299,12 @@ public class orderEditPanel extends javax.swing.JPanel {
                 sendCompletionEmail(selectedUser, selectedMachine, total_price);
             } else if ("Отказан".equals(status)) {
                 sendDeniedEmail(selectedUser, selectedMachine, fault_desc);
-            } else {
-                JOptionPane.showMessageDialog(this, "Грешка при запазване на промените.");
             }
+        } else {
+            JOptionPane.showMessageDialog(this, "Грешка при запазване на промените.");
+        }
 
     }//GEN-LAST:event_btnEditOrderActionPerformed
-
-    }
 
     // Изпраща имейл до клиента, когато статуса е променен на Отказан
     private void sendDeniedEmail(User user, Machine machine, String faultDesc) {
@@ -361,7 +362,70 @@ public class orderEditPanel extends javax.swing.JPanel {
 
     // ФАКТУРА
     private void btnOrderInvoiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrderInvoiceActionPerformed
-        generateInvoice();
+        User selectedUser = (User) comboOrderUser.getSelectedItem();
+        int is_warranty = is_warranty_checkbox.isSelected() ? 1 : 0;
+
+        double labor_cost;
+        double parts_cost;
+        try {
+            labor_cost = Double.parseDouble(txtOrderLaborCost.getText());
+            parts_cost = Double.parseDouble(txtOrderPartsCost.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Моля въведете коректни стойности за труд и части");
+            return;
+        }
+
+        double total_price = 0;
+        int warranty_denied = 0;
+        if (is_warranty == 1) {
+
+            warranty_denied = 0;
+            total_price = 0;
+        } else {
+
+            warranty_denied = 1;
+            try {
+                total_price = labor_cost + parts_cost;
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Моля, въведете валидни стойности за гаранция.", "Грешка", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        }
+
+        if (is_warranty == 1) {
+            String[] invoiceColumns = {
+                "repair_id",
+                "user_id",
+                "total",
+                "payment_status",
+                "created_at"
+            };
+
+            Date now = new Date();
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+            String formattedDate = sdf.format(now);
+
+            Object[] invoiceValues = {
+                repair_id,
+                selectedUser.getUserId(),
+                total_price,
+                "Платено",
+                formattedDate
+            };
+
+            boolean invoiceInserted = q.insert("invoices", invoiceColumns, invoiceValues);
+
+            if (!invoiceInserted) {
+                JOptionPane.showMessageDialog(this, "Грешка при съхраняване на фактура в базата данни.");
+                return;
+            }
+
+            // генерира фактура
+            generateInvoice();
+        } else {
+            JOptionPane.showMessageDialog(this, "Не може да бъде генерирана фактура за машина с гаранция.", "Грешка", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
     }//GEN-LAST:event_btnOrderInvoiceActionPerformed
 
     private void generateInvoice() {
@@ -372,10 +436,11 @@ public class orderEditPanel extends javax.swing.JPanel {
         int isWarranty = is_warranty_checkbox.isSelected() ? 1 : 0;
         double totalPrice = 0;
 
-        if (isWarranty == 0) {
-            totalPrice = laborCost + partsCost;
+        if (isWarranty == 1) {
+            JOptionPane.showMessageDialog(this, "Не може да бъде генерирана фактура за машина с гаранция.", "Грешка", JOptionPane.ERROR_MESSAGE);
+            return;
         } else {
-            totalPrice = 0;
+            totalPrice = laborCost + partsCost;
         }
 
         String invoiceText = generateInvoiceText(selectedUser, selectedMachine, laborCost, partsCost, totalPrice, isWarranty);
