@@ -1,5 +1,6 @@
 package repair;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -10,7 +11,7 @@ public class orderAddPanel extends javax.swing.JPanel {
 
     public orderAddPanel() {
         initComponents();
-        
+
         txtOrderLaborCost.setText("0");
         txtOrderPartsCost.setText("0");
 
@@ -21,7 +22,6 @@ public class orderAddPanel extends javax.swing.JPanel {
             comboOrderUser.addItem(user);
         }
 
-       
         // Добавяне на ActionListener за отпечатване на ID при избран елемент
         comboOrderUser.addActionListener(e -> {
             User selectedUser = (User) comboOrderUser.getSelectedItem();
@@ -163,7 +163,7 @@ public class orderAddPanel extends javax.swing.JPanel {
         txtOrderConfirmedFault.setRows(5);
         jScrollPane2.setViewportView(txtOrderConfirmedFault);
 
-        comboOrderStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Незавършен", "Завършен" }));
+        comboOrderStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Незавършен", "Завършен", "Отказан" }));
 
         is_warranty_checkbox.setText("Гаранционна");
 
@@ -265,6 +265,8 @@ public class orderAddPanel extends javax.swing.JPanel {
         boolean is_warranty = is_warranty_checkbox.isSelected();
 
         Date now = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        String formattedDate = sdf.format(now);
 
         // валидация за непопълнени полета
         if (labor_cost.isEmpty() || parts_cost.isEmpty() || fault_desc.isEmpty()) {
@@ -297,7 +299,7 @@ public class orderAddPanel extends javax.swing.JPanel {
         };
 
         Object[] values = {
-            selectedUser.getUserId(), selectedMachine.getMachineId(), selectedShelf.getShelfId(), fault_desc, confirmed_fault, now, status, is_warranty, warranty_denied, labor_cost, parts_cost, total_price
+            selectedUser.getUserId(), selectedMachine.getMachineId(), selectedShelf.getShelfId(), fault_desc, confirmed_fault, formattedDate, status, is_warranty, warranty_denied, labor_cost, parts_cost, total_price
         };
 
         boolean success = q.insert("repair_orders", columns, values);

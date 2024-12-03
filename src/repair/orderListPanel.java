@@ -18,35 +18,31 @@ public class orderListPanel extends javax.swing.JPanel {
 
         lblSearchResults.setVisible(false); // Резултати от търсене етикет
 
-        btnAddMachine.addActionListener(new ActionListener() {
+        btnAddOrder.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                adminForm.switchToMachineAddPanel();
+                adminForm.switchToOrderAddPanel();
             }
         });
 
-        ArrayList<Machine> machines = q.loadMachineData();
+        ArrayList<Order> orders = q.loadOrderData();
 
-        model = (DefaultTableModel) machineTable.getModel();
+        model = (DefaultTableModel) orderTable.getModel();
 
-        for (Machine machine : machines) {
-            model.addRow(machine.toArray());
+        for (Order order : orders) {
+            model.addRow(order.toTableArray());
         }
 
-        // да не може да се редактира в самата таблица
-        machineTable.setDefaultEditor(Object.class, null);
-        machineTable.setAutoCreateRowSorter(true); // позволява сортиране по колони
-
-        machineTable.setModel(model);
+        orderTable.setModel(model);
 
     }
 
     // Обновяване на данните в таблицата
     public void refreshTable() {
         model.setRowCount(0);
-        ArrayList<Machine> machines = q.loadMachineData();
-        for (Machine machine : machines) {
-            model.addRow(machine.toArray());
+        ArrayList<Order> orders = q.loadOrderData();
+        for (Order order : orders) {
+            model.addRow(order.toTableArray());
         }
     }
 
@@ -60,83 +56,91 @@ public class orderListPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        lblAllMachine = new javax.swing.JLabel();
+        lblAllOrder = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        machineTable = new repair.Table();
-        btnAddMachine = new repair.Button();
-        btnEditMachine = new repair.Button();
-        btnDeleteBrand = new repair.Button();
-        btnRefreshMachine = new repair.Button();
-        txtSearchMachine = new javax.swing.JTextField();
-        btnSearchBrand = new repair.Button();
+        orderTable = new repair.Table();
+        btnAddOrder = new repair.Button();
+        btnEditOrder = new repair.Button();
+        btnDeleteOrder = new repair.Button();
+        btnRefreshOrder = new repair.Button();
+        txtSearchOrder = new javax.swing.JTextField();
+        btnSearchOrder = new repair.Button();
         lblSearchResults = new javax.swing.JLabel();
 
-        lblAllMachine.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        lblAllMachine.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblAllMachine.setText("ВСИЧКИ МАШИНИ");
-        lblAllMachine.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        lblAllMachine.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblAllOrder.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lblAllOrder.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblAllOrder.setText("ВСИЧКИ ЗАЯВКИ");
+        lblAllOrder.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        lblAllOrder.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        machineTable.setModel(new javax.swing.table.DefaultTableModel(
+        orderTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "Машина", "Категория", "Марка", "Цена", "Колич."
+                "ID", "Машина", "Клиент", "Телефон", "Статус", "Рафт", "Дата"
             }
-        ));
-        jScrollPane1.setViewportView(machineTable);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
 
-        btnAddMachine.setBackground(new java.awt.Color(0, 153, 255));
-        btnAddMachine.setForeground(new java.awt.Color(255, 255, 255));
-        btnAddMachine.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/save.png"))); // NOI18N
-        btnAddMachine.setText("Добавяне");
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(orderTable);
 
-        btnEditMachine.setBackground(new java.awt.Color(0, 153, 255));
-        btnEditMachine.setForeground(new java.awt.Color(255, 255, 255));
-        btnEditMachine.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/editing.png"))); // NOI18N
-        btnEditMachine.setText("Редактиране");
-        btnEditMachine.addActionListener(new java.awt.event.ActionListener() {
+        btnAddOrder.setBackground(new java.awt.Color(0, 153, 255));
+        btnAddOrder.setForeground(new java.awt.Color(255, 255, 255));
+        btnAddOrder.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/save.png"))); // NOI18N
+        btnAddOrder.setText("Добавяне");
+
+        btnEditOrder.setBackground(new java.awt.Color(0, 153, 255));
+        btnEditOrder.setForeground(new java.awt.Color(255, 255, 255));
+        btnEditOrder.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/editing.png"))); // NOI18N
+        btnEditOrder.setText("Редактиране");
+        btnEditOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditMachineActionPerformed(evt);
+                btnEditOrderActionPerformed(evt);
             }
         });
 
-        btnDeleteBrand.setBackground(new java.awt.Color(0, 153, 255));
-        btnDeleteBrand.setForeground(new java.awt.Color(255, 255, 255));
-        btnDeleteBrand.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/erase.png"))); // NOI18N
-        btnDeleteBrand.setText("Изтриване");
-        btnDeleteBrand.addActionListener(new java.awt.event.ActionListener() {
+        btnDeleteOrder.setBackground(new java.awt.Color(0, 153, 255));
+        btnDeleteOrder.setForeground(new java.awt.Color(255, 255, 255));
+        btnDeleteOrder.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/erase.png"))); // NOI18N
+        btnDeleteOrder.setText("Изтриване");
+        btnDeleteOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteBrandActionPerformed(evt);
+                btnDeleteOrderActionPerformed(evt);
             }
         });
 
-        btnRefreshMachine.setBackground(new java.awt.Color(0, 153, 255));
-        btnRefreshMachine.setForeground(new java.awt.Color(255, 255, 255));
-        btnRefreshMachine.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/refresh.png"))); // NOI18N
-        btnRefreshMachine.setText("Обнови");
-        btnRefreshMachine.addActionListener(new java.awt.event.ActionListener() {
+        btnRefreshOrder.setBackground(new java.awt.Color(0, 153, 255));
+        btnRefreshOrder.setForeground(new java.awt.Color(255, 255, 255));
+        btnRefreshOrder.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/refresh.png"))); // NOI18N
+        btnRefreshOrder.setText("Обнови");
+        btnRefreshOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRefreshMachineActionPerformed(evt);
+                btnRefreshOrderActionPerformed(evt);
             }
         });
 
-        txtSearchMachine.setBackground(new java.awt.Color(255, 255, 255));
-        txtSearchMachine.setForeground(new java.awt.Color(0, 0, 0));
-        txtSearchMachine.addActionListener(new java.awt.event.ActionListener() {
+        txtSearchOrder.setBackground(new java.awt.Color(255, 255, 255));
+        txtSearchOrder.setForeground(new java.awt.Color(0, 0, 0));
+        txtSearchOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSearchMachineActionPerformed(evt);
+                txtSearchOrderActionPerformed(evt);
             }
         });
 
-        btnSearchBrand.setBackground(new java.awt.Color(0, 153, 255));
-        btnSearchBrand.setForeground(new java.awt.Color(255, 255, 255));
-        btnSearchBrand.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/search.png"))); // NOI18N
-        btnSearchBrand.setText("Търсене");
-        btnSearchBrand.addActionListener(new java.awt.event.ActionListener() {
+        btnSearchOrder.setBackground(new java.awt.Color(0, 153, 255));
+        btnSearchOrder.setForeground(new java.awt.Color(255, 255, 255));
+        btnSearchOrder.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/search.png"))); // NOI18N
+        btnSearchOrder.setText("Търсене");
+        btnSearchOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSearchBrandActionPerformed(evt);
+                btnSearchOrderActionPerformed(evt);
             }
         });
 
@@ -153,38 +157,38 @@ public class orderListPanel extends javax.swing.JPanel {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 829, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 28, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnAddMachine, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnAddOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnEditMachine, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnEditOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnDeleteBrand, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnDeleteOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnRefreshMachine, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnRefreshOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(31, 31, 31)
-                        .addComponent(txtSearchMachine, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtSearchOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnSearchBrand, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnSearchOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lblSearchResults)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblAllMachine)
+                .addComponent(lblAllOrder)
                 .addGap(354, 354, 354))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblAllMachine)
+                .addComponent(lblAllOrder)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAddMachine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEditMachine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnDeleteBrand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnRefreshMachine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtSearchMachine, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSearchBrand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAddOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEditOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDeleteOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRefreshOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSearchOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSearchOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblSearchResults))
                 .addGap(34, 34, 34)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -209,36 +213,69 @@ public class orderListPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnEditMachineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditMachineActionPerformed
-        int selectedRow = machineTable.getSelectedRow();
+    private void btnEditOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditOrderActionPerformed
+        int selectedRow = orderTable.getSelectedRow();
         if (selectedRow != -1) {
             try {
 
-                String idString = machineTable.getValueAt(selectedRow, 0).toString();
-                int machineId = Integer.parseInt(idString);
+                String idString = orderTable.getValueAt(selectedRow, 0).toString();
+                int orderId = Integer.parseInt(idString);
 
-                String[] columns = {"p.product_id", "p.product_name", "p.category_id", "p.brand_id", "p.price", "p.qty", "c.category_name", "b.brand_name"};
-                String whereClause = "p.product_id = ?";
-                Object[] params = {machineId};
-                String table = "products p JOIN categories c ON p.category_id = c.cat_id JOIN brands b ON p.brand_id = b.brand_id";
+                String[] columns = {
+                    "ro.repair_id", "ro.user_id", "ro.product_id", "ro.shelf_id",
+                    "ro.fault_desc", "ro.work_carried_out_desc", "ro.created_at",
+                    "ro.status", "ro.is_warranty", "ro.warranty_denied",
+                    "ro.labor_cost", "ro.parts_cost", "ro.total_price",
+                    "u.name", "p.product_name", "s.shelf_name",
+                    "c.category_name", "b.brand_name"
+                };
+
+                String table = "repair_orders ro"
+                        + " JOIN users u ON ro.user_id = u.id"
+                        + " JOIN products p ON ro.product_id = p.product_id"
+                        + " JOIN shelves s ON ro.shelf_id = s.shelf_id"
+                        + " JOIN categories c ON p.category_id = c.cat_id"
+                        + " JOIN brands b ON p.brand_id = b.brand_id";
+                String whereClause = "ro.repair_id = ?";
+
+                Object[] params = {orderId};
 
                 ArrayList<String> result = q.select(columns, table, whereClause, params);
 
                 if (!result.isEmpty()) {
-                    String[] machineData = result.get(0).split("---");
+                    // Parse the result data
+                    String[] orderData = result.get(0).split("---");
 
-                    int product_id = Integer.parseInt(machineData[0]);
-                    String product_name = machineData[1];
-                    int category_id = Integer.parseInt(machineData[2]);
-                    int brand_id = Integer.parseInt(machineData[3]);
-                    double price = Double.parseDouble(machineData[4]);
-                    int qty = Integer.parseInt(machineData[5]);
-                    String category_name = machineData[6] != null ? machineData[6] : "Неизвестна категория";
-                    String brand_name = machineData[7] != null ? machineData[7] : "Неизвестна марка";
+                    // Parse the values from the result
+                    int repair_id = Integer.parseInt(orderData[0]);
+                    int user_id = Integer.parseInt(orderData[1]);
+                    int product_id = Integer.parseInt(orderData[2]);
+                    int shelf_id = Integer.parseInt(orderData[3]);
+                    String fault_desc = orderData[4];
+                    String work_carried_out_desc = orderData[5];
+                    String created_at = orderData[6];
+                    String status = orderData[7];
+                    int is_warranty = Integer.parseInt(orderData[8]);
+                    int warranty_denied = Integer.parseInt(orderData[9]);
+                    double labor_cost = Double.parseDouble(orderData[10]);
+                    double parts_cost = Double.parseDouble(orderData[11]);
+                    double total_price = Double.parseDouble(orderData[12]);
+                    String user_name = orderData[13];
+                    String product_name = orderData[14];
+                    String shelf_name = orderData[15];
+                    String category_name = orderData[16];
+                    String brand_name = orderData[17];
 
-                    adminForm.switchToMachineEditPanel(product_id, product_name, category_id, category_name, brand_id, brand_name, price, qty);
+                    // Pass all the data to the edit panel
+                    adminForm.switchToOrderEditPanel(
+                            repair_id, user_id, product_id, shelf_id,
+                            fault_desc, work_carried_out_desc, created_at,
+                            status, is_warranty, warranty_denied,
+                            labor_cost, parts_cost, total_price,
+                            user_name, product_name, shelf_name,
+                            category_name, brand_name);
                 } else {
-                    JOptionPane.showMessageDialog(this, "Няма намерена машина с това ID!");
+                    JOptionPane.showMessageDialog(this, "Няма намерена заявка за ремонт с това ID!");
                 }
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, "Възникна грешка: " + e.getMessage());
@@ -246,45 +283,45 @@ public class orderListPanel extends javax.swing.JPanel {
         } else {
             JOptionPane.showMessageDialog(this, "Моля, изберете ред от таблицата!");
         }
-    }//GEN-LAST:event_btnEditMachineActionPerformed
+    }//GEN-LAST:event_btnEditOrderActionPerformed
 
-    private void btnDeleteBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteBrandActionPerformed
-        int selectedRow = machineTable.getSelectedRow();
+    private void btnDeleteOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteOrderActionPerformed
+        int selectedRow = orderTable.getSelectedRow();
 
         if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(this, "Моля, изберете машина за изтриване.");
+            JOptionPane.showMessageDialog(this, "Моля, изберете заявка за изтриване.");
             return;
         }
 
         // Кастване на ID-то към int от String
-        String idString = machineTable.getValueAt(selectedRow, 0).toString();
-        int machineId = Integer.parseInt(idString);
+        String idString = orderTable.getValueAt(selectedRow, 0).toString();
+        int orderId = Integer.parseInt(idString);
 
-        int confirm = JOptionPane.showConfirmDialog(this, "Сигурни ли сте, че искате да изтриете тази машина?", "Потвърждение", JOptionPane.YES_NO_OPTION);
+        int confirm = JOptionPane.showConfirmDialog(this, "Сигурни ли сте, че искате да изтриете тази заявка?", "Потвърждение", JOptionPane.YES_NO_OPTION);
 
         if (confirm == JOptionPane.YES_OPTION) {
-            boolean isDeleted = q.delete("products", "product_id", machineId);
+            boolean isDeleted = q.delete("repair_orders", "repair_id", orderId);
 
             if (isDeleted) {
                 refreshTable();
-                JOptionPane.showMessageDialog(this, "Машината е изтрита успешно.");
+                JOptionPane.showMessageDialog(this, "Заявката е изтрита успешно.");
             } else {
-                JOptionPane.showMessageDialog(this, "Грешка при изтриване на машина.");
+                JOptionPane.showMessageDialog(this, "Грешка при изтриване на заявка.");
             }
         }
-    }//GEN-LAST:event_btnDeleteBrandActionPerformed
+    }//GEN-LAST:event_btnDeleteOrderActionPerformed
 
-    private void btnRefreshMachineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshMachineActionPerformed
-        refreshMachineList();
-    }//GEN-LAST:event_btnRefreshMachineActionPerformed
+    private void btnRefreshOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshOrderActionPerformed
+        refreshOrderList();
+    }//GEN-LAST:event_btnRefreshOrderActionPerformed
 
-    private void txtSearchMachineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchMachineActionPerformed
+    private void txtSearchOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchOrderActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtSearchMachineActionPerformed
+    }//GEN-LAST:event_txtSearchOrderActionPerformed
 
     // Търсачка
-    private void btnSearchBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchBrandActionPerformed
-        String keyword = txtSearchMachine.getText().trim();
+    private void btnSearchOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchOrderActionPerformed
+        String keyword = txtSearchOrder.getText().trim();
 
         if (keyword.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Моля, въведете ключова дума за търсене!", "Грешка", JOptionPane.ERROR_MESSAGE);
@@ -307,56 +344,69 @@ public class orderListPanel extends javax.swing.JPanel {
             model.addRow(machineData);
         }
 
-        machineTable.setModel(model);
-        machineTable.setDefaultEditor(Object.class, null);
+        orderTable.setModel(model);
+        orderTable.setDefaultEditor(Object.class, null);
 
         lblSearchResults.setVisible(true);
         int resultCount = searchResults.size();
         lblSearchResults.setText("Резултати: " + resultCount);
-    }//GEN-LAST:event_btnSearchBrandActionPerformed
+    }//GEN-LAST:event_btnSearchOrderActionPerformed
 
     // Обновяване на данните с бутон
-    public void refreshMachineList() {
+    public void refreshOrderList() {
 
         model.setRowCount(0);
 
-        String[] columns = {"product_id", "product_name", "category_name", "brand_name", "price", "qty"};
-        String table = "products p"
-                + " JOIN categories c ON p.category_id = c.cat_id"
-                + " JOIN brands b ON p.brand_id = b.brand_id";
+        String[] columns = {
+            "repair_orders.repair_id",
+            "products.product_name",
+            "users.name",
+            "users.phone",
+            "repair_orders.status",
+            "shelves.shelf_name",
+            "repair_orders.created_at"
+        };
+        String table = """
+        repair_orders
+        JOIN users ON repair_orders.user_id = users.id
+        JOIN products ON repair_orders.product_id = products.product_id
+        JOIN shelves ON repair_orders.shelf_id = shelves.shelf_id
+    """;
+
         String whereClause = "";
         Object[] params = null;
 
-        ArrayList<String> machineList = q.select(columns, table, whereClause, params);;
+        ArrayList<String> orderList = q.select(columns, table, whereClause, params);
 
-        for (String machine : machineList) {
-            String[] machineDetails = machine.split("---");
+        for (String order : orderList) {
+            String[] orderDetails = order.split("---");
 
-            model.addRow(machineDetails);
+            model.addRow(orderDetails);
         }
 
-        machineTable.setModel(model);
+        orderTable.setModel(model);
 
         // да не може да се редактира в самата таблица
-        machineTable.setDefaultEditor(Object.class, null);
+        orderTable.setDefaultEditor(Object.class, null);
 
         // Скриване на резултати: 4
         lblSearchResults.setVisible(false);
-        txtSearchMachine.setText("");
+        txtSearchOrder.setText("");
     }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private repair.Button btnAddMachine;
-    private repair.Button btnDeleteBrand;
-    private repair.Button btnEditMachine;
-    private repair.Button btnRefreshMachine;
-    private repair.Button btnSearchBrand;
+    private repair.Button btnAddOrder;
+    private repair.Button btnDeleteOrder;
+    private repair.Button btnEditOrder;
+    private repair.Button btnRefreshOrder;
+    private repair.Button btnSearchOrder;
+    private repair.Button btnSendEmailUser;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblAllMachine;
+    private javax.swing.JLabel lblAllOrder;
     private javax.swing.JLabel lblSearchResults;
-    private repair.Table machineTable;
-    private javax.swing.JTextField txtSearchMachine;
+    private repair.Table orderTable;
+    private javax.swing.JTextField txtSearchOrder;
     // End of variables declaration//GEN-END:variables
 }

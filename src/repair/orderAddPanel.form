@@ -209,9 +209,10 @@
     <Component class="repair.ComboBox" name="comboOrderStatus">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="2">
+          <StringArray count="3">
             <StringItem index="0" value="&#x41d;&#x435;&#x437;&#x430;&#x432;&#x44a;&#x440;&#x448;&#x435;&#x43d;"/>
             <StringItem index="1" value="&#x417;&#x430;&#x432;&#x44a;&#x440;&#x448;&#x435;&#x43d;"/>
+            <StringItem index="2" value="&#x41e;&#x442;&#x43a;&#x430;&#x437;&#x430;&#x43d;"/>
           </StringArray>
         </Property>
       </Properties>

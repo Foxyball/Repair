@@ -1,50 +1,72 @@
 package repair;
 
 import java.util.ArrayList;
+import javax.mail.Message;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 public class orderEditPanel extends javax.swing.JPanel {
 
-    private int product_id;
+    private int repair_id;
     config q = new config();
 
-    public orderEditPanel(int product_id, String product_name, int category_id, String category_name, int brand_id, String brand_name, double price, int qty) {
+    public orderEditPanel(int repair_id, int user_id, int product_id, int shelf_id, String fault_desc, String work_carried_out_desc, String created_at, String status, int is_warranty, int warranty_denied, double labor_cost, double parts_cost, double total_price, String user_name, String product_name, String shelf_name, String category_name, String brand_name) {
         initComponents();
 
-        this.product_id = product_id;
+        this.repair_id = repair_id;
 
-        // Set text fields
-        txtMachineName.setText(product_name);
-        txtMachinePrice.setText(String.valueOf(price));
-        txtMachineQTY.setText(String.valueOf(qty));
+        txtOrderLaborCost.setText(String.valueOf(labor_cost));
+        txtOrderPartsCost.setText(String.valueOf(parts_cost));
+        txtOrderFaultDesc.setText(fault_desc);
+        txtOrderConfirmedFault.setText(work_carried_out_desc);
 
-        ArrayList<Category> categories = q.loadCategoryData();
-        DefaultComboBoxModel<Category> catModel = new DefaultComboBoxModel<>();
-        for (Category category : categories) {
-            catModel.addElement(category);
+        // проверява дали е гаранционна, за да постави отметка
+        is_warranty_checkbox.setSelected(is_warranty == 1);
+
+        ArrayList<User> users = q.loadUserData("");
+        DefaultComboBoxModel<User> userModel = new DefaultComboBoxModel<>();
+        for (User user : users) {
+            userModel.addElement(user);
         }
-        comboMachineCategory.setModel(catModel);
+        comboOrderUser.setModel(userModel);
 
-        for (int i = 0; i < catModel.getSize(); i++) {
-            Category category = catModel.getElementAt(i);
-            if (category.getCatId() == category_id) {
-                comboMachineCategory.setSelectedItem(category);
+        for (int i = 0; i < userModel.getSize(); i++) {
+            User user = userModel.getElementAt(i);
+            if (user.getUserId() == user_id) {
+                comboOrderUser.setSelectedItem(user);
                 break;
             }
         }
 
-        ArrayList<Brand> brands = q.loadBrandData();
-        DefaultComboBoxModel<Brand> brandModel = new DefaultComboBoxModel<>();
-        for (Brand brand : brands) {
-            brandModel.addElement(brand);
+        ArrayList<Machine> machines = q.loadMachineData();
+        DefaultComboBoxModel<Machine> machineModel = new DefaultComboBoxModel<>();
+        for (Machine machine : machines) {
+            machineModel.addElement(machine);
         }
-        comboMachineBrand.setModel(brandModel);
+        comboOrderMachine.setModel(machineModel);
 
-        for (int i = 0; i < brandModel.getSize(); i++) {
-            Brand brand = brandModel.getElementAt(i);
-            if (brand.getBrandId() == brand_id) {
-                comboMachineBrand.setSelectedItem(brand);
+        for (int i = 0; i < machineModel.getSize(); i++) {
+            Machine machine = machineModel.getElementAt(i);
+            if (machine.getMachineId() == product_id) {
+                comboOrderMachine.setSelectedItem(machine);
+                break;
+            }
+        }
+
+        ArrayList<Shelf> shelves = q.loadShelfData();
+        DefaultComboBoxModel<Shelf> shelfModel = new DefaultComboBoxModel<>();
+        for (Shelf shelf : shelves) {
+            shelfModel.addElement(shelf);
+        }
+        comboOrderShelf.setModel(shelfModel);
+
+        for (int i = 0; i < shelfModel.getSize(); i++) {
+            Shelf shelf = shelfModel.getElementAt(i);
+            if (shelf.getShelfId() == shelf_id) {
+                comboOrderShelf.setSelectedItem(shelf);
                 break;
             }
         }
@@ -54,143 +76,277 @@ public class orderEditPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblEditMachine = new javax.swing.JLabel();
-        txtMachineName = new repair.TextField();
-        comboMachineBrand = new repair.ComboBox();
-        txtMachinePrice = new repair.TextField();
-        comboMachineCategory = new repair.ComboBox();
-        txtMachineQTY = new repair.TextField();
-        btnEditMachine = new repair.Button();
+        lblEditOrder = new javax.swing.JLabel();
+        btnEditOrder = new repair.Button();
+        txtOrderLaborCost = new repair.TextField();
+        txtOrderPartsCost = new repair.TextField();
+        comboOrderUser = new repair.ComboBox();
+        comboOrderMachine = new repair.ComboBox();
+        comboOrderShelf = new repair.ComboBox();
+        comboOrderStatus = new repair.ComboBox();
+        is_warranty_checkbox = new javax.swing.JCheckBox();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtOrderFaultDesc = new javax.swing.JTextArea();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtOrderConfirmedFault = new javax.swing.JTextArea();
 
-        lblEditMachine.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        lblEditMachine.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblEditMachine.setText("РЕДАКТИРАНЕ НА МАШИНА");
-        lblEditMachine.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        lblEditMachine.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblEditOrder.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lblEditOrder.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblEditOrder.setText("РЕДАКТИРАНЕ НА МАШИНА");
+        lblEditOrder.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        lblEditOrder.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        txtMachineName.setLabelText("Име на машина");
-
-        txtMachinePrice.setLabelText("Цена на машина");
-
-        txtMachineQTY.setLabelText("Количество");
-
-        btnEditMachine.setBackground(new java.awt.Color(0, 153, 255));
-        btnEditMachine.setForeground(new java.awt.Color(255, 255, 255));
-        btnEditMachine.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/save.png"))); // NOI18N
-        btnEditMachine.setText("Запази");
-        btnEditMachine.addActionListener(new java.awt.event.ActionListener() {
+        btnEditOrder.setBackground(new java.awt.Color(0, 153, 255));
+        btnEditOrder.setForeground(new java.awt.Color(255, 255, 255));
+        btnEditOrder.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/save.png"))); // NOI18N
+        btnEditOrder.setText("Запази");
+        btnEditOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditMachineActionPerformed(evt);
+                btnEditOrderActionPerformed(evt);
             }
         });
+
+        txtOrderLaborCost.setLabelText("Труд");
+
+        txtOrderPartsCost.setLabelText("Цена на части");
+
+        comboOrderUser.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                comboOrderUserItemStateChanged(evt);
+            }
+        });
+
+        comboOrderStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Незавършен", "Завършен", "Отказан" }));
+
+        is_warranty_checkbox.setText("Гаранционна");
+
+        txtOrderFaultDesc.setColumns(20);
+        txtOrderFaultDesc.setRows(5);
+        jScrollPane1.setViewportView(txtOrderFaultDesc);
+
+        txtOrderConfirmedFault.setColumns(20);
+        txtOrderConfirmedFault.setRows(5);
+        jScrollPane2.setViewportView(txtOrderConfirmedFault);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtMachineQTY, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(txtMachinePrice, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(comboMachineCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(txtMachineName, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(114, 114, 114)
-                                    .addComponent(comboMachineBrand, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(295, 295, 295)
-                        .addComponent(btnEditMachine, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(383, Short.MAX_VALUE))
+                .addGap(295, 295, 295)
+                .addComponent(btnEditOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(422, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lblEditMachine, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblEditOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(211, 211, 211))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(comboOrderUser, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(txtOrderLaborCost, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(114, 114, 114)
+                            .addComponent(comboOrderMachine, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(txtOrderPartsCost, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(is_warranty_checkbox)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(comboOrderShelf, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comboOrderStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(17, 17, 17)
-                .addComponent(lblEditMachine)
-                .addGap(34, 34, 34)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtMachineName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(comboMachineBrand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtMachinePrice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(comboMachineCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(txtMachineQTY, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(48, 48, 48)
-                .addComponent(btnEditMachine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblEditOrder)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(135, 135, 135)
+                        .addComponent(is_warranty_checkbox))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(comboOrderUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comboOrderShelf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(comboOrderMachine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(comboOrderStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(31, 31, 31)
+                                .addComponent(txtOrderLaborCost, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(txtOrderPartsCost, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnEditOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(126, 126, 126))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnEditMachineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditMachineActionPerformed
+    private void btnEditOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditOrderActionPerformed
+        User selectedUser = (User) comboOrderUser.getSelectedItem();
+        Machine selectedMachine = (Machine) comboOrderMachine.getSelectedItem();
+        Shelf selectedShelf = (Shelf) comboOrderShelf.getSelectedItem();
+        String status = (String) comboOrderStatus.getSelectedItem();
 
-        String machine_name = txtMachineName.getText();
-        String machine_price = txtMachinePrice.getText();
-        String machine_qty = txtMachineQTY.getText();
-        Brand selectedBrand = (Brand) comboMachineBrand.getSelectedItem();
-        Category selectedCategory = (Category) comboMachineCategory.getSelectedItem();
+        String fault_desc = txtOrderFaultDesc.getText();
+        String work_carried_out_desc = txtOrderConfirmedFault.getText();
 
-        double price;
-        int quantity;
-
-        if (machine_name.isEmpty() || machine_price.isEmpty() || machine_qty.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Моля, попълнете всички полета", "Грешка", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
+        double labor_cost;
+        double parts_cost;
         try {
-            price = Double.parseDouble(machine_price);
+            labor_cost = Double.parseDouble(txtOrderLaborCost.getText());
+            parts_cost = Double.parseDouble(txtOrderPartsCost.getText());
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Моля, въведете валидна цена.", "Грешка", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Моля въведете коректни стойности за труд и части");
             return;
         }
 
-        try {
-            quantity = Integer.parseInt(machine_qty);
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Моля, въведете валидно количество.", "Грешка", JOptionPane.ERROR_MESSAGE);
+        int is_warranty = is_warranty_checkbox.isSelected() ? 1 : 0;
+
+        if (labor_cost < 0 || parts_cost < 0) {
+            JOptionPane.showMessageDialog(null, "Моля въведете коректни стойности за труд и части");
             return;
         }
 
-        if (selectedBrand == null || selectedCategory == null) {
-            JOptionPane.showMessageDialog(this, "Моля, изберете валидна категория и марка.", "Грешка", JOptionPane.ERROR_MESSAGE);
+        if (fault_desc.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Моля попълнете всички полета");
             return;
         }
 
-        int brand_id = selectedBrand.getBrandId();
-        int category_id = selectedCategory.getCatId();
+        int user_id = selectedUser.getUserId();
+        int product_id = selectedMachine.getMachineId();
+        int shelf_id = selectedShelf.getShelfId();
 
-        String[] columns = {"product_name", "category_id", "brand_id", "price", "qty"};
-        Object[] values = {machine_name, category_id, brand_id, price, quantity};
+        double total_price = 0;
+        int warranty_denied = 0;
+        if (is_warranty == 1) {
 
-        boolean success = q.update("products", columns, values, "product_id", product_id);
+            warranty_denied = 0;
+            total_price = 0;
+        } else {
+
+            warranty_denied = 1;
+            try {
+                total_price = labor_cost + parts_cost;
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Моля, въведете валидни стойности за гаранция.", "Грешка", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        }
+
+        String[] columns = {
+            "user_id", "product_id", "shelf_id", "fault_desc", "work_carried_out_desc",
+            "status", "is_warranty", "warranty_denied", "labor_cost", "parts_cost", "total_price"
+        };
+
+        Object[] values = {user_id, product_id, shelf_id, fault_desc, work_carried_out_desc,
+            status, is_warranty, warranty_denied, labor_cost, parts_cost, total_price
+        };
+
+        boolean success = q.update("repair_orders", columns, values, "repair_id", repair_id);
 
         if (success) {
             JOptionPane.showMessageDialog(this, "Промените са запазени успешно.");
-        } else {
-            JOptionPane.showMessageDialog(this, "Грешка при запазване на промените.");
+
+            if ("Завършен".equals(status)) {
+                sendCompletionEmail(selectedUser, selectedMachine, total_price);
+            } else if ("Отказан".equals(status)) {
+                sendDeniedEmail(selectedUser, selectedMachine, fault_desc);
+            } else {
+                JOptionPane.showMessageDialog(this, "Грешка при запазване на промените.");
+            }
+
+    }//GEN-LAST:event_btnEditOrderActionPerformed
+
+    }
+
+    // Изпраща имейл до клиента, когато статуса е променен на Отказан
+    private void sendDeniedEmail(User user, Machine machine, String faultDesc) {
+        String userName = user.getName();
+        String userEmail = user.getEmail();
+        String productName = machine.getMachineName();
+
+        String subject = "Статус на Вашата машина - Hristov-08 ЕООД";
+        String messageText = "Здравейте, " + userName + ",\n"
+                + "Вашата машина " + productName + " не може да бъде ремонтирана. Отказан ремонт \n"
+                + "Причина за повреда: " + faultDesc + "\n";
+
+        try {
+            MimeMessage message = new MimeMessage(config.getMailSession());
+            message.setFrom(new InternetAddress(config.EMAIL_FROM));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(userEmail));
+            message.setSubject(subject);
+            message.setText(messageText);
+            Transport.send(message);
+            System.out.println("Email sent successfully.");
+        } catch (Exception ex) {
+            System.out.println("Error sending email: " + ex);
         }
-    }//GEN-LAST:event_btnEditMachineActionPerformed
+    }
+
+    // Изпраща имейл до клиента, когато статуса е променен на Завършен
+    private void sendCompletionEmail(User user, Machine machine, double totalPrice) {
+
+        String userName = user.getName();
+        String userEmail = user.getEmail();
+        String productName = machine.getMachineName();
+        String subject = "Вашата машина е готова - Hristov-08 ЕООД";
+        String messageText = "Здравейте, " + userName + ",\n"
+                + "Вашата машина " + productName + " е готова за взимане.\n"
+                + "Причина за повреда: " + txtOrderConfirmedFault.getText() + ",\n"
+                + "Сума за плащане: " + totalPrice + " лв.";
+
+        try {
+            MimeMessage message = new MimeMessage(config.getMailSession());
+            message.setFrom(new InternetAddress(config.EMAIL_FROM));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(userEmail));
+            message.setSubject(subject);
+            message.setText(messageText);
+            Transport.send(message);
+            System.out.println("Email sent successfully.");
+        } catch (Exception ex) {
+            System.out.println("Error sending email: " + ex);
+        }
+    }
+
+
+    private void comboOrderUserItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboOrderUserItemStateChanged
+
+    }//GEN-LAST:event_comboOrderUserItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private repair.Button btnEditMachine;
-    private repair.ComboBox comboMachineBrand;
-    private repair.ComboBox comboMachineCategory;
-    private javax.swing.JLabel lblEditMachine;
-    private repair.TextField txtMachineName;
-    private repair.TextField txtMachinePrice;
-    private repair.TextField txtMachineQTY;
+    private repair.Button btnEditOrder;
+    private repair.ComboBox comboOrderMachine;
+    private repair.ComboBox comboOrderShelf;
+    private repair.ComboBox comboOrderStatus;
+    private repair.ComboBox comboOrderUser;
+    private javax.swing.JCheckBox is_warranty_checkbox;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lblEditOrder;
+    private javax.swing.JTextArea txtOrderConfirmedFault;
+    private javax.swing.JTextArea txtOrderFaultDesc;
+    private repair.TextField txtOrderLaborCost;
+    private repair.TextField txtOrderPartsCost;
     // End of variables declaration//GEN-END:variables
 }

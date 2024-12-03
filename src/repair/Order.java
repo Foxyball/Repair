@@ -21,6 +21,7 @@ public class Order {
     private String shelf_name;
     private String category_name;
     private String brand_name;
+    private String phone;
 
     public Order(int repair_id, int user_id, int product_id, int shelf_id, String fault_desc, String work_carried_out_desc, String created_at, String status, int is_warranty, int warranty_denied, double labor_cost, double parts_cost, double total_price, String user_name, String product_name, String shelf_name, String category_name, String brand_name) {
         this.repair_id = repair_id;
@@ -42,6 +43,17 @@ public class Order {
         this.shelf_name = shelf_name;
         this.category_name = category_name;
         this.brand_name = brand_name;
+    }
+
+    // Втори конструктор за таблицата
+    public Order(int repair_id, String user_name, String phone, String product_name, String status, String shelf_name, String created_at) {
+        this.repair_id = repair_id;
+        this.user_name = user_name;
+        this.phone = phone;
+        this.product_name = product_name;
+        this.status = status;
+        this.shelf_name = shelf_name;
+        this.created_at = created_at;
     }
 
     public String getUserName() {
@@ -80,7 +92,6 @@ public class Order {
         return shelf_id;
     }
 
-
     public String getFaultDesc() {
         return fault_desc;
     }
@@ -92,7 +103,6 @@ public class Order {
     public String getCreatedAt() {
         return created_at;
     }
-
 
     public String getStatus() {
         return status;
@@ -116,6 +126,10 @@ public class Order {
 
     public double getTotalPrice() {
         return total_price;
+    }
+    
+    public String getUserPhone(){
+        return phone;
     }
 
     public void calculateTotalPrice() {
@@ -152,21 +166,34 @@ public class Order {
 
     public Object[] toArray() {
         return new Object[]{
-                getRepairId(),
-                getUserName(),
-                getProductName(),
-                getShelfName(),
-                getCategoryName(),
-                getBrandName(),
-                getFaultDesc(),
-                getWorkCarriedOutDesc(),
-                getCreatedAt(),
-                getStatus(),
-                getIsWarranty(),
-                getWarrantyDenied(),
-                getLaborCost(),
-                getPartsCost(),
-                getTotalPrice()
+            getRepairId(),
+            getUserName(),
+            getProductName(),
+            getShelfName(),
+            getCategoryName(),
+            getBrandName(),
+            getFaultDesc(),
+            getWorkCarriedOutDesc(),
+            getCreatedAt(),
+            getStatus(),
+            getIsWarranty(),
+            getWarrantyDenied(),
+            getLaborCost(),
+            getPartsCost(),
+            getTotalPrice()
         };
     }
+
+    public Object[] toTableArray() {
+        return new Object[]{
+            getRepairId(),
+            getUserName(),
+            getUserPhone(),
+            getProductName(),
+            getStatus(),
+            getShelfName(),
+            getCreatedAt()
+        };
+    }
+
 }

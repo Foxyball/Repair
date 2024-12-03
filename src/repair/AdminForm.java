@@ -25,6 +25,7 @@ public class AdminForm extends javax.swing.JFrame {
     catListPanel catListPanel;
     
     orderAddPanel orderAddPanel;
+    orderListPanel orderListPanel;
 
     LoggedInUser LoggedInUser;
 
@@ -184,12 +185,12 @@ public class AdminForm extends javax.swing.JFrame {
         sideLayoutPanel.add(btnAddOrder);
 
         // Всички категории (categories)
-//        catListPanel = new catListPanel(this);
-//        contentPanel.add(catListPanel, "listCategory");
-//        btnAllCategory.addActionListener(switchPanelListener);
-//        btnAllCategory.setActionCommand("listCategory");
-//        sideLayoutPanel.add(Box.createVerticalStrut(10));
-//        sideLayoutPanel.add(btnAllCategory);
+        orderListPanel = new orderListPanel(this);
+        contentPanel.add(orderListPanel, "listOrder");
+        btnAllOrder.addActionListener(switchPanelListener);
+        btnAllOrder.setActionCommand("listOrder");
+        sideLayoutPanel.add(Box.createVerticalStrut(10));
+        sideLayoutPanel.add(btnAllOrder);
 
         // Layout, не променяй
         //************************************  
@@ -283,6 +284,27 @@ public class AdminForm extends javax.swing.JFrame {
         CardLayout cardLayout = (CardLayout) contentPanel.getLayout();
         cardLayout.show(contentPanel, "editCategory");
     }
+    
+    
+        // Слушач за клик на бутона от панела за Всички Заявки - Добавяне
+    public void switchToOrderAddPanel() {
+        CardLayout cardLayout = (CardLayout) contentPanel.getLayout();
+        cardLayout.show(contentPanel, "addOrder");
+    }
+
+    // Слушач за клик на бутона от панела за Всички Заявки - Редактиране
+    public void switchToOrderEditPanel(int repair_id, int user_id, int product_id, int shelf_id, String fault_desc, String work_carried_out_desc, String created_at, String status, int is_warranty, int warranty_denied, double labor_cost, double parts_cost, double total_price, String user_name, String product_name, String shelf_name, String category_name, String brand_name) {
+        // Нова инстанция на catEditPanel с параметрите
+        orderEditPanel editPanel = new orderEditPanel( repair_id, user_id, product_id, shelf_id, 
+                        fault_desc, work_carried_out_desc, created_at, 
+                        status, is_warranty, warranty_denied, 
+                        labor_cost, parts_cost, total_price, 
+                        user_name, product_name, shelf_name, 
+                        category_name, brand_name);
+        contentPanel.add(editPanel, "editOrder");
+        CardLayout cardLayout = (CardLayout) contentPanel.getLayout();
+        cardLayout.show(contentPanel, "editOrder");
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -307,6 +329,7 @@ public class AdminForm extends javax.swing.JFrame {
         btnAllCategory = new javax.swing.JButton();
         lblOrder = new javax.swing.JLabel();
         btnAddOrder = new javax.swing.JButton();
+        btnAllOrder = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         logoutButton = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
@@ -433,6 +456,14 @@ public class AdminForm extends javax.swing.JFrame {
             }
         });
 
+        btnAllOrder.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/repairOrder.png"))); // NOI18N
+        btnAllOrder.setText("Всички заявки");
+        btnAllOrder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAllOrderActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout sideLayoutPanelLayout = new javax.swing.GroupLayout(sideLayoutPanel);
         sideLayoutPanel.setLayout(sideLayoutPanelLayout);
         sideLayoutPanelLayout.setHorizontalGroup(
@@ -471,7 +502,8 @@ public class AdminForm extends javax.swing.JFrame {
                                     .addComponent(lblUsers)
                                     .addComponent(lblMachines)
                                     .addComponent(lblCategory))
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(btnAllOrder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         sideLayoutPanelLayout.setVerticalGroup(
@@ -513,7 +545,9 @@ public class AdminForm extends javax.swing.JFrame {
                 .addComponent(lblOrder)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnAddOrder)
-                .addContainerGap(99, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnAllOrder)
+                .addContainerGap(70, Short.MAX_VALUE))
         );
 
         jPanel1.setBackground(new java.awt.Color(241, 241, 230));
@@ -691,6 +725,10 @@ public class AdminForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAddOrderActionPerformed
 
+    private void btnAllOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAllOrderActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAllOrderActionPerformed
+
     // logout user function
     public void logout() {
         // Assuming you're storing the logged-in user in a class like LoggedInUser
@@ -757,6 +795,7 @@ public class AdminForm extends javax.swing.JFrame {
     private javax.swing.JButton btnAllBrand;
     private javax.swing.JButton btnAllCategory;
     private javax.swing.JButton btnAllMachine;
+    private javax.swing.JButton btnAllOrder;
     private javax.swing.JButton btnAllShelf;
     private javax.swing.JButton btnAllUser;
     private javax.swing.JButton btnDashboard;

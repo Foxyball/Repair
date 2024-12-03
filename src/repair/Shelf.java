@@ -46,4 +46,13 @@ public class Shelf {
             getShelfCurrentLoad()
         };
     }
+    
+    
+     @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Shelf shelf = (Shelf) obj;
+        return shelf_id == shelf.shelf_id;
+    }
 }

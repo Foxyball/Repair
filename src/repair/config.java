@@ -65,76 +65,102 @@ public class config {
             }
         });
     }
-    
-    
-    
+
     // SELECT заявка за извличане на последните 10 заявки със статус "Незавършен"
-public ArrayList<Order> loadLast10Orders() {
-    ArrayList<Order> orders = new ArrayList<>();
-    String query = """
-        SELECT ro.repair_order_id, 
-               ro.customer_id, 
-               ro.status, 
-               ro.machine_id, 
-               ro.shelf_id, 
-               ro.repair_date, 
-               u.name AS customer_name, 
-               b.brand_name, 
-               c.category_name, 
-               s.shelf_location
-        FROM repair_orders ro
-        JOIN users u ON ro.customer_id = u.user_id
-        JOIN products p ON ro.machine_id = p.product_id
-        JOIN brands b ON p.brand_id = b.brand_id
-        JOIN categories c ON p.category_id = c.cat_id
-        JOIN shelves s ON ro.shelf_id = s.shelf_id
-        WHERE ro.status = 'Незавършен'
-        ORDER BY ro.repair_date DESC
-        LIMIT 10
-    """;
+    public ArrayList<Order> loadOrderData() {
+        ArrayList<Order> orders = new ArrayList<>();
+        String query = """
+SELECT ro.repair_id, 
+       u.name AS user_name, 
+    u.phone as phone,                       
+       p.product_name, 
+       ro.status, 
+       s.shelf_name, 
+       ro.created_at
+FROM repair_orders ro
+JOIN users u ON ro.user_id = u.id
+JOIN products p ON ro.product_id = p.product_id
+JOIN shelves s ON ro.shelf_id = s.shelf_id
+ORDER BY ro.created_at DESC
+""";
 
-    try (PreparedStatement stmt = conn.prepareStatement(query)) {
-        ResultSet rs = stmt.executeQuery();
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            ResultSet rs = stmt.executeQuery();
 
-        while (rs.next()) {
-            Order order = new Order(
-                    rs.getInt("repair_id"),
-                    rs.getInt("user_id"),
-                    rs.getInt("product_id"),
-                    rs.getInt("shelf_id"),
-                    rs.getString("status"),
-                    rs.getDate("repair_date"),
-                    rs.getString("customer_name"),
-                    rs.getString("brand_name"),
-                    rs.getString("category_name"),
-                    rs.getString("shelf_location")
-            );
-            orders.add(order);
+            while (rs.next()) {
+                Order order = new Order(
+                        rs.getInt("repair_id"),
+                        rs.getString("product_name"),
+                        rs.getString("user_name"),
+                        rs.getString("phone"),
+                        rs.getString("status"),
+                        rs.getString("shelf_name"),
+                        rs.getString("created_at")
+                );
+                orders.add(order);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error loading last 10 repair orders: " + e.getMessage());
         }
-    } catch (SQLException e) {
-        System.out.println("Error loading last 10 repair orders: " + e.getMessage());
+
+        return orders;
     }
 
-    return orders;
-}
-    
-    
-    
+    // SELECT заявка за извличане на последните 10 заявки със статус "Незавършен"
+    public ArrayList<Order> loadLast10Orders() {
+        ArrayList<Order> orders = new ArrayList<>();
+        String query = """
+SELECT ro.repair_id, 
+       u.name AS user_name, 
+                       u.phone AS phone,
+       p.product_name, 
+       ro.status, 
+       s.shelf_name, 
+       ro.created_at
+FROM repair_orders ro
+JOIN users u ON ro.user_id = u.id
+JOIN products p ON ro.product_id = p.product_id
+JOIN shelves s ON ro.shelf_id = s.shelf_id
+WHERE ro.status = 'Незавършен'
+ORDER BY ro.created_at DESC
+LIMIT 10
+""";
+
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Order order = new Order(
+                        rs.getInt("repair_id"),
+                        rs.getString("product_name"),
+                        rs.getString("user_name"),
+                        rs.getString("phone"),
+                        rs.getString("status"),
+                        rs.getString("shelf_name"),
+                        rs.getString("created_at")
+                );
+                orders.add(order);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error loading last 10 repair orders: " + e.getMessage());
+        }
+
+        return orders;
+    }
+
     // UPDATE Заявка за обновяване капацитета на рафтовете след създаване на заявка
-public boolean updateShelfLoad(int shelf_id, int increment) {
-    String query = "UPDATE shelves SET current_load = current_load + ? WHERE shelf_id = ?";
-    try (PreparedStatement stmt = conn.prepareStatement(query)) {
-        stmt.setInt(1, increment);
-        stmt.setInt(2, shelf_id);
-        int rowsAffected = stmt.executeUpdate();
-        return rowsAffected > 0;
-    } catch (SQLException e) {
-        System.out.println("Error updating shelf load: " + e.getMessage());
-        return false;
+    public boolean updateShelfLoad(int shelf_id, int increment) {
+        String query = "UPDATE shelves SET current_load = current_load + ? WHERE shelf_id = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, increment);
+            stmt.setInt(2, shelf_id);
+            int rowsAffected = stmt.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            System.out.println("Error updating shelf load: " + e.getMessage());
+            return false;
+        }
     }
-}
-
-    
 
     // SELECT заявка за извличане на shelves
     public ArrayList<Category> loadCategoryData() {
