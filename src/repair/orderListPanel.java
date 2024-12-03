@@ -301,6 +301,17 @@ public class orderListPanel extends javax.swing.JPanel {
             boolean isDeleted = q.delete("repair_orders", "repair_id", orderId);
 
             if (isDeleted) {
+
+                // ОБНОВЯВА КАПАЦИТЕТА НА РАФТА, ПРЕДПОЛАГА СЕ, ЧЕ МАШИНАТА ВЕЧЕ НЕ СЕ НАМИРА ТАМ
+                String shelfName = orderTable.getValueAt(selectedRow, 5).toString();
+                String query = "SELECT shelf_id FROM shelves WHERE shelf_name = ?";
+                Object[] params = {shelfName};
+                String[] columns = {"shelf_id"};
+                String whereClause = "shelf_name = ?";
+                ArrayList<String> shelfIdResult = q.select(columns, "shelves", whereClause, params);
+                int shelfId = Integer.parseInt(shelfIdResult.get(0));
+                boolean shelfUpdated = q.updateShelfLoad(shelfId, -1);
+
                 refreshTable();
                 JOptionPane.showMessageDialog(this, "Заявката е изтрита успешно.");
             } else {
