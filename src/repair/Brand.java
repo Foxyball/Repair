@@ -22,6 +22,7 @@ public class Brand {
         return brand_name;
     }
 
+    @Override
     public String toString() {
         return brand_name;
     }

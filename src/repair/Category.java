@@ -19,6 +19,7 @@ public class Category {
         return category_name;
     }
 
+    @Override
     public String toString() {
         return category_name;
     }

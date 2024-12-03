@@ -126,6 +126,7 @@ public class Order {
         }
     }
 
+    @Override
     public String toString() {
         return "Order{"
                 + "repair_id=" + repair_id

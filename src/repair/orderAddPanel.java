@@ -1,60 +1,27 @@
 package repair;
 
-import java.awt.Color;
-import java.awt.Component;
 import java.util.ArrayList;
-import javax.swing.DefaultListCellRenderer;
-import javax.swing.JList;
+import java.util.Date;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author thefo
- */
 public class orderAddPanel extends javax.swing.JPanel {
 
     config q = new config();
 
     public orderAddPanel() {
         initComponents();
+        
+        txtOrderLaborCost.setText("0");
+        txtOrderPartsCost.setText("0");
 
         comboOrderUser.removeAllItems();
         ArrayList<User> users = q.loadUserData("");
-        User loggedInUser = LoggedInUser.getUser();
-        comboOrderUser.addItem("-- Изберете клиент --");
 
         for (User user : users) {
             comboOrderUser.addItem(user);
         }
 
-        // настройва визуално текущия логнат да е в сив цвят
-        comboOrderUser.setRenderer(new DefaultListCellRenderer() {
-            @Override
-            public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-                Component c = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-
-                if (value instanceof User user) {
-                    if (user.getUserId() == loggedInUser.getUserId()) {
-                        c.setEnabled(false);
-                        c.setForeground(Color.GRAY);
-                    } else {
-                        c.setEnabled(true);
-                        c.setForeground(Color.BLACK);
-                    }
-                }
-                return c;
-            }
-        });
-
-            // Забранява избирането на текущия логнат потребител да избира себе си в заявката
-        comboOrderUser.addActionListener(e -> {
-            Object selected = comboOrderUser.getSelectedItem();
-            if (selected instanceof User user && user.getUserId() == loggedInUser.getUserId()) {
-                comboOrderUser.setSelectedIndex(0);
-                JOptionPane.showMessageDialog(comboOrderUser, "Не може да изберете себе си.");
-            }
-        });
-
+       
         // Добавяне на ActionListener за отпечатване на ID при избран елемент
         comboOrderUser.addActionListener(e -> {
             User selectedUser = (User) comboOrderUser.getSelectedItem();
@@ -76,26 +43,62 @@ public class orderAddPanel extends javax.swing.JPanel {
             }
         });
 
+        comboOrderShelf.removeAllItems();
+        ArrayList<Shelf> shelves = q.loadShelfData();
+        for (Shelf shelf : shelves) {
+            comboOrderShelf.addItem(shelf);
+        }
+//         Добавяне на ActionListener за отпечатване на ID при избран елемент
+        comboOrderShelf.addActionListener(e -> {
+            Shelf selectedShelf = (Shelf) comboOrderShelf.getSelectedItem();
+            if (selectedShelf != null) {
+                System.out.println("Selected Shelf ID: " + selectedShelf.getShelfId());
+            }
+        });
+
     }
 
     private void clearFields() {
-        txtOrderFaultDesc.setText("0");
+        txtOrderFaultDesc.setText("");
         txtOrderLaborCost.setText("0");
-        comboOrderUser.setSelectedIndex(0);
-        comboOrderMachine.setSelectedIndex(0);
+
+        if (comboOrderUser.getItemCount() > 0) {
+            comboOrderUser.setSelectedIndex(0);
+        }
+        if (comboOrderMachine.getItemCount() > 0) {
+            comboOrderMachine.setSelectedIndex(0);
+        }
+        if (comboOrderShelf.getItemCount() > 0) {
+            comboOrderShelf.setSelectedIndex(0);
+        }
+
+        txtOrderPartsCost.setText("0");
+        txtOrderConfirmedFault.setText("");
+
+        if (comboOrderStatus.getItemCount() > 0) {
+            comboOrderStatus.setSelectedIndex(0);
+        }
+
+        is_warranty_checkbox.setSelected(false);
     }
 
     public void refreshComboBoxes() {
         comboOrderMachine.removeAllItems();
-        ArrayList<Category> categories = q.loadCategoryData();
-        for (Category category : categories) {
-            comboOrderMachine.addItem(category);
+        ArrayList<Machine> machines = q.loadMachineData();
+        for (Machine machine : machines) {
+            comboOrderMachine.addItem(machine);
         }
 
         comboOrderUser.removeAllItems();
-        ArrayList<Brand> brands = q.loadBrandData();
-        for (Brand brand : brands) {
-            comboOrderUser.addItem(brand);
+        ArrayList<User> users = q.loadUserData("");
+        for (User user : users) {
+            comboOrderUser.addItem(user);
+        }
+
+        comboOrderShelf.removeAllItems();
+        ArrayList<Shelf> shelves = q.loadShelfData();
+        for (Shelf shelf : shelves) {
+            comboOrderShelf.addItem(shelf);
         }
     }
 
@@ -248,47 +251,72 @@ public class orderAddPanel extends javax.swing.JPanel {
 
     private void btnAddOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddOrderActionPerformed
 
-        String machine_price = txtOrderFaultDesc.getText();
-        String machine_qty = txtOrderLaborCost.getText();
-        Brand selectedBrand = (Brand) comboOrderUser.getSelectedItem();
-        Category selectedCategory = (Category) comboOrderMachine.getSelectedItem();
+        String labor_cost = txtOrderLaborCost.getText();
+        String parts_cost = txtOrderPartsCost.getText();
+        String confirmed_fault = txtOrderConfirmedFault.getText();
+        String fault_desc = txtOrderFaultDesc.getText();
+        int warranty_denied = 0;
+        double total_price = 0;
 
-        if (machine_price.isEmpty() || machine_qty.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Моля, попълнете всички полета", "Грешка", JOptionPane.ERROR_MESSAGE);
+        User selectedUser = (User) comboOrderUser.getSelectedItem();
+        Machine selectedMachine = (Machine) comboOrderMachine.getSelectedItem();
+        Shelf selectedShelf = (Shelf) comboOrderShelf.getSelectedItem();
+        String status = comboOrderStatus.getSelectedItem().toString();
+        boolean is_warranty = is_warranty_checkbox.isSelected();
+
+        Date now = new Date();
+
+        // валидация за непопълнени полета
+        if (labor_cost.isEmpty() || parts_cost.isEmpty() || fault_desc.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Моля попълнете всички полета.", "Грешка", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        try {
-            Double.parseDouble(machine_price);
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Моля, въведете валидна цена.", "Грешка", JOptionPane.ERROR_MESSAGE);
+        // валидация за проверка на капацитета на рафтовете
+        if (selectedShelf.getShelfCurrentLoad() >= selectedShelf.getShelfMaxCapacity()) {
+            JOptionPane.showMessageDialog(this, selectedShelf.getShelfName() + " е пълен!", "Грешка", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        try {
-            Integer.parseInt(machine_qty);
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Моля, въведете валидно количество.", "Грешка", JOptionPane.ERROR_MESSAGE);
-            return;
+        // валидация за дали машината е в гаранция
+        if (is_warranty) {
+            warranty_denied = 0;
+            total_price = 0;
+        } else {
+            warranty_denied = 1;
+            try {
+                total_price = Double.parseDouble(labor_cost) + Double.parseDouble(parts_cost);
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Моля, въведете валидни стойности за разходите.", "Грешка", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
         }
 
         String[] columns = {
-            "category_id", "brand_id", "price", "qty"
+            "user_id", "product_id", "shelf_id", "fault_desc", "work_carried_out_desc", "created_at", "status", "is_warranty", "warranty_denied", "labor_cost", "parts_cost", "total_price"
         };
 
         Object[] values = {
-            selectedCategory.getCatId(), selectedBrand.getBrandId(), machine_price, machine_qty
+            selectedUser.getUserId(), selectedMachine.getMachineId(), selectedShelf.getShelfId(), fault_desc, confirmed_fault, now, status, is_warranty, warranty_denied, labor_cost, parts_cost, total_price
         };
 
-        boolean success = q.insert("products", columns, values);
+        boolean success = q.insert("repair_orders", columns, values);
 
         if (success) {
-            JOptionPane.showMessageDialog(this, "Успешно добавяне!");
-            refreshComboBoxes();
-            clearFields();
+            // Обновява капацитета на рафтовете
+            boolean shelfUpdated = q.updateShelfLoad(selectedShelf.getShelfId(), 1);
+
+            if (shelfUpdated) {
+                JOptionPane.showMessageDialog(this, "Успешно добавяне");
+                refreshComboBoxes();
+                clearFields();
+            } else {
+                JOptionPane.showMessageDialog(this, "Успешно добавяне, но възникна грешка при актуализирането на рафта.", "Грешка", JOptionPane.ERROR_MESSAGE);
+            }
         } else {
-            JOptionPane.showMessageDialog(this, "Възникна грешка при добавянето на машина.", "Грешка", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Възникна грешка при добавянето на заявка.", "Грешка", JOptionPane.ERROR_MESSAGE);
         }
+
 
     }//GEN-LAST:event_btnAddOrderActionPerformed
 

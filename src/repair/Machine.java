@@ -56,6 +56,7 @@ public class Machine {
         return qty;
     }
 
+    @Override
     public String toString() {
         return product_name;
     }
