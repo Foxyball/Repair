@@ -35,6 +35,7 @@ public class orderEditPanel extends javax.swing.JPanel {
         txtOrderPartsCost.setText(String.valueOf(parts_cost));
         txtOrderFaultDesc.setText(fault_desc);
         txtOrderConfirmedFault.setText(work_carried_out_desc);
+        comboOrderStatus.setSelectedItem(status);
 
         // проверява дали е гаранционна, за да постави отметка
         is_warranty_checkbox.setSelected(is_warranty == 1);
@@ -233,7 +234,7 @@ public class orderEditPanel extends javax.swing.JPanel {
         User selectedUser = (User) comboOrderUser.getSelectedItem();
         Machine selectedMachine = (Machine) comboOrderMachine.getSelectedItem();
         Shelf selectedShelf = (Shelf) comboOrderShelf.getSelectedItem();
-        String status = (String) comboOrderStatus.getSelectedItem();
+        String status = comboOrderStatus.getSelectedItem().toString();
 
         String fault_desc = txtOrderFaultDesc.getText();
         String work_carried_out_desc = txtOrderConfirmedFault.getText();
@@ -297,8 +298,17 @@ public class orderEditPanel extends javax.swing.JPanel {
 
             if ("Завършен".equals(status)) {
                 sendCompletionEmail(selectedUser, selectedMachine, total_price);
+
+                // Обновява капацитета на рафта
+                boolean shelfUpdated = q.updateShelfLoad(selectedShelf.getShelfId(), - 1);
             } else if ("Отказан".equals(status)) {
                 sendDeniedEmail(selectedUser, selectedMachine, fault_desc);
+
+                // Обновява капацитета на рафта
+                boolean shelfUpdated = q.updateShelfLoad(selectedShelf.getShelfId(), - 1);
+            } else if ("Незавършен".equals(status)) {
+                // Обновява капацитета на рафта
+                boolean shelfUpdated = q.updateShelfLoad(selectedShelf.getShelfId(), - 1);
             }
         } else {
             JOptionPane.showMessageDialog(this, "Грешка при запазване на промените.");
