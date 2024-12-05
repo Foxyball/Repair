@@ -70,7 +70,9 @@ public class Invoice {
         return new Object[]{
             getInvoiceId(),
             getInvoiceUser(),
-            getInvoiceMachine()
+            getInvoiceMachine(),
+            getPaymentStatus(),
+            getTotal(),
         };
     }
 }

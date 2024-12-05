@@ -8,26 +8,21 @@ import java.util.logging.Logger;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 
-/**
- *
- * @author thefo
- */
-// Config for db connection
 public class config {
 
+    // път към базата данни
     private String DATABASE_URL = "jdbc:sqlite:.//db/repair.sqlite";
-//    private static Connection connection;
     public Connection conn;
     public Statement stmt;
     public ResultSet rs;
 
-    // Mailtrap SMTP credentials
+    // Mailtrap SMTP глобални променливи за логин към сървъра, като (.env) в Laravel
     static final String EMAIL_FROM = "50d681784392ba";
     private static final String EMAIL_PASSWORD = "8d34b76e584db4";
     private static final String SMTP_HOST = "sandbox.smtp.mailtrap.io";
     private static final String SMTP_PORT = "587"; // Mailtrap SMTP port
 
-    // Конструктор
+    // Конструктор за връзка с базата
     public config() {
         try {
             conn = DriverManager.getConnection(DATABASE_URL);
@@ -36,6 +31,7 @@ public class config {
         }
     }
 
+    // Затваряне на връзка с базата
     public void close() {
         try {
             if (conn != null) {
@@ -49,6 +45,7 @@ public class config {
 
     }
 
+    // съдържа настройките за връзка със SMTP
     public static Properties getMailProperties() {
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
@@ -58,6 +55,7 @@ public class config {
         return props;
     }
 
+    // създава и връща Session обект, който се използва за изпращане на имейли
     public static Session getMailSession() {
         return Session.getInstance(getMailProperties(), new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
@@ -65,13 +63,55 @@ public class config {
             }
         });
     }
+    
+      // SELECT заявка за извличане на фактурите
+    public ArrayList<Invoice> loadAllInvoices() {
+    ArrayList<Invoice> invoices = new ArrayList<>();
+    String query = """
+        SELECT i.invoice_id, 
+               i.repair_id, 
+               i.user_id, 
+               i.total, 
+               i.payment_status, 
+               i.created_at, 
+               u.name AS user_name, 
+               p.product_name
+        FROM invoices i
+        JOIN users u ON i.user_id = u.id
+        JOIN repair_orders ro ON i.repair_id = ro.repair_id
+        JOIN products p ON ro.product_id = p.product_id
+        ORDER BY i.created_at DESC
+    """;
+
+    try (PreparedStatement stmt = conn.prepareStatement(query)) {
+        ResultSet rs = stmt.executeQuery();
+
+        while (rs.next()) {
+            Invoice invoice = new Invoice(
+                rs.getInt("invoice_id"),
+                rs.getInt("repair_id"),
+                rs.getInt("user_id"),
+                rs.getDouble("total"),
+                rs.getString("payment_status"),
+                rs.getString("created_at"),
+                rs.getString("user_name"),
+                rs.getString("product_name")
+            );
+            invoices.add(invoice);
+        }
+    } catch (SQLException e) {
+        System.out.println("Error loading invoices: " + e.getMessage());
+    }
+
+    return invoices;
+}
 
     
-    
-    
+
+    // SELECT заявка за извличане на заявките на конкретен клиент, който е логнат в системата (userDashboard)
     public ArrayList<Order> loadUserPersonalData(int user_id) {
-    ArrayList<Order> orders = new ArrayList<>();
-    String query = """
+        ArrayList<Order> orders = new ArrayList<>();
+        String query = """
     SELECT ro.repair_id, 
            u.name AS user_name, 
            u.phone as phone,                       
@@ -87,38 +127,29 @@ public class config {
     ORDER BY ro.created_at DESC
     """;
 
-    try (PreparedStatement stmt = conn.prepareStatement(query)) {
-        stmt.setInt(1, user_id);
-        ResultSet rs = stmt.executeQuery();
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, user_id);
+            ResultSet rs = stmt.executeQuery();
 
-        while (rs.next()) {
-            Order order = new Order(
-                    rs.getInt("repair_id"),
-                    rs.getString("product_name"),
-                    rs.getString("user_name"),
-                    rs.getString("phone"),
-                    rs.getString("status"),
-                    rs.getString("shelf_name"),
-                    rs.getString("created_at")
-            );
-            orders.add(order);
+            while (rs.next()) {
+                Order order = new Order(
+                        rs.getInt("repair_id"),
+                        rs.getString("product_name"),
+                        rs.getString("user_name"),
+                        rs.getString("phone"),
+                        rs.getString("status"),
+                        rs.getString("shelf_name"),
+                        rs.getString("created_at")
+                );
+                orders.add(order);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error loading repair orders for user: " + e.getMessage());
         }
-    } catch (SQLException e) {
-        System.out.println("Error loading repair orders for user: " + e.getMessage());
+
+        return orders;
     }
 
-    return orders;
-}
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
     // SELECT заявка за извличане на последните 10 заявки със статус "Незавършен"
     public ArrayList<Order> loadOrderData() {
         ArrayList<Order> orders = new ArrayList<>();
@@ -371,6 +402,7 @@ LIMIT 10
     // SELECT универсална заявка с/без WHERE/
     public ArrayList<String> select(String[] columns, String table, String whereClause, Object[] params) {
         ArrayList<String> result = new ArrayList<>();
+//        списък с колоните, разделени със запетая
         String columnsString = String.join(", ", columns);
         String sql = "SELECT " + columnsString + " FROM " + table;
 
@@ -381,20 +413,25 @@ LIMIT 10
         System.out.println("Executing SQL: " + sql);  // debug
 
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            // Ако има параметри за WHERE клаузата, добавяме ги към заявката
             if (params != null) {
                 for (int i = 0; i < params.length; i++) {
+                    // Параметрите започват от 1 (PreparedStatement е 1-базирано, а не от 0)
                     stmt.setObject(i + 1, params[i]);
                 }
             }
+            // Изпълнение на заявката и получаване на ResultSet
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
+                    // Събиране на данните от текущия ред
                     StringBuilder row = new StringBuilder();
                     for (String column : columns) {
+                        // Ако колоната съдържа '.', вземаме само името след '.'
                         String columnName = column.contains(".") ? column.split("\\.")[1] : column;
                         row.append(rs.getString(columnName)).append("---");
-//                        row.append(rs.getString(column)).append("---");
                     }
-                    result.add(row.substring(0, row.length() - 3)); // Remove last separator
+                    // Премахваме последния разделител и добавяме реда към масива
+                    result.add(row.substring(0, row.length() - 3));
                 }
             }
         } catch (SQLException e) {
@@ -407,7 +444,8 @@ LIMIT 10
     // INSERT универсална заявка
     public boolean insert(String table, String[] columns, Object[] values) {
         String columnsString = String.join(", ", columns);
-        // регулярен израз за добавяне на  "?,?,?" и премахване на последната запетая с ",$"
+        // Генериране на placeholders ("?, ?, ?") за стойностите
+        // Използва се "?" според броя на стойностите, след което с регулярния израз се добавя запетая и премахва последната такава
         String placeholders = "?".repeat(values.length).replaceAll("(.{1})", "$1,").replaceAll(",$", "");
 
         String sql = "INSERT INTO " + table + " (" + columnsString + ") VALUES (" + placeholders + ")";
@@ -427,19 +465,23 @@ LIMIT 10
 
     // UPDATE универсална заявка
     public boolean update(String table, String[] columns, Object[] values, String whereColumn, Object whereValue) {
+        // Конструиране на SQL заявката: "UPDATE table SET column1 = ?, column2 = ?, ... WHERE whereColumn = ?"
         StringBuilder sql = new StringBuilder("UPDATE " + table + " SET ");
         for (int i = 0; i < columns.length; i++) {
+            // Добавяне на всяка колона със стойност като placeholder
             sql.append(columns[i]).append(" = ?, ");
         }
-        sql.setLength(sql.length() - 2); // Remove last comma
+        // Премахване на последната запетая и интервал
+        sql.setLength(sql.length() - 2);
+        // Добавяне на WHERE условие
         sql.append(" WHERE ").append(whereColumn).append(" = ?");
 
         try (PreparedStatement stmt = conn.prepareStatement(sql.toString())) {
-            // Set values for columns
+
             for (int i = 0; i < values.length; i++) {
                 stmt.setObject(i + 1, values[i]);
             }
-            // Set WHERE condition
+
             stmt.setObject(values.length + 1, whereValue);
 
             stmt.executeUpdate();

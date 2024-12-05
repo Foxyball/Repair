@@ -23,9 +23,11 @@ public class AdminForm extends javax.swing.JFrame {
 
     catAddPanel catAddPanel;
     catListPanel catListPanel;
-    
+
     orderAddPanel orderAddPanel;
     orderListPanel orderListPanel;
+    
+    invoiceListPanel invoiceListPanel;
 
     LoggedInUser LoggedInUser;
 
@@ -63,9 +65,32 @@ public class AdminForm extends javax.swing.JFrame {
         contentPanel.add(dashboardPanel, "dashboard");
         btnDashboard.addActionListener(switchPanelListener);
         btnDashboard.setActionCommand("dashboard");
-        sideLayoutPanel.add(Box.createVerticalStrut(10)); // Add more spacing
-        sideLayoutPanel.add(btnDashboard);                    // Add button2
-        sideLayoutPanel.add(Box.createVerticalStrut(20)); // Add vertical spacing
+        sideLayoutPanel.add(Box.createVerticalStrut(10)); 
+        sideLayoutPanel.add(btnDashboard);      
+        sideLayoutPanel.add(Box.createVerticalStrut(20));
+
+        
+        
+        
+        lblOrder.setAlignmentX(Component.LEFT_ALIGNMENT);
+        lblOrder.setFont(new Font("Arial", Font.BOLD, 16));
+        sideLayoutPanel.add(lblOrder);
+
+        // Добавяне на заявка (repair_orders)
+        orderAddPanel = new orderAddPanel();
+        contentPanel.add(orderAddPanel, "addOrder");
+        btnAddOrder.addActionListener(switchPanelListener);
+        btnAddOrder.setActionCommand("addOrder");
+        sideLayoutPanel.add(Box.createVerticalStrut(10));
+        sideLayoutPanel.add(btnAddOrder);
+
+        // Всички заявка (repair_orders)
+        orderListPanel = new orderListPanel(this);
+        contentPanel.add(orderListPanel, "listOrder");
+        btnAllOrder.addActionListener(switchPanelListener);
+        btnAllOrder.setActionCommand("listOrder");
+        sideLayoutPanel.add(Box.createVerticalStrut(10));
+        sideLayoutPanel.add(btnAllOrder);
 
         lblUsers.setAlignmentX(Component.LEFT_ALIGNMENT); // Center the label horizontally
         lblUsers.setFont(new Font("Arial", Font.BOLD, 16));  // Optional: Set font for better visibility
@@ -169,28 +194,18 @@ public class AdminForm extends javax.swing.JFrame {
         sideLayoutPanel.add(Box.createVerticalStrut(10));
         sideLayoutPanel.add(btnAllCategory);
         
-        
-        
-        
-         lblOrder.setAlignmentX(Component.LEFT_ALIGNMENT);
-        lblOrder.setFont(new Font("Arial", Font.BOLD, 16));
-        sideLayoutPanel.add(lblOrder);
+       
+         lblInvoice.setAlignmentX(Component.LEFT_ALIGNMENT);
+        lblInvoice.setFont(new Font("Arial", Font.BOLD, 16));
+        sideLayoutPanel.add(lblInvoice);
 
-        // Добавяне на заявка (repair_orders)
-        orderAddPanel = new orderAddPanel();
-        contentPanel.add(orderAddPanel, "addOrder");
-        btnAddOrder.addActionListener(switchPanelListener);
-        btnAddOrder.setActionCommand("addOrder");
+        // Всички фактури (invoices)
+        invoiceListPanel = new invoiceListPanel(this);
+        contentPanel.add(invoiceListPanel, "listInvoice");
+        btnAllInvoice.addActionListener(switchPanelListener);
+        btnAllInvoice.setActionCommand("listInvoice");
         sideLayoutPanel.add(Box.createVerticalStrut(10));
-        sideLayoutPanel.add(btnAddOrder);
-
-        // Всички категории (categories)
-        orderListPanel = new orderListPanel(this);
-        contentPanel.add(orderListPanel, "listOrder");
-        btnAllOrder.addActionListener(switchPanelListener);
-        btnAllOrder.setActionCommand("listOrder");
-        sideLayoutPanel.add(Box.createVerticalStrut(10));
-        sideLayoutPanel.add(btnAllOrder);
+        sideLayoutPanel.add(btnAllInvoice);
 
         // Layout, не променяй
         //************************************  
@@ -284,9 +299,8 @@ public class AdminForm extends javax.swing.JFrame {
         CardLayout cardLayout = (CardLayout) contentPanel.getLayout();
         cardLayout.show(contentPanel, "editCategory");
     }
-    
-    
-        // Слушач за клик на бутона от панела за Всички Заявки - Добавяне
+
+    // Слушач за клик на бутона от панела за Всички Заявки - Добавяне
     public void switchToOrderAddPanel() {
         CardLayout cardLayout = (CardLayout) contentPanel.getLayout();
         cardLayout.show(contentPanel, "addOrder");
@@ -295,12 +309,12 @@ public class AdminForm extends javax.swing.JFrame {
     // Слушач за клик на бутона от панела за Всички Заявки - Редактиране
     public void switchToOrderEditPanel(int repair_id, int user_id, int product_id, int shelf_id, String fault_desc, String work_carried_out_desc, String created_at, String status, int is_warranty, int warranty_denied, double labor_cost, double parts_cost, double total_price, String user_name, String product_name, String shelf_name, String category_name, String brand_name) {
         // Нова инстанция на catEditPanel с параметрите
-        orderEditPanel editPanel = new orderEditPanel( repair_id, user_id, product_id, shelf_id, 
-                        fault_desc, work_carried_out_desc, created_at, 
-                        status, is_warranty, warranty_denied, 
-                        labor_cost, parts_cost, total_price, 
-                        user_name, product_name, shelf_name, 
-                        category_name, brand_name);
+        orderEditPanel editPanel = new orderEditPanel(repair_id, user_id, product_id, shelf_id,
+                fault_desc, work_carried_out_desc, created_at,
+                status, is_warranty, warranty_denied,
+                labor_cost, parts_cost, total_price,
+                user_name, product_name, shelf_name,
+                category_name, brand_name);
         contentPanel.add(editPanel, "editOrder");
         CardLayout cardLayout = (CardLayout) contentPanel.getLayout();
         cardLayout.show(contentPanel, "editOrder");
@@ -330,6 +344,8 @@ public class AdminForm extends javax.swing.JFrame {
         lblOrder = new javax.swing.JLabel();
         btnAddOrder = new javax.swing.JButton();
         btnAllOrder = new javax.swing.JButton();
+        lblInvoice = new javax.swing.JLabel();
+        btnAllInvoice = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         logoutButton = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
@@ -464,6 +480,17 @@ public class AdminForm extends javax.swing.JFrame {
             }
         });
 
+        lblInvoice.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblInvoice.setText("Фактури");
+
+        btnAllInvoice.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/repairOrder.png"))); // NOI18N
+        btnAllInvoice.setText("Всички фактури");
+        btnAllInvoice.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAllInvoiceActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout sideLayoutPanelLayout = new javax.swing.GroupLayout(sideLayoutPanel);
         sideLayoutPanel.setLayout(sideLayoutPanelLayout);
         sideLayoutPanelLayout.setHorizontalGroup(
@@ -494,16 +521,17 @@ public class AdminForm extends javax.swing.JFrame {
                             .addComponent(btnAddMachine, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnAddOrder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(sideLayoutPanelLayout.createSequentialGroup()
-                                .addComponent(lblOrder)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(sideLayoutPanelLayout.createSequentialGroup()
                                 .addGroup(sideLayoutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblShelfs)
                                     .addComponent(lblUsers)
                                     .addComponent(lblMachines)
                                     .addComponent(lblCategory))
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(btnAllOrder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(btnAllOrder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnAllInvoice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(sideLayoutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lblOrder)
+                                .addComponent(lblInvoice)))))
                 .addContainerGap())
         );
         sideLayoutPanelLayout.setVerticalGroup(
@@ -547,7 +575,11 @@ public class AdminForm extends javax.swing.JFrame {
                 .addComponent(btnAddOrder)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnAllOrder)
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblInvoice)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnAllInvoice)
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         jPanel1.setBackground(new java.awt.Color(241, 241, 230));
@@ -632,10 +664,10 @@ public class AdminForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(sideLayoutPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 681, Short.MAX_VALUE))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 675, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -644,7 +676,7 @@ public class AdminForm extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(sideLayoutPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(80, 80, 80))
         );
 
         pack();
@@ -729,6 +761,10 @@ public class AdminForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAllOrderActionPerformed
 
+    private void btnAllInvoiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAllInvoiceActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAllInvoiceActionPerformed
+
     // logout user function
     public void logout() {
         // Assuming you're storing the logged-in user in a class like LoggedInUser
@@ -794,6 +830,7 @@ public class AdminForm extends javax.swing.JFrame {
     private javax.swing.JButton btnAddUser;
     private javax.swing.JButton btnAllBrand;
     private javax.swing.JButton btnAllCategory;
+    private javax.swing.JButton btnAllInvoice;
     private javax.swing.JButton btnAllMachine;
     private javax.swing.JButton btnAllOrder;
     private javax.swing.JButton btnAllShelf;
@@ -811,6 +848,7 @@ public class AdminForm extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JLabel lblBrands;
     private javax.swing.JLabel lblCategory;
+    private javax.swing.JLabel lblInvoice;
     private javax.swing.JLabel lblMachines;
     private javax.swing.JLabel lblOrder;
     private javax.swing.JLabel lblShelfs;

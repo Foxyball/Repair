@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 public class orderAddPanel extends javax.swing.JPanel {
 
@@ -29,6 +30,9 @@ public class orderAddPanel extends javax.swing.JPanel {
                 System.out.println("Selected User ID: " + selectedUser.getUserId());
             }
         });
+        
+        
+        AutoCompleteDecorator.decorate(comboOrderUser);
 
         comboOrderMachine.removeAllItems();
         ArrayList<Machine> machines = q.loadMachineData();
@@ -42,6 +46,8 @@ public class orderAddPanel extends javax.swing.JPanel {
                 System.out.println("Selected Machine ID: " + selectedMachine.getMachineId());
             }
         });
+        
+        AutoCompleteDecorator.decorate(comboOrderMachine);
 
         comboOrderShelf.removeAllItems();
         ArrayList<Shelf> shelves = q.loadShelfData();
@@ -55,6 +61,8 @@ public class orderAddPanel extends javax.swing.JPanel {
                 System.out.println("Selected Shelf ID: " + selectedShelf.getShelfId());
             }
         });
+        
+        AutoCompleteDecorator.decorate(comboOrderShelf);
 
     }
 
