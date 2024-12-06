@@ -26,7 +26,7 @@ public class AdminForm extends javax.swing.JFrame {
 
     orderAddPanel orderAddPanel;
     orderListPanel orderListPanel;
-    
+
     invoiceListPanel invoiceListPanel;
 
     LoggedInUser LoggedInUser;
@@ -65,13 +65,10 @@ public class AdminForm extends javax.swing.JFrame {
         contentPanel.add(dashboardPanel, "dashboard");
         btnDashboard.addActionListener(switchPanelListener);
         btnDashboard.setActionCommand("dashboard");
-        sideLayoutPanel.add(Box.createVerticalStrut(10)); 
-        sideLayoutPanel.add(btnDashboard);      
+        sideLayoutPanel.add(Box.createVerticalStrut(10));
+        sideLayoutPanel.add(btnDashboard);
         sideLayoutPanel.add(Box.createVerticalStrut(20));
 
-        
-        
-        
         lblOrder.setAlignmentX(Component.LEFT_ALIGNMENT);
         lblOrder.setFont(new Font("Arial", Font.BOLD, 16));
         sideLayoutPanel.add(lblOrder);
@@ -193,9 +190,8 @@ public class AdminForm extends javax.swing.JFrame {
         btnAllCategory.setActionCommand("listCategory");
         sideLayoutPanel.add(Box.createVerticalStrut(10));
         sideLayoutPanel.add(btnAllCategory);
-        
-       
-         lblInvoice.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        lblInvoice.setAlignmentX(Component.LEFT_ALIGNMENT);
         lblInvoice.setFont(new Font("Arial", Font.BOLD, 16));
         sideLayoutPanel.add(lblInvoice);
 
@@ -351,12 +347,19 @@ public class AdminForm extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         lbl_user = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        menuFIle = new javax.swing.JMenu();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItem2 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jMenu3 = new javax.swing.JMenu();
+        menuAdd = new javax.swing.JMenu();
+        menuOrder = new javax.swing.JMenuItem();
+        menuUser = new javax.swing.JMenuItem();
+        menuMachine = new javax.swing.JMenuItem();
+        menuCat = new javax.swing.JMenuItem();
+        menuBrand = new javax.swing.JMenuItem();
+        menuShelf = new javax.swing.JMenuItem();
+        menuTools = new javax.swing.JMenu();
+        menuExportDatabase = new javax.swing.JMenuItem();
+        menuHelp = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -520,18 +523,17 @@ public class AdminForm extends javax.swing.JFrame {
                             .addComponent(btnAllMachine, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnAddMachine, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnAddOrder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnAllOrder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnAllInvoice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(sideLayoutPanelLayout.createSequentialGroup()
                                 .addGroup(sideLayoutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblShelfs)
                                     .addComponent(lblUsers)
                                     .addComponent(lblMachines)
-                                    .addComponent(lblCategory))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(btnAllOrder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnAllInvoice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(sideLayoutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lblOrder)
-                                .addComponent(lblInvoice)))))
+                                    .addComponent(lblCategory)
+                                    .addComponent(lblOrder)
+                                    .addComponent(lblInvoice))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         sideLayoutPanelLayout.setVerticalGroup(
@@ -623,12 +625,8 @@ public class AdminForm extends javax.swing.JFrame {
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
-        jMenu1.setText("Файл");
-
-        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        jMenuItem3.setText("Запази");
-        jMenu1.add(jMenuItem3);
-        jMenu1.add(jSeparator1);
+        menuFIle.setText("Файл");
+        menuFIle.add(jSeparator1);
 
         jMenuItem2.setText("Изход");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
@@ -636,24 +634,80 @@ public class AdminForm extends javax.swing.JFrame {
                 jMenuItem2ActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem2);
+        menuFIle.add(jMenuItem2);
 
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(menuFIle);
 
-        jMenu2.setText("Редактиране");
-        jMenuBar1.add(jMenu2);
+        menuAdd.setText("Добави");
 
-        jMenu3.setText("Помощ");
+        menuOrder.setText("Заявка");
+        menuOrder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuOrderActionPerformed(evt);
+            }
+        });
+        menuAdd.add(menuOrder);
 
-        jMenuItem1.setText("За приложението");
+        menuUser.setText("Потребител");
+        menuUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuUserActionPerformed(evt);
+            }
+        });
+        menuAdd.add(menuUser);
+
+        menuMachine.setText("Машина");
+        menuMachine.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuMachineActionPerformed(evt);
+            }
+        });
+        menuAdd.add(menuMachine);
+
+        menuCat.setText("Категория");
+        menuCat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuCatActionPerformed(evt);
+            }
+        });
+        menuAdd.add(menuCat);
+
+        menuBrand.setText("Марка");
+        menuBrand.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuBrandActionPerformed(evt);
+            }
+        });
+        menuAdd.add(menuBrand);
+
+        menuShelf.setText("Рафт");
+        menuAdd.add(menuShelf);
+
+        jMenuBar1.add(menuAdd);
+
+        menuTools.setText("Инструменти");
+
+        menuExportDatabase.setText("Архив на Sqlite");
+        menuExportDatabase.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuExportDatabaseActionPerformed(evt);
+            }
+        });
+        menuTools.add(menuExportDatabase);
+
+        jMenuBar1.add(menuTools);
+
+        menuHelp.setText("Помощ");
+
+        jMenuItem1.setText("Относно");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem1);
+        menuHelp.add(jMenuItem1);
 
-        jMenuBar1.add(jMenu3);
+        jMenuBar1.add(menuHelp);
 
         setJMenuBar(jMenuBar1);
 
@@ -765,16 +819,56 @@ public class AdminForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAllInvoiceActionPerformed
 
-    // logout user function
-    public void logout() {
-        // Assuming you're storing the logged-in user in a class like LoggedInUser
-        LoggedInUser.setUser(null);  // Clear the stored user (this is a custom utility class)
+    private void menuOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuOrderActionPerformed
+        switchToOrderAddPanel();
+    }//GEN-LAST:event_menuOrderActionPerformed
 
-        // Create and show the LoginForm
+    private void menuUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuUserActionPerformed
+        switchToUserAddPanel();
+    }//GEN-LAST:event_menuUserActionPerformed
+
+    private void menuMachineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuMachineActionPerformed
+        switchToMachineAddPanel();
+    }//GEN-LAST:event_menuMachineActionPerformed
+
+    private void menuCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCatActionPerformed
+        switchToCategoryAddPanel();
+    }//GEN-LAST:event_menuCatActionPerformed
+
+    private void menuBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuBrandActionPerformed
+        switchToBrandAddPanel();
+    }//GEN-LAST:event_menuBrandActionPerformed
+
+    private void menuExportDatabaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuExportDatabaseActionPerformed
+        String sourcePath = ".//db/repair.sqlite";
+
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Изберете местоположение");
+        fileChooser.setSelectedFile(new java.io.File("backup_" + System.currentTimeMillis() + "-repair" + ".sqlite"));
+
+        int userSelection = fileChooser.showSaveDialog(null);
+
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            java.io.File backupFile = fileChooser.getSelectedFile();
+            String backupPath = backupFile.getAbsolutePath();
+
+            try (java.nio.channels.FileChannel sourceChannel = new java.io.FileInputStream(sourcePath).getChannel(); java.nio.channels.FileChannel destChannel = new java.io.FileOutputStream(backupPath).getChannel()) {
+
+                destChannel.transferFrom(sourceChannel, 0, sourceChannel.size());
+                JOptionPane.showMessageDialog(null, "Успешно архивиране на базата данни!\nМестоположение: " + backupPath,
+                        "Успешно архивиране", JOptionPane.INFORMATION_MESSAGE);
+
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Грешка при архивиране на базата данни: " + ex.getMessage(),
+                        "Неуспешно архивиране", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_menuExportDatabaseActionPerformed
+
+    public void logout() {
+        LoggedInUser.setUser(null);
         LoginForm loginForm = new LoginForm();
         loginForm.setVisible(true);
-
-        // Close the current window
         this.dispose();
     }
 
@@ -837,13 +931,9 @@ public class AdminForm extends javax.swing.JFrame {
     private javax.swing.JButton btnAllUser;
     private javax.swing.JButton btnDashboard;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JLabel lblBrands;
@@ -855,6 +945,17 @@ public class AdminForm extends javax.swing.JFrame {
     private javax.swing.JLabel lblUsers;
     private javax.swing.JLabel lbl_user;
     private javax.swing.JButton logoutButton;
+    private javax.swing.JMenu menuAdd;
+    private javax.swing.JMenuItem menuBrand;
+    private javax.swing.JMenuItem menuCat;
+    private javax.swing.JMenuItem menuExportDatabase;
+    private javax.swing.JMenu menuFIle;
+    private javax.swing.JMenu menuHelp;
+    private javax.swing.JMenuItem menuMachine;
+    private javax.swing.JMenuItem menuOrder;
+    private javax.swing.JMenuItem menuShelf;
+    private javax.swing.JMenu menuTools;
+    private javax.swing.JMenuItem menuUser;
     private javax.swing.JPanel sideLayoutPanel;
     // End of variables declaration//GEN-END:variables
 }
