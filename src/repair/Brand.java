@@ -33,12 +33,24 @@ public class Brand {
             getBrandName()
         };
     }
+
+
+    // референция от пхп
+// <select name="brand_id">
+// @foreach($brands as $brand)
+// <option {{($brand->brand_id == $repairOrder->brand_id) ? 'selected' : '' }} value={{$brand->brand_id}}>{{$brand->name}}</option> 
+// @endforeach
+    // </select>
     
-    
-     @Override
+        //сравнява два обекта, за да провери дали са равни, иначе хвърля изключение 
+    @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
         Brand brand = (Brand) obj;
         return brand_id == brand.brand_id;
     }
