@@ -76,10 +76,8 @@ public class UserForm extends javax.swing.JFrame {
         lbl_user = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItem2 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
 
@@ -152,10 +150,6 @@ public class UserForm extends javax.swing.JFrame {
         );
 
         jMenu1.setText("Файл");
-
-        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        jMenuItem3.setText("Запази");
-        jMenu1.add(jMenuItem3);
         jMenu1.add(jSeparator1);
 
         jMenuItem2.setText("Изход");
@@ -167,9 +161,6 @@ public class UserForm extends javax.swing.JFrame {
         jMenu1.add(jMenuItem2);
 
         jMenuBar1.add(jMenu1);
-
-        jMenu2.setText("Редактиране");
-        jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Помощ");
 
@@ -309,12 +300,10 @@ public class UserForm extends javax.swing.JFrame {
     private javax.swing.JButton btnDashboard;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JLabel lbl_user;

@@ -670,6 +670,11 @@ public class AdminForm extends javax.swing.JFrame {
         menuAdd.add(menuBrand);
 
         menuShelf.setText("Рафт");
+        menuShelf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuShelfActionPerformed(evt);
+            }
+        });
         menuAdd.add(menuShelf);
 
         jMenuBar1.add(menuAdd);
@@ -853,6 +858,10 @@ public class AdminForm extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_menuExportDatabaseActionPerformed
+
+    private void menuShelfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuShelfActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuShelfActionPerformed
 
     public void logout() {
         LoggedInUser.setUser(null);
