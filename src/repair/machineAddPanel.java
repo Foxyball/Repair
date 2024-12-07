@@ -82,6 +82,9 @@ public class machineAddPanel extends javax.swing.JPanel {
         btnAddMachine = new repair.Button();
         btnRefreshMachine = new repair.Button();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+        setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 153, 255), 10, true));
+
         lblAddMachine.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lblAddMachine.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblAddMachine.setText("ДОБАВЯНЕ НА МАШИНА");
@@ -100,7 +103,7 @@ public class machineAddPanel extends javax.swing.JPanel {
             }
         });
 
-        btnAddMachine.setBackground(new java.awt.Color(0, 153, 255));
+        btnAddMachine.setBackground(new java.awt.Color(0, 151, 236));
         btnAddMachine.setForeground(new java.awt.Color(255, 255, 255));
         btnAddMachine.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/save.png"))); // NOI18N
         btnAddMachine.setText("Добави");
@@ -110,7 +113,7 @@ public class machineAddPanel extends javax.swing.JPanel {
             }
         });
 
-        btnRefreshMachine.setBackground(new java.awt.Color(0, 153, 255));
+        btnRefreshMachine.setBackground(new java.awt.Color(0, 151, 236));
         btnRefreshMachine.setForeground(new java.awt.Color(255, 255, 255));
         btnRefreshMachine.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/refresh.png"))); // NOI18N
         btnRefreshMachine.setText("Обнови");
@@ -125,7 +128,7 @@ public class machineAddPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(248, Short.MAX_VALUE)
+                .addContainerGap(228, Short.MAX_VALUE)
                 .addComponent(lblAddMachine, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(225, 225, 225))
             .addGroup(layout.createSequentialGroup()
@@ -148,7 +151,7 @@ public class machineAddPanel extends javax.swing.JPanel {
                         .addComponent(btnRefreshMachine, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnAddMachine, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(290, Short.MAX_VALUE))
+                .addContainerGap(270, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

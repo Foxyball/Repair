@@ -68,8 +68,11 @@ public class userListPanel extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         userTable = new repair.Table();
 
-        txtSearchUser.setBackground(new java.awt.Color(255, 255, 255));
-        txtSearchUser.setForeground(new java.awt.Color(0, 0, 0));
+        setBackground(new java.awt.Color(255, 255, 255));
+        setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 153, 255), 10, true));
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
         txtSearchUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtSearchUserActionPerformed(evt);
@@ -187,7 +190,7 @@ public class userListPanel extends javax.swing.JPanel {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(75, 75, 75)
                                 .addComponent(lblAllUser)))
-                        .addGap(0, 362, Short.MAX_VALUE)))
+                        .addGap(0, 342, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(

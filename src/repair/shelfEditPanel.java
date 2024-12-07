@@ -45,6 +45,9 @@ public class shelfEditPanel extends javax.swing.JPanel {
         txtShelfMaxCapacity = new repair.TextField();
         txtShelfCurrentLoad = new repair.TextField();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+        setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 153, 255), 10, true));
+
         lblEditShelf.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lblEditShelf.setText("РЕДАКТИРАНЕ НА РАФТ");
 
@@ -82,7 +85,7 @@ public class shelfEditPanel extends javax.swing.JPanel {
                             .addComponent(txtShelfName, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 266, Short.MAX_VALUE)
+                .addGap(0, 246, Short.MAX_VALUE)
                 .addComponent(lblEditShelf, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(204, 204, 204))
         );

@@ -67,6 +67,11 @@ public class orderListPanel extends javax.swing.JPanel {
         btnSearchOrder = new repair.Button();
         lblSearchResults = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 153, 255), 10, true));
+
         lblAllOrder.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lblAllOrder.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblAllOrder.setText("ВСИЧКИ ЗАЯВКИ");
@@ -126,8 +131,6 @@ public class orderListPanel extends javax.swing.JPanel {
             }
         });
 
-        txtSearchOrder.setBackground(new java.awt.Color(255, 255, 255));
-        txtSearchOrder.setForeground(new java.awt.Color(0, 0, 0));
         txtSearchOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtSearchOrderActionPerformed(evt);
@@ -155,7 +158,7 @@ public class orderListPanel extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 829, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 28, Short.MAX_VALUE))
+                        .addGap(0, 11, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnAddOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -181,7 +184,7 @@ public class orderListPanel extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblAllOrder)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAddOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEditOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -437,7 +440,6 @@ public class orderListPanel extends javax.swing.JPanel {
     private repair.Button btnEditOrder;
     private repair.Button btnRefreshOrder;
     private repair.Button btnSearchOrder;
-    private repair.Button btnSendEmailUser;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblAllOrder;
