@@ -19,6 +19,8 @@ public class SendEmailForm extends javax.swing.JFrame {
     // Конструктор
     public SendEmailForm(String user_email, String user_name) {
         initComponents();
+        
+        setLocationRelativeTo(null);
 
         this.userEmail = user_email;
         this.userName = user_name;
@@ -48,7 +50,7 @@ public class SendEmailForm extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("To:");
 

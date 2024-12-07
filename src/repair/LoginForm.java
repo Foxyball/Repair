@@ -59,7 +59,9 @@ public class LoginForm extends javax.swing.JFrame {
         txtUsername.setLabelText("Имейл");
 
         lblLogin.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        lblLogin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblLogin.setText("ВХОД");
+        lblLogin.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jPanel1.setBackground(new java.awt.Color(241, 241, 230));
 

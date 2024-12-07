@@ -35,7 +35,6 @@ public class brandAddPanel extends javax.swing.JPanel {
         lblAddBrand.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lblAddBrand.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblAddBrand.setText("ДОБАВЯНЕ НА МАРКА");
-        lblAddBrand.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         lblAddBrand.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         txtBrandName.setLabelText("Име на марка");
@@ -58,13 +57,13 @@ public class brandAddPanel extends javax.swing.JPanel {
                 .addContainerGap(258, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblAddBrand, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(366, 366, 366))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(txtBrandName, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnAddBrand, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(231, 231, 231))))
+                        .addGap(231, 231, 231))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblAddBrand, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(298, 298, 298))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

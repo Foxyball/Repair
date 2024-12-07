@@ -78,7 +78,6 @@ public class catListPanel extends javax.swing.JPanel {
         lblAllCategory.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lblAllCategory.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblAllCategory.setText("ВСИЧКИ КАТЕГОРИИ");
-        lblAllCategory.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         lblAllCategory.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         catTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -187,7 +186,7 @@ public class catListPanel extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblAllCategory)
-                .addGap(354, 354, 354))
+                .addGap(313, 313, 313))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
