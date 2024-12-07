@@ -84,6 +84,7 @@ public class UserForm extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
 
         sideLayoutPanel.setBackground(new java.awt.Color(241, 241, 230));
 

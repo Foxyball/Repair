@@ -62,6 +62,9 @@ public class machineEditPanel extends javax.swing.JPanel {
         txtMachineQTY = new repair.TextField();
         btnEditMachine = new repair.Button();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+        setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 153, 255), 10, true));
+
         lblEditMachine.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lblEditMachine.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblEditMachine.setText("РЕДАКТИРАНЕ НА МАШИНА");
@@ -106,7 +109,7 @@ public class machineEditPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(295, 295, 295)
                         .addComponent(btnEditMachine, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(383, Short.MAX_VALUE))
+                .addContainerGap(363, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(lblEditMachine, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)

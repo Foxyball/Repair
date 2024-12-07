@@ -75,6 +75,11 @@ public class shelfListPanel extends javax.swing.JPanel {
         btnSearchShelf = new repair.Button();
         lblSearchResults = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+        setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 153, 255), 10, true));
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
         lblAllShelf.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lblAllShelf.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblAllShelf.setText("ВСИЧКИ РАФТОВЕ");
@@ -139,8 +144,6 @@ public class shelfListPanel extends javax.swing.JPanel {
             }
         });
 
-        txtSearchShelf.setBackground(new java.awt.Color(255, 255, 255));
-        txtSearchShelf.setForeground(new java.awt.Color(0, 0, 0));
         txtSearchShelf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtSearchShelfActionPerformed(evt);
@@ -168,7 +171,7 @@ public class shelfListPanel extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 829, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 28, Short.MAX_VALUE))
+                        .addGap(0, 11, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnAddShelf, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -194,7 +197,7 @@ public class shelfListPanel extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblAllShelf)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAddShelf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEditShelf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)

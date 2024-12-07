@@ -71,6 +71,11 @@ public class machineListPanel extends javax.swing.JPanel {
         btnSearchBrand = new repair.Button();
         lblSearchResults = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+        setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 153, 255), 10, true));
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
         lblAllMachine.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lblAllMachine.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblAllMachine.setText("ВСИЧКИ МАШИНИ");
@@ -122,8 +127,6 @@ public class machineListPanel extends javax.swing.JPanel {
             }
         });
 
-        txtSearchMachine.setBackground(new java.awt.Color(255, 255, 255));
-        txtSearchMachine.setForeground(new java.awt.Color(0, 0, 0));
         txtSearchMachine.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtSearchMachineActionPerformed(evt);
@@ -151,7 +154,7 @@ public class machineListPanel extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 829, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 28, Short.MAX_VALUE))
+                        .addGap(0, 11, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnAddMachine, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -177,7 +180,7 @@ public class machineListPanel extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblAllMachine)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAddMachine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEditMachine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)

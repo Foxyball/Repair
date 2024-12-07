@@ -25,10 +25,17 @@ public class catAddPanel extends javax.swing.JPanel {
         txtCategoryName = new repair.TextField();
         btnAddCategory = new repair.Button();
 
+        jPanel1.setBackground(new java.awt.Color(235, 247, 248));
+        jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 153, 255), 10, true));
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(235, 247, 248))); // NOI18N
+
         lblAddCategory.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lblAddCategory.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblAddCategory.setText("ДОБАВЯНЕ НА КАТЕГОРИЯ");
         lblAddCategory.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        lblAddCategory.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(235, 247, 248))); // NOI18N
         lblAddCategory.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         txtCategoryName.setLabelText("Име на категория");
@@ -61,8 +68,8 @@ public class catAddPanel extends javax.swing.JPanel {
                         .addComponent(btnAddCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(231, 231, 231))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(lblAddCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(292, 292, 292))))
+                        .addComponent(lblAddCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(261, 261, 261))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

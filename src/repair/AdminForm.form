@@ -108,6 +108,9 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+      <Color blue="ff" green="99" red="0" type="rgb"/>
+    </Property>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="menuBar" type="java.lang.String" value="jMenuBar1"/>
@@ -135,7 +138,7 @@
                   <Component id="jPanel1" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="sideLayoutPanel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="675" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="677" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -157,35 +160,38 @@
     <Container class="javax.swing.JPanel" name="sideLayoutPanel">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="e6" green="f1" red="f1" type="rgb"/>
+          <Color blue="f8" green="f7" red="eb" type="rgb"/>
+        </Property>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+            <TitledBorder>
+              <Color PropertyName="color" blue="ff" green="99" red="0" type="rgb"/>
+            </TitledBorder>
+          </Border>
         </Property>
       </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
-                  <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="1" attributes="0">
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="lblOrder" alignment="1" max="32767" attributes="0"/>
+                      <Component id="lblCategory" alignment="1" max="32767" attributes="0"/>
+                      <Component id="lblMachines" alignment="1" max="32767" attributes="0"/>
+                      <Component id="lblUsers" alignment="1" max="32767" attributes="0"/>
                       <Component id="btnAllShelf" alignment="1" max="32767" attributes="0"/>
                       <Component id="btnAddShelf" alignment="0" max="32767" attributes="0"/>
                       <Component id="btnAllBrand" alignment="1" max="32767" attributes="0"/>
                       <Component id="btnAddBrand" alignment="0" max="32767" attributes="0"/>
                       <Component id="btnAllCategory" alignment="1" max="32767" attributes="0"/>
                       <Component id="btnAddCategory" alignment="0" max="32767" attributes="0"/>
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                                  <Component id="btnDashboard" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="lblBrands" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                          <Component id="btnDashboard" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
-                      <Group type="102" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="btnAllUser" alignment="1" max="32767" attributes="0"/>
@@ -195,19 +201,11 @@
                               <Component id="btnAddOrder" alignment="0" max="32767" attributes="0"/>
                               <Component id="btnAllOrder" alignment="0" max="32767" attributes="0"/>
                               <Component id="btnAllInvoice" alignment="0" max="32767" attributes="0"/>
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="lblShelfs" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="lblUsers" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="lblMachines" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="lblCategory" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="lblOrder" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="lblInvoice" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              </Group>
+                              <Component id="lblInvoice" alignment="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
+                      <Component id="lblBrands" alignment="1" max="32767" attributes="0"/>
+                      <Component id="lblShelfs" alignment="1" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -462,7 +460,14 @@
     <Container class="javax.swing.JPanel" name="jPanel1">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="e6" green="f1" red="f1" type="rgb"/>
+          <Color blue="f8" green="f7" red="eb" type="rgb"/>
+        </Property>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+            <TitledBorder>
+              <Color PropertyName="color" blue="ff" green="99" red="0" type="rgb"/>
+            </TitledBorder>
+          </Border>
         </Property>
       </Properties>
 
