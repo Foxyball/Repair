@@ -57,15 +57,23 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
+
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="319" max="-2" attributes="0"/>
                           <Component id="lblAddBrand" min="-2" pref="271" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="256" max="-2" attributes="0"/>
+
+                      <Group type="102" alignment="1" attributes="0">
+
                           <Component id="txtBrandName" min="-2" pref="268" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                           <Component id="btnAddBrand" min="-2" pref="135" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="lblAddBrand" min="-2" pref="271" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="298" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace pref="237" max="32767" attributes="0"/>
@@ -95,6 +103,7 @@
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="&#x414;&#x41e;&#x411;&#x410;&#x412;&#x42f;&#x41d;&#x415; &#x41d;&#x410; &#x41c;&#x410;&#x420;&#x41a;&#x410;"/>
+
             <Property name="verticalAlignment" type="int" value="1"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
@@ -103,6 +112,7 @@
                 </TitledBorder>
               </Border>
             </Property>
+
             <Property name="horizontalTextPosition" type="int" value="0"/>
           </Properties>
         </Component>

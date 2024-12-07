@@ -42,14 +42,7 @@ public class AdminForm extends javax.swing.JFrame {
 
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("logo.png")));
 
-        //Ще показваме и скриваме елементи според ролята
-        if (role.equals("admin")) {
-//      
-        } else if (role.equals("user")) {
-            // Show user
-        } else {
-
-        }
+      
 
         contentPanel = new JPanel(new CardLayout());
         sideLayoutPanel.setLayout(new BoxLayout(sideLayoutPanel, BoxLayout.Y_AXIS));

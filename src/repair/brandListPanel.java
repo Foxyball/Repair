@@ -83,8 +83,10 @@ public class brandListPanel extends javax.swing.JPanel {
         lblAllBrand.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lblAllBrand.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblAllBrand.setText("ВСИЧКИ МАРКИ");
+
         lblAllBrand.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         lblAllBrand.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(235, 247, 248))); // NOI18N
+
         lblAllBrand.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         brandTable.setModel(new javax.swing.table.DefaultTableModel(

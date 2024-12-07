@@ -118,6 +118,7 @@
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="&#x412;&#x421;&#x418;&#x427;&#x41a;&#x418; &#x41c;&#x410;&#x420;&#x41a;&#x418;"/>
+
             <Property name="verticalAlignment" type="int" value="1"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
@@ -126,6 +127,8 @@
                 </TitledBorder>
               </Border>
             </Property>
+
+
             <Property name="horizontalTextPosition" type="int" value="0"/>
           </Properties>
         </Component>
