@@ -26,10 +26,9 @@ public class catAddPanel extends javax.swing.JPanel {
         btnAddCategory = new repair.Button();
 
         jPanel1.setBackground(new java.awt.Color(235, 247, 248));
-        jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 153, 255), 10, true));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(235, 247, 248))); // NOI18N
+        jPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 153, 255), 10, true));
 
         lblAddCategory.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lblAddCategory.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);

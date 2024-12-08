@@ -81,6 +81,7 @@ public class userListPanel extends javax.swing.JPanel {
 
         lblAllUser.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lblAllUser.setText("ВСИЧКИ ПОТРЕБИТЕЛИ");
+        lblAllUser.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(235, 247, 248))); // NOI18N
 
         lblSearchResults.setText("Резултати: 0");
 

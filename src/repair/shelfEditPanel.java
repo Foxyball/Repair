@@ -50,6 +50,7 @@ public class shelfEditPanel extends javax.swing.JPanel {
 
         lblEditShelf.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lblEditShelf.setText("РЕДАКТИРАНЕ НА РАФТ");
+        lblEditShelf.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(235, 247, 248))); // NOI18N
 
         btnSaveShelf.setBackground(new java.awt.Color(0, 153, 255));
         btnSaveShelf.setForeground(new java.awt.Color(255, 255, 255));
@@ -83,11 +84,11 @@ public class shelfEditPanel extends javax.swing.JPanel {
                             .addComponent(txtShelfCurrentLoad, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtShelfMaxCapacity, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtShelfName, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(328, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 246, Short.MAX_VALUE)
-                .addComponent(lblEditShelf, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(204, 204, 204))
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(lblEditShelf)
+                .addGap(336, 336, 336))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

@@ -84,6 +84,7 @@ public class shelfListPanel extends javax.swing.JPanel {
         lblAllShelf.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblAllShelf.setText("ВСИЧКИ РАФТОВЕ");
         lblAllShelf.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        lblAllShelf.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(235, 247, 248))); // NOI18N
         lblAllShelf.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         shelfTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -197,7 +198,7 @@ public class shelfListPanel extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblAllShelf)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAddShelf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEditShelf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)

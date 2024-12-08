@@ -28,7 +28,7 @@ public class shelfAddPanel extends javax.swing.JPanel {
         txtShelfMaxCapacity = new repair.TextField();
         txtShelfCurrentLoad = new repair.TextField();
 
-        setBackground(new java.awt.Color(255, 255, 255));
+        setBackground(new java.awt.Color(235, 247, 248));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 153, 255), 10, true));
@@ -37,6 +37,7 @@ public class shelfAddPanel extends javax.swing.JPanel {
         lblAddShelf.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblAddShelf.setText("ДОБАВЯНЕ НА РАФТ");
         lblAddShelf.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        lblAddShelf.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(235, 247, 248))); // NOI18N
         lblAddShelf.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         txtShelfName.setLabelText("Име на рафт");
