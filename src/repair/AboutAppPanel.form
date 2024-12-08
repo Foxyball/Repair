@@ -42,11 +42,11 @@
           <Font name="Segoe UI" size="48" style="0"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="RepairX"/>
+        <Property name="text" type="java.lang.String" value="Hristov-08 &#x415;&#x41e;&#x41e;&#x414;"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="230" y="190" width="-1" height="-1"/>
+          <AbsoluteConstraints x="90" y="190" width="440" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>

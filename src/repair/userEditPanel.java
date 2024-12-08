@@ -24,7 +24,6 @@ public class userEditPanel extends javax.swing.JPanel {
 
         this.id = id;
 
-        txtUserID.setText(String.valueOf(id));
         txtUserName.setText(name);
         txtUserEmail.setText(email);
         txtUserPhone.setText(phone);
@@ -67,7 +66,6 @@ public class userEditPanel extends javax.swing.JPanel {
         is_firm_lbl = new javax.swing.JLabel();
         is_firm_checkbox = new javax.swing.JCheckBox();
         lblEditUser = new javax.swing.JLabel();
-        txtUserID = new repair.TextField();
         btnAddUser = new repair.Button();
         txtUserName = new repair.TextField();
         txtUserEmail = new repair.TextField();
@@ -104,9 +102,6 @@ public class userEditPanel extends javax.swing.JPanel {
         lblEditUser.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lblEditUser.setText("РЕДАКТИРАНЕ НА ПОТРЕБИТЕЛ");
         lblEditUser.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(235, 247, 248))); // NOI18N
-
-        txtUserID.setEnabled(false);
-        txtUserID.setLabelText("ID");
 
         btnAddUser.setBackground(new java.awt.Color(0, 153, 255));
         btnAddUser.setForeground(new java.awt.Color(255, 255, 255));
@@ -166,9 +161,7 @@ public class userEditPanel extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(txtUserID, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(12, 12, 12)
+                            .addGap(162, 162, 162)
                             .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
                             .addComponent(txtUserEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -230,8 +223,7 @@ public class userEditPanel extends javax.swing.JPanel {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtUserEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtUserID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtUserEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(28, 28, 28)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(txtUserPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -382,7 +374,6 @@ public class userEditPanel extends javax.swing.JPanel {
     private repair.TextField txtUserCity;
     private repair.TextField txtUserEGN;
     private repair.TextField txtUserEmail;
-    private repair.TextField txtUserID;
     private repair.TextField txtUserName;
     private repair.TextField txtUserPKOD;
     private repair.TextField txtUserPhone;

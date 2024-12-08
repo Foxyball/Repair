@@ -60,9 +60,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="txtUserID" min="-2" pref="144" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="162" max="-2" attributes="0"/>
                               <Component id="txtUserName" min="-2" pref="144" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="txtUserEmail" min="-2" pref="144" max="-2" attributes="0"/>
@@ -145,7 +143,6 @@
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="txtUserName" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="txtUserEmail" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtUserID" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
@@ -232,12 +229,6 @@
                 </TitledBorder>
               </Border>
             </Property>
-          </Properties>
-        </Component>
-        <Component class="repair.TextField" name="txtUserID">
-          <Properties>
-            <Property name="enabled" type="boolean" value="false"/>
-            <Property name="labelText" type="java.lang.String" value="ID"/>
           </Properties>
         </Component>
         <Component class="repair.Button" name="btnAddUser">

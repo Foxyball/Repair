@@ -34,9 +34,9 @@ public class AboutAppPanel extends javax.swing.JPanel {
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("RepairX");
+        jLabel2.setText("Hristov-08 ЕООД");
         add(jLabel2);
-        jLabel2.setBounds(230, 190, 163, 64);
+        jLabel2.setBounds(90, 190, 440, 64);
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);

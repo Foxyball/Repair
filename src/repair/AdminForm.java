@@ -417,6 +417,7 @@ public class AdminForm extends javax.swing.JFrame {
         lblUsers.setText("ПОТРЕБИТЕЛИ");
 
         btnDashboard.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        btnDashboard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/home.png"))); // NOI18N
         btnDashboard.setText("НАЧАЛО");
         btnDashboard.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(235, 247, 248))); // NOI18N
         btnDashboard.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -430,6 +431,7 @@ public class AdminForm extends javax.swing.JFrame {
             }
         });
 
+        btnAllBrand.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/brandAll.png"))); // NOI18N
         btnAllBrand.setText("Всички марки");
         btnAllBrand.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAllBrand.addActionListener(new java.awt.event.ActionListener() {
@@ -441,6 +443,7 @@ public class AdminForm extends javax.swing.JFrame {
         lblBrands.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblBrands.setText("МАРКИ");
 
+        btnAddBrand.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/brandAdd.png"))); // NOI18N
         btnAddBrand.setText("Добави марка");
         btnAddBrand.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAddBrand.addActionListener(new java.awt.event.ActionListener() {
@@ -494,7 +497,7 @@ public class AdminForm extends javax.swing.JFrame {
         lblCategory.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblCategory.setText("КАТЕГОРИИ");
 
-        btnAddCategory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/machineAdd.png"))); // NOI18N
+        btnAddCategory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/addCategory.png"))); // NOI18N
         btnAddCategory.setText("Добави категория");
         btnAddCategory.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAddCategory.addActionListener(new java.awt.event.ActionListener() {
@@ -503,7 +506,7 @@ public class AdminForm extends javax.swing.JFrame {
             }
         });
 
-        btnAllCategory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/machine.png"))); // NOI18N
+        btnAllCategory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/category.png"))); // NOI18N
         btnAllCategory.setText("Всички категории");
         btnAllCategory.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAllCategory.addActionListener(new java.awt.event.ActionListener() {
@@ -536,7 +539,7 @@ public class AdminForm extends javax.swing.JFrame {
         lblInvoice.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblInvoice.setText("Фактури");
 
-        btnAllInvoice.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/repairOrder.png"))); // NOI18N
+        btnAllInvoice.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/invoices.png"))); // NOI18N
         btnAllInvoice.setText("Всички фактури");
         btnAllInvoice.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAllInvoice.addActionListener(new java.awt.event.ActionListener() {
