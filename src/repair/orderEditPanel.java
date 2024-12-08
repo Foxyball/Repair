@@ -163,7 +163,7 @@ public class orderEditPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel1.setText("Марка");
+        jLabel1.setText("Клиент");
         jLabel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(235, 247, 248))); // NOI18N
 
         jLabel2.setText("Рафт");
@@ -207,30 +207,33 @@ public class orderEditPanel extends javax.swing.JPanel {
                             .addComponent(is_warranty_checkbox))
                         .addGap(85, 85, 85)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(comboOrderUser, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(47, 47, 47)
+                                        .addComponent(comboOrderShelf, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(57, 57, 57)
+                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(194, 194, 194)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel4)
+                                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(0, 0, Short.MAX_VALUE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addGroup(layout.createSequentialGroup()
                                         .addComponent(comboOrderStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(comboOrderUser, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(47, 47, 47)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(comboOrderShelf, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))))))))
                 .addGap(42, 42, 42))
             .addGroup(layout.createSequentialGroup()
                 .addGap(290, 290, 290)
@@ -446,73 +449,46 @@ public class orderEditPanel extends javax.swing.JPanel {
             return;
         }
 
-        double total_price = 0;
-        int warranty_denied = 0;
+
+        double total_price;
         if (is_warranty == 1) {
-
-            warranty_denied = 0;
-            total_price = 0;
+            total_price = 0.0; 
         } else {
-
-            warranty_denied = 1;
-            try {
-                total_price = labor_cost + parts_cost;
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(this, "Моля, въведете валидни стойности за гаранция.", "Грешка", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
+            total_price = labor_cost + parts_cost; 
         }
 
-        if (is_warranty == 1) {
-            String[] invoiceColumns = {
-                "repair_id",
-                "user_id",
-                "total",
-                "payment_status",
-                "created_at"
-            };
+        String[] invoiceColumns = {
+            "repair_id",
+            "user_id",
+            "total",
+            "payment_status",
+            "created_at"
+        };
 
-            Date now = new Date();
-            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-            String formattedDate = sdf.format(now);
+        Date now = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        String formattedDate = sdf.format(now);
 
-            Object[] invoiceValues = {
-                repair_id,
-                selectedUser.getUserId(),
-                total_price,
-                "Платено",
-                formattedDate
-            };
+        Object[] invoiceValues = {
+            repair_id,
+            selectedUser.getUserId(),
+            total_price,
+            "Платено",
+            formattedDate
+        };
 
-            boolean invoiceInserted = q.insert("invoices", invoiceColumns, invoiceValues);
+        boolean invoiceInserted = q.insert("invoices", invoiceColumns, invoiceValues);
 
-            if (!invoiceInserted) {
-                JOptionPane.showMessageDialog(this, "Грешка при съхраняване на фактура в базата данни.");
-                return;
-            }
-
-            // генерира фактура
-            generateInvoice();
-        } else {
-            JOptionPane.showMessageDialog(this, "Не може да бъде генерирана фактура за машина с гаранция.", "Грешка", JOptionPane.ERROR_MESSAGE);
+        if (!invoiceInserted) {
+            JOptionPane.showMessageDialog(this, "Грешка при съхраняване на фактура в базата данни.");
             return;
         }
+
+        generateInvoice(selectedUser, total_price, labor_cost, parts_cost, is_warranty);
     }//GEN-LAST:event_btnOrderInvoiceActionPerformed
 
-    private void generateInvoice() {
-        User selectedUser = (User) comboOrderUser.getSelectedItem();
+    private void generateInvoice(User selectedUser, double totalPrice, double laborCost, double partsCost, int isWarranty) {
         Machine selectedMachine = (Machine) comboOrderMachine.getSelectedItem();
-        double laborCost = Double.parseDouble(txtOrderLaborCost.getText());
-        double partsCost = Double.parseDouble(txtOrderPartsCost.getText());
-        int isWarranty = is_warranty_checkbox.isSelected() ? 1 : 0;
-        double totalPrice = 0;
-
-        if (isWarranty == 1) {
-            JOptionPane.showMessageDialog(this, "Не може да бъде генерирана фактура за машина с гаранция.", "Грешка", JOptionPane.ERROR_MESSAGE);
-            return;
-        } else {
-            totalPrice = laborCost + partsCost;
-        }
 
         String invoiceText = generateInvoiceText(selectedUser, selectedMachine, laborCost, partsCost, totalPrice, isWarranty);
 
@@ -535,6 +511,7 @@ public class orderEditPanel extends javax.swing.JPanel {
 
         if (isWarranty == 1) {
             invoiceText.append("\nWarranty - Free\n");
+            invoiceText.append("Total: 0.0 лв.\n");
         } else {
             invoiceText.append("\nLabor Fee: ").append(laborCost).append(" лв.\n");
             invoiceText.append("Parts Fee: ").append(partsCost).append(" лв.\n");
