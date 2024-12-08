@@ -417,7 +417,6 @@ public class AdminForm extends javax.swing.JFrame {
         lblUsers.setText("ПОТРЕБИТЕЛИ");
 
         btnDashboard.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        btnDashboard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/dashboard.png"))); // NOI18N
         btnDashboard.setText("НАЧАЛО");
         btnDashboard.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(235, 247, 248))); // NOI18N
         btnDashboard.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
