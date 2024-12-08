@@ -29,37 +29,33 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-
-              <EmptySpace pref="261" max="32767" attributes="0"/>
-
-              <EmptySpace pref="271" max="32767" attributes="0"/>
-
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="265" max="-2" attributes="0"/>
                       <Component id="txtBrandName" min="-2" pref="268" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
                       <Component id="btnSaveBrand" min="-2" pref="112" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="239" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="1" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="327" max="-2" attributes="0"/>
                       <Component id="lblEditBrand" min="-2" pref="448" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="199" max="-2" attributes="0"/>
                   </Group>
               </Group>
+              <EmptySpace pref="404" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
               <Component id="lblEditBrand" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="151" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="127" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="txtBrandName" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnSaveBrand" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtBrandName" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="189" max="32767" attributes="0"/>
+              <EmptySpace pref="198" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -72,7 +68,6 @@
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="&#x420;&#x415;&#x414;&#x410;&#x41a;&#x422;&#x418;&#x420;&#x410;&#x41d;&#x415; &#x41d;&#x410; &#x41c;&#x410;&#x420;&#x41a;&#x410;"/>
-
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
             <TitledBorder>
@@ -80,9 +75,7 @@
             </TitledBorder>
           </Border>
         </Property>
-
         <Property name="horizontalTextPosition" type="int" value="0"/>
-
       </Properties>
     </Component>
     <Component class="repair.Button" name="btnSaveBrand">
