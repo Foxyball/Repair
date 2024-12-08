@@ -39,6 +39,7 @@ public class LoginForm extends javax.swing.JFrame {
         setBackground(new java.awt.Color(235, 247, 248));
 
         button1.setBackground(new java.awt.Color(0, 151, 236));
+        button1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         button1.setForeground(new java.awt.Color(255, 255, 255));
         button1.setText("ВХОД");
         button1.addActionListener(new java.awt.event.ActionListener() {
@@ -63,6 +64,7 @@ public class LoginForm extends javax.swing.JFrame {
         lblLogin.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         lblLogin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblLogin.setText("ВХОД");
+        lblLogin.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         lblLogin.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jPanel1.setBackground(new java.awt.Color(241, 241, 230));
@@ -120,8 +122,8 @@ public class LoginForm extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(showPasswordCheckBox)
                 .addGap(18, 18, 18)
-                .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(142, Short.MAX_VALUE))
+                .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();

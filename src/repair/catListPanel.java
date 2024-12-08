@@ -75,7 +75,7 @@ public class catListPanel extends javax.swing.JPanel {
         btnSearchCategory = new repair.Button();
         lblSearchResults = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(255, 255, 255));
+        setBackground(new java.awt.Color(235, 247, 248));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 153, 255), 10, true));
@@ -83,6 +83,7 @@ public class catListPanel extends javax.swing.JPanel {
         lblAllCategory.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lblAllCategory.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblAllCategory.setText("ВСИЧКИ КАТЕГОРИИ");
+        lblAllCategory.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(235, 247, 248))); // NOI18N
         lblAllCategory.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         catTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -196,7 +197,7 @@ public class catListPanel extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblAllCategory)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAddCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEditCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
