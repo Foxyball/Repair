@@ -83,10 +83,8 @@ public class brandListPanel extends javax.swing.JPanel {
         lblAllBrand.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lblAllBrand.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblAllBrand.setText("ВСИЧКИ МАРКИ");
-
         lblAllBrand.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         lblAllBrand.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(235, 247, 248))); // NOI18N
-
         lblAllBrand.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         brandTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -177,10 +175,10 @@ public class brandListPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lblSearchResults)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblAllBrand)
-                .addGap(354, 354, 354))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(251, 251, 251)
+                .addComponent(lblAllBrand, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
