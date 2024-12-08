@@ -34,7 +34,7 @@ public class AdminForm extends javax.swing.JFrame {
     public AdminForm(String role) {
         initComponents();
         this.setLocationRelativeTo(null); // Centrirane
-        this.setSize(1250, 800);
+        this.setSize(1250, 900);
 
         User loggedInUser = LoggedInUser.getUser();
         String email = LoggedInUser.getUser().getEmail();
@@ -406,7 +406,7 @@ public class AdminForm extends javax.swing.JFrame {
 
         btnAddUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/addUser.png"))); // NOI18N
         btnAddUser.setText("Добави потребител");
-        btnAddUser.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnAddUser.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAddUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddUserActionPerformed(evt);
@@ -432,6 +432,7 @@ public class AdminForm extends javax.swing.JFrame {
         });
 
         btnAllBrand.setText("Всички марки");
+        btnAllBrand.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAllBrand.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAllBrandActionPerformed(evt);
@@ -442,6 +443,7 @@ public class AdminForm extends javax.swing.JFrame {
         lblBrands.setText("МАРКИ");
 
         btnAddBrand.setText("Добави марка");
+        btnAddBrand.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAddBrand.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddBrandActionPerformed(evt);
@@ -453,6 +455,7 @@ public class AdminForm extends javax.swing.JFrame {
 
         btnAddShelf.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/shelfAdd.png"))); // NOI18N
         btnAddShelf.setText("Добави рафт");
+        btnAddShelf.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAddShelf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddShelfActionPerformed(evt);
@@ -461,6 +464,7 @@ public class AdminForm extends javax.swing.JFrame {
 
         btnAllShelf.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/shelf.png"))); // NOI18N
         btnAllShelf.setText("Всички рафтове");
+        btnAllShelf.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAllShelf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAllShelfActionPerformed(evt);
@@ -472,6 +476,7 @@ public class AdminForm extends javax.swing.JFrame {
 
         btnAddMachine.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/machineAdd.png"))); // NOI18N
         btnAddMachine.setText("Добави машина");
+        btnAddMachine.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAddMachine.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddMachineActionPerformed(evt);
@@ -480,6 +485,7 @@ public class AdminForm extends javax.swing.JFrame {
 
         btnAllMachine.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/machine.png"))); // NOI18N
         btnAllMachine.setText("Всички машини");
+        btnAllMachine.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAllMachine.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAllMachineActionPerformed(evt);
@@ -491,6 +497,7 @@ public class AdminForm extends javax.swing.JFrame {
 
         btnAddCategory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/machineAdd.png"))); // NOI18N
         btnAddCategory.setText("Добави категория");
+        btnAddCategory.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAddCategory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddCategoryActionPerformed(evt);
@@ -499,6 +506,7 @@ public class AdminForm extends javax.swing.JFrame {
 
         btnAllCategory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/machine.png"))); // NOI18N
         btnAllCategory.setText("Всички категории");
+        btnAllCategory.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAllCategory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAllCategoryActionPerformed(evt);
@@ -510,6 +518,7 @@ public class AdminForm extends javax.swing.JFrame {
 
         btnAddOrder.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/repairOrderAdd.png"))); // NOI18N
         btnAddOrder.setText("Добави заявка");
+        btnAddOrder.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAddOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddOrderActionPerformed(evt);
@@ -518,6 +527,7 @@ public class AdminForm extends javax.swing.JFrame {
 
         btnAllOrder.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/repairOrder.png"))); // NOI18N
         btnAllOrder.setText("Всички заявки");
+        btnAllOrder.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAllOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAllOrderActionPerformed(evt);
@@ -529,6 +539,7 @@ public class AdminForm extends javax.swing.JFrame {
 
         btnAllInvoice.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/repairOrder.png"))); // NOI18N
         btnAllInvoice.setText("Всички фактури");
+        btnAllInvoice.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAllInvoice.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAllInvoiceActionPerformed(evt);

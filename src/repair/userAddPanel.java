@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -37,13 +38,11 @@ public class userAddPanel extends javax.swing.JPanel {
     public userAddPanel() {
         initComponents();
 
-
         //**********************************//
         //  СКРИВАНЕ НА ФИРМЕНИТЕ ПОЛЕТА    //
         //**********************************//
         is_firm_checkbox.setSelected(false);
         toggleFirmFieldsVisibility(false);
-
 
     }
 
@@ -235,19 +234,16 @@ public class userAddPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-
-
-
- private void toggleFirmFieldsVisibility(boolean visible) {
+    private void toggleFirmFieldsVisibility(boolean visible) {
         firm_name_txt.setVisible(visible);
         firm_mol_txt.setVisible(visible);
         firm_eik_txt.setVisible(visible);
         firm_dds_txt.setVisible(visible);
         firm_address_txt.setVisible(visible);
-        
-            // преизчислява промените по layout-a заради скритите полета
-            this.revalidate();
-            this.repaint();
+
+        // преизчислява промените по layout-a заради скритите полета
+        this.revalidate();
+        this.repaint();
     }
 
     // Проверяване дали е отметнат чекбокса за фирма и показване/скриване на полетата
@@ -257,7 +253,7 @@ public class userAddPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_is_firm_checkboxActionPerformed
 
     private void btnAddUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddUserActionPerformed
-      
+
         String name = txtUserName.getText();
         String email = txtUserEmail.getText();
         String password = generateTemporaryPassword();
@@ -266,6 +262,10 @@ public class userAddPanel extends javax.swing.JPanel {
         String city = txtUserCity.getText();
         String status = comboUserStatus.getSelectedItem().toString();
         String egn = txtUserEGN.getText();
+
+        java.util.Date now = new java.util.Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        String formattedDate = sdf.format(now);
 
         if (name.isEmpty() || email.isEmpty() || password.isEmpty() || phone.isEmpty() || role.isEmpty() || city.isEmpty() || egn.isEmpty() || txtUserPKOD.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Моля, попълнете всички полета", "Грешка", JOptionPane.ERROR_MESSAGE);
@@ -282,7 +282,7 @@ public class userAddPanel extends javax.swing.JPanel {
         }
 
 // Полета за фирмата
-      int is_firm = is_firm_checkbox.isSelected() ? 1 : 0;
+        int is_firm = is_firm_checkbox.isSelected() ? 1 : 0;
         String firm_name = is_firm == 1 ? firm_name_txt.getText() : "";
         String firm_eik = is_firm == 1 ? firm_eik_txt.getText() : "";
         String firm_mol = is_firm == 1 ? firm_mol_txt.getText() : "";
@@ -310,24 +310,24 @@ public class userAddPanel extends javax.swing.JPanel {
 
         String[] columns = {
             "name", "password", "email", "phone", "role", "pkod", "city",
-            "status", "egn", "is_firm"
+            "status", "egn", "is_firm", "created_at"
         };
 
         Object[] values = {
             name, password, email, phone, role, pkod, city, status,
-            egn,is_firm
+            egn, is_firm, formattedDate
         };
 
         // Добавяне на фирмени данни
         if (is_firm == 1) {
             columns = new String[]{
                 "name", "password", "email", "phone", "role", "pkod", "city",
-                "status", "egn", "is_firm", "firm_name", "firm_eik", "firm_mol", "firm_dds", "firm_address"
+                "status", "egn", "is_firm", "firm_name", "firm_eik", "firm_mol", "firm_dds", "firm_address", "created_at"
             };
 
             values = new Object[]{
                 name, password, email, phone, role, pkod, city, status,
-                egn, is_firm, firm_name, firm_eik, firm_mol, firm_dds, firm_address
+                egn, is_firm, firm_name, firm_eik, firm_mol, firm_dds, firm_address, formattedDate
             };
         }
 
@@ -349,20 +349,20 @@ public class userAddPanel extends javax.swing.JPanel {
 
     // Прави празни полетата, за лесно следващо добавяне
     private void clearFields() {
-        txtUserName.setText("");  
-        txtUserEmail.setText("");  
-        txtUserPhone.setText("");  
-        comboUserRole.setSelectedIndex(0);  
-        txtUserPKOD.setText("");  
-        txtUserCity.setText(""); 
-        comboUserStatus.setSelectedIndex(0);  
-        txtUserEGN.setText(""); 
-        is_firm_checkbox.setSelected(false); 
-        firm_name_txt.setText("");  
-        firm_eik_txt.setText("");  
-        firm_mol_txt.setText(""); 
-        firm_dds_txt.setText(""); 
-        firm_address_txt.setText(""); 
+        txtUserName.setText("");
+        txtUserEmail.setText("");
+        txtUserPhone.setText("");
+        comboUserRole.setSelectedIndex(0);
+        txtUserPKOD.setText("");
+        txtUserCity.setText("");
+        comboUserStatus.setSelectedIndex(0);
+        txtUserEGN.setText("");
+        is_firm_checkbox.setSelected(false);
+        firm_name_txt.setText("");
+        firm_eik_txt.setText("");
+        firm_mol_txt.setText("");
+        firm_dds_txt.setText("");
+        firm_address_txt.setText("");
     }
 
     // Метод за генериране на временна парола
