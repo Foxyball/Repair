@@ -35,14 +35,14 @@ public class AdminForm extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null); // Centrirane
         this.setSize(1250, 900);
+//        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+//        this.setSize((int) (screenSize.width * 0.9), (int) (screenSize.height * 0.9));
 
         User loggedInUser = LoggedInUser.getUser();
         String email = LoggedInUser.getUser().getEmail();
         lbl_user.setText(LoggedInUser.getUser().getName());
 
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("logo.png")));
-
-      
 
         contentPanel = new JPanel(new CardLayout());
         sideLayoutPanel.setLayout(new BoxLayout(sideLayoutPanel, BoxLayout.Y_AXIS));
@@ -200,8 +200,14 @@ public class AdminForm extends javax.swing.JFrame {
         //************************************  
         this.setLayout(new BorderLayout());
         this.add(jPanel1, BorderLayout.NORTH);
-        this.add(sideLayoutPanel, BorderLayout.WEST);
-        this.add(contentPanel, BorderLayout.CENTER);
+//        this.add(sideLayoutPanel, BorderLayout.WEST);
+        JScrollPane scrollableSidePanel = new JScrollPane(sideLayoutPanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        this.add(scrollableSidePanel, BorderLayout.WEST);
+
+//        this.add(contentPanel, BorderLayout.CENTER);
+        JScrollPane scrollableContentPanel = new JScrollPane(contentPanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        this.add(scrollableContentPanel, BorderLayout.CENTER);
+
     }
 
     ActionListener switchPanelListener = new ActionListener() {
