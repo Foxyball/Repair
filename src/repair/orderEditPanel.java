@@ -298,7 +298,7 @@ public class orderEditPanel extends javax.swing.JPanel {
         User selectedUser = (User) comboOrderUser.getSelectedItem();
         Machine selectedMachine = (Machine) comboOrderMachine.getSelectedItem();
         Shelf selectedShelf = (Shelf) comboOrderShelf.getSelectedItem();
-        String status = comboOrderStatus.getSelectedItem().toString();
+        String newStatus = comboOrderStatus.getSelectedItem().toString();
 
         String fault_desc = txtOrderFaultDesc.getText();
         String work_carried_out_desc = txtOrderConfirmedFault.getText();
@@ -332,18 +332,11 @@ public class orderEditPanel extends javax.swing.JPanel {
         double total_price = 0;
         int warranty_denied = 0;
         if (is_warranty == 1) {
-
             warranty_denied = 0;
             total_price = 0;
         } else {
-
             warranty_denied = 1;
-            try {
-                total_price = labor_cost + parts_cost;
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(this, "Моля, въведете валидни стойности за гаранция.", "Грешка", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
+            total_price = labor_cost + parts_cost;
         }
 
         String[] columns = {
@@ -352,33 +345,51 @@ public class orderEditPanel extends javax.swing.JPanel {
         };
 
         Object[] values = {user_id, product_id, shelf_id, fault_desc, work_carried_out_desc,
-            status, is_warranty, warranty_denied, labor_cost, parts_cost, total_price
+            newStatus, is_warranty, warranty_denied, labor_cost, parts_cost, total_price
         };
 
+        // Проверява за промяна в статуса (дали комбобокса е променен)
+        boolean statusChanged = !newStatus.equals(comboOrderStatus.getSelectedItem().toString());
+
+        // Обновява в базата
         boolean success = q.update("repair_orders", columns, values, "repair_id", repair_id);
 
         if (success) {
             JOptionPane.showMessageDialog(this, "Промените са запазени успешно.");
 
-            if ("Завършен".equals(status)) {
+            // Обновява капацитета, само ако е имало промяна в статуса от комбобокса
+            if (statusChanged) {
+                int shelfAdjustment = updateShelfCapacity(newStatus);
+                if (shelfAdjustment != 0) {
+                    boolean shelfUpdated = q.updateShelfLoad(selectedShelf.getShelfId(), shelfAdjustment);
+                    if (!shelfUpdated) {
+                        JOptionPane.showMessageDialog(this, "Грешка при обновяване на капацитета на рафта.");
+                    }
+                }
+            }
+
+            // Изпраща имейл
+            if ("Завършен".equals(newStatus)) {
                 sendCompletionEmail(selectedUser, selectedMachine, total_price);
-
-                // Обновява капацитета на рафта
-                boolean shelfUpdated = q.updateShelfLoad(selectedShelf.getShelfId(), - 1);
-            } else if ("Отказан".equals(status)) {
+            } else if ("Отказан".equals(newStatus)) {
                 sendDeniedEmail(selectedUser, selectedMachine, fault_desc);
-
-                // Обновява капацитета на рафта
-                boolean shelfUpdated = q.updateShelfLoad(selectedShelf.getShelfId(), - 1);
-            } else if ("Незавършен".equals(status)) {
-                // Обновява капацитета на рафта
-                boolean shelfUpdated = q.updateShelfLoad(selectedShelf.getShelfId(), - 1);
             }
         } else {
             JOptionPane.showMessageDialog(this, "Грешка при запазване на промените.");
         }
 
     }//GEN-LAST:event_btnEditOrderActionPerformed
+
+    // Проверява статуса дали е завършен или отказан и обновява капацитета 
+    private int updateShelfCapacity(String status) {
+        switch (status) {
+            case "Завършен":
+            case "Отказан":
+                return -1;
+            default:
+                return 0;
+        }
+    }
 
     // Изпраща имейл до клиента, когато статуса е променен на Отказан
     private void sendDeniedEmail(User user, Machine machine, String faultDesc) {
@@ -449,12 +460,11 @@ public class orderEditPanel extends javax.swing.JPanel {
             return;
         }
 
-
         double total_price;
         if (is_warranty == 1) {
-            total_price = 0.0; 
+            total_price = 0.0;
         } else {
-            total_price = labor_cost + parts_cost; 
+            total_price = labor_cost + parts_cost;
         }
 
         String[] invoiceColumns = {

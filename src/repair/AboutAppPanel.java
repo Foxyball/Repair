@@ -42,7 +42,7 @@ public class AboutAppPanel extends javax.swing.JPanel {
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("App Version: 1.0.0");
         add(jLabel3);
-        jLabel3.setBounds(250, 280, 100, 16);
+        jLabel3.setBounds(250, 280, 150, 16);
 
         jButton1.setText("OK");
         jButton1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(235, 247, 248))); // NOI18N
