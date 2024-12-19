@@ -8,6 +8,7 @@ public class UserForm extends javax.swing.JFrame {
 
     JPanel contentPanel;
     userdashboardPanel userdashboardPanel;
+    accountPanel accountPanel;
     
 
     private int loggedInUserId;
@@ -46,6 +47,13 @@ public class UserForm extends javax.swing.JFrame {
         sideLayoutPanel.add(Box.createVerticalStrut(20)); // Add vertical spacing
 
        
+        accountPanel = new accountPanel(loggedInUserId);
+          contentPanel.add(accountPanel, "account");
+        btnAccount.addActionListener(switchPanelListener);
+        btnAccount.setActionCommand("account");
+        sideLayoutPanel.add(Box.createVerticalStrut(10));
+        sideLayoutPanel.add(btnAccount);               
+        sideLayoutPanel.add(Box.createVerticalStrut(20));
 
         // Layout, не променяй
         //************************************  
@@ -70,6 +78,7 @@ public class UserForm extends javax.swing.JFrame {
 
         sideLayoutPanel = new javax.swing.JPanel();
         btnDashboard = new javax.swing.JButton();
+        btnAccount = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         logoutButton = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
@@ -93,21 +102,37 @@ public class UserForm extends javax.swing.JFrame {
         btnDashboard.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(235, 247, 248))); // NOI18N
         btnDashboard.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
+        btnAccount.setIcon(new javax.swing.ImageIcon(getClass().getResource("/repair/assets/addUser.png"))); // NOI18N
+        btnAccount.setText("Профил");
+        btnAccount.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAccount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAccountActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout sideLayoutPanelLayout = new javax.swing.GroupLayout(sideLayoutPanel);
         sideLayoutPanel.setLayout(sideLayoutPanelLayout);
         sideLayoutPanelLayout.setHorizontalGroup(
             sideLayoutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(sideLayoutPanelLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(btnDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addGroup(sideLayoutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(sideLayoutPanelLayout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(btnDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(sideLayoutPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         sideLayoutPanelLayout.setVerticalGroup(
             sideLayoutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(sideLayoutPanelLayout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(btnDashboard)
-                .addContainerGap(598, Short.MAX_VALUE))
+                .addGap(31, 31, 31)
+                .addComponent(btnAccount)
+                .addContainerGap(544, Short.MAX_VALUE))
         );
 
         jPanel1.setBackground(new java.awt.Color(235, 247, 248));
@@ -235,6 +260,10 @@ public class UserForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    private void btnAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAccountActionPerformed
+
+    }//GEN-LAST:event_btnAccountActionPerformed
+
     // logout user function
     public void logout() {
         // Assuming you're storing the logged-in user in a class like LoggedInUser
@@ -300,6 +329,7 @@ public class UserForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAccount;
     private javax.swing.JButton btnDashboard;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;

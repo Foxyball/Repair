@@ -64,6 +64,10 @@ public class config {
         });
     }
     
+    
+    
+    
+    
       // SELECT заявка за извличане на фактурите
     public ArrayList<Invoice> loadAllInvoices() {
     ArrayList<Invoice> invoices = new ArrayList<>();
@@ -104,6 +108,48 @@ public class config {
     }
 
     return invoices;
+}
+
+    
+    // Заявка за сравнение и промяна на парола
+    public boolean changeUserPassword(int user_id, String currentPassword, String newPassword) {
+    String checkQuery = """
+        SELECT password 
+        FROM users 
+        WHERE id = ?
+    """;
+
+    String updateQuery = """
+        UPDATE users 
+        SET password = ? 
+        WHERE id = ?
+    """;
+
+    try (PreparedStatement checkStmt = conn.prepareStatement(checkQuery)) {
+        checkStmt.setInt(1, user_id);
+        ResultSet rs = checkStmt.executeQuery();
+
+        if (rs.next()) {
+            String dbPassword = rs.getString("password");
+            if (!dbPassword.equals(currentPassword)) { 
+                return false; 
+            }
+        } else {
+            return false; 
+        }
+
+        // Обновяване на новата парола
+        try (PreparedStatement updateStmt = conn.prepareStatement(updateQuery)) {
+            updateStmt.setString(1, newPassword); 
+            updateStmt.setInt(2, user_id);
+
+            int rowsUpdated = updateStmt.executeUpdate();
+            return rowsUpdated > 0; 
+        }
+    } catch (SQLException e) {
+        System.out.println("Error changing user password: " + e.getMessage());
+        return false;
+    }
 }
 
     
