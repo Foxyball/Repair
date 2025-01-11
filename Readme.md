@@ -11,4 +11,4 @@ The **Repair Store Management System** is a comprehensive application designed t
 - Automatically sending email notifications to users upon repair completion
 - Simplifying invoice and report management
 
-This coursework project is provided to a real firm for **free** and is open-source. You are welcome to use it for free; however, please do not abuse it or claim it as your own.
+This project is provided to a real firm for **free** and is open-source. You are welcome to use it for free; however, please do not abuse it or claim it as your own.
